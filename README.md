@@ -37,4 +37,6 @@ Now you can start to add new functionality to your project.
 
 * 19/10/2015. 19:00-20:30. All members of the group meet in 0.1 laboratory. We decide exactly all the things we want our service to do, and we realize an approximation of the marks ("bare pass", "notable" and "outstanding") of each section we have decided. We set a meeting with the professor Francisco J. López Pellicer to comment the sections and marks we have decided. A summary is realized in a paper document.
 
-* 20/10/2015  19:15-19:30. All members of the group do a meeting with the professor Francisco J. López Pellicer in his office. We comment him our service proposals and we come to the conclusion to collect all proposals in a document with the asked format. We set another meeting with him before the agreement of our contract.
+* 20/10/2015. 19:15-19:30. All members of the group do a meeting with the professor Francisco J. López Pellicer in his office. We comment him our service proposals and we come to the conclusion to collect all proposals in a document with the asked format. We set another meeting with him before the agreement of our contract.
+
+* 23/10/2015. 16.30-18:00. A document with the asked format is realized. We collect all our objectives (what we want about this work), and our services with their respectives description of the expected marks. The written document is not the last document (this means, it's not our contract), but a draft to be confirmed with the professors before the signature of it. The document is sent to the professor Francisco J. López Pellicer.
