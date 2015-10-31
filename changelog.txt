@@ -1,0 +1,34 @@
+****************************************
+****** Última modificación: David    ***
+****** Fecha: 31/10/2015             ***
+****************************************
+
+NOTAS:
+Añadido fichero de changelog, en este fichero podremos dejar una explicación
+más amplia de los cambios realizados desde la última versión que teníamos en 
+común. Es decir, una vez se hace la modificación de funcionalidad, se edita 
+este fichero explicándola o dejando anotaciones con las dudas que hayan surgido
+para que el resto del equipo esté al tanto de lo que se ha hecho. Surgirán problemas
+a la hora de hacer merge, pero es tan fácil como dejar las notas de tu última 
+modificación y poner las notas de los demás. Así se lleva, en mi opinión, un 
+mejor control de las versiones y los cambios realizados. Si no os gusta, podemos
+borrar el fichero sin ningún problema. Sería bueno mantener este fichero al
+día y mirarlo antes de hacer algún cambio al proyecto o al actualizarlo. 
+
+****************************************
+****** Última modificación: Alberto  ***
+****** Fecha: 31/10/2015             ***
+****************************************
+
+
+****************************************
+****** Última modificación: Íñigo    ***
+****** Fecha: 31/10/2015             ***
+****************************************
+
+
+****************************************
+****** Última modificación: Santi    ***
+****** Fecha: 31/10/2015             ***
+****************************************
+
