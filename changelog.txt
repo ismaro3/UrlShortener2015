@@ -1,34 +1,31 @@
 ****************************************
-****** Última modificación: David    ***
-****** Fecha: 31/10/2015             ***
+****** Last modification: David      ***
+****** Date: 07/11/2015              ***
 ****************************************
 
-NOTAS:
-Añadido fichero de changelog, en este fichero podremos dejar una explicación
-más amplia de los cambios realizados desde la última versión que teníamos en 
-común. Es decir, una vez se hace la modificación de funcionalidad, se edita 
-este fichero explicándola o dejando anotaciones con las dudas que hayan surgido
-para que el resto del equipo esté al tanto de lo que se ha hecho. Surgirán problemas
-a la hora de hacer merge, pero es tan fácil como dejar las notas de tu última 
-modificación y poner las notas de los demás. Así se lleva, en mi opinión, un 
-mejor control de las versiones y los cambios realizados. Si no os gusta, podemos
-borrar el fichero sin ningún problema. Sería bueno mantener este fichero al
-día y mirarlo antes de hacer algún cambio al proyecto o al actualizarlo. 
+NOTES:
+Added changelog file. In this file we could leave a wider explanation about
+our last changes since our last common version. I.e once you make any modification
+to any functionality, you edit this file by explaining your modification or leaving
+annotations with doubts if needed so the team can be updated. There will be problems
+by the time you merge your changes but it is easily solved by updating your section 
+in this file and leaving the rest with the latest date modification. 
+This way, i think we can have further control on versions and other's work.  
 
 ****************************************
-****** Última modificación: Alberto  ***
-****** Fecha: 31/10/2015             ***
+****** Last modification: Alberto    ***
+****** Date: 31/10/2015              ***
 ****************************************
 
 
 ****************************************
-****** Última modificación: Íñigo    ***
-****** Fecha: 31/10/2015             ***
+****** Last modification: Íñigo      ***
+****** Date: 31/10/2015              ***
 ****************************************
 
 
 ****************************************
-****** Última modificación: Santi    ***
-****** Fecha: 31/10/2015             ***
+****** Last modification: Santi      ***
+****** Date: 31/10/2015              ***
 ****************************************
 
