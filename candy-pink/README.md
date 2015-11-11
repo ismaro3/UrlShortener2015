@@ -19,5 +19,5 @@
 
 * 03/11/2015 19:10-21:00. After meeting with the professor Francisco J. López Pellicer and discuss the project agreement, two members of the team (Alberto Álvarez Aldea and Iñigo Gascón Royo) sign the final project contract. The other two members (Santiago Gil Begué and David Nicuesa Aranda) must sign the project during this week.
 
-* 04/11/2015 15:50-16:30. Santiago Gil Begué and David Nicuesa Aranda meet with the professor Francisco J. López Pellicer in order to get the project contract signed by all members of the group. It is also discussed how to begin the project (a initial design of it and how our components communicate themselves), and which Integrated Development Enviroment (IDE) to use.
+* 04/11/2015 15:50-16:30. Santiago Gil Begué and David Nicuesa Aranda meet with the professor Francisco J. López Pellicer in order to get the project contract signed by all member of the group. It is also discussed how to begin the project (a initial design of it and how our components communicate themselves), and which Integrated Development Enviroment (IDE) to use.
 
