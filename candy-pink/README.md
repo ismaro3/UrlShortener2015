@@ -21,3 +21,17 @@
 
 * 04/11/2015 15:50-16:30. Santiago Gil Begué and David Nicuesa Aranda meet with the professor Francisco J. López Pellicer in order to get the project contract signed by all member of the group. It is also discussed how to begin the project (a initial design of it and how our components communicate themselves), and which Integrated Development Enviroment (IDE) to use.
 
+#Award 
+The leader of the group (Alberto Álvarez) have to adjust the score of the other members, when a member of the group does a good task, I will give him a point.
+
+* Santiago Gil create a organization file: 1 Point
+* David Nicuesa create a Component Diagram: 1 Point
+* Iñigo Royo create a Class Diagram: 1 Point
+
+User name            | Points
+---------------------|-------
+David Nicuesa Aranda | 1
+Iñigo Gascón Royo    | 1
+Santiago Gil Begué   | 1
+
+
