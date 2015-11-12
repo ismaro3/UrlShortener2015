@@ -1,4 +1,4 @@
-###Last modification: David 
+###David 
 ####Date: 07/11/2015
 
 ######NOTES:
@@ -10,14 +10,14 @@ by the time you merge your changes but it is easily solved by updating your sect
 in this file and leaving the rest with the latest date modification. 
 This way, i think we can have further control on versions and other's work.  
 
-###Last modification: Alberto 
+###Alberto 
 ####Date: 07/11/2015
 ######NOTES:
 
-###Last modification: Íñigo 
+###Íñigo 
 ####Date: 07/11/2015
 ######NOTES:
 
-###Last modification: Santiago 
+###Santiago 
 ####Date: 07/11/2015
 ######NOTES:
