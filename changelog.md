@@ -1,6 +1,5 @@
 ###David 
 ####Date: 07/11/2015
-
 ######NOTES:
 Added changelog file. In this file we could leave a wider explanation about
 our last changes since our last common version. I.e once you make any modification
