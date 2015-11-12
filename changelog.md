@@ -1,5 +1,5 @@
-###David 
-####Date: 07/11/2015
+<p>###David 
+#####Date: 07/11/2015
 ######NOTES:
 Added changelog file. In this file we could leave a wider explanation about
 our last changes since our last common version. I.e once you make any modification
@@ -7,16 +7,16 @@ to any functionality, you edit this file by explaining your modification or leav
 annotations with doubts if needed so the team can be updated. There will be problems
 by the time you merge your changes but it is easily solved by updating your section 
 in this file and leaving the rest with the latest date modification. 
-This way, i think we can have further control on versions and other's work.  
+This way, i think we can have further control on versions and other's work.</p>  
 
 ###Alberto 
-####Date: 07/11/2015
+#####Date: 07/11/2015
 ######NOTES:
-
+<br><br>
 ###Íñigo 
-####Date: 07/11/2015
+#####Date: 07/11/2015
 ######NOTES:
-
+<br><br>
 ###Santiago 
-####Date: 07/11/2015
+#####Date: 07/11/2015
 ######NOTES:
