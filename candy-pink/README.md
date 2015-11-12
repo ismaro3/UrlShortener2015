@@ -27,10 +27,11 @@ The leader of the group (Alberto Álvarez) have to adjust the score of the other
 * Santiago Gil create a organization file: 1 Point
 * David Nicuesa create a Component Diagram: 1 Point
 * Iñigo Royo create a Class Diagram: 1 Point
+* David Nicuesa create a chengelog file: 1 Point
 
 User name            | Points
 ---------------------|-------
-David Nicuesa Aranda | 1
+David Nicuesa Aranda | 2
 Iñigo Gascón Royo    | 1
 Santiago Gil Begué   | 1
 
