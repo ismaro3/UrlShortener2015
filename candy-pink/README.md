@@ -28,7 +28,7 @@ The leader of the group (Alberto Álvarez) have to adjust the score of the other
 * David Nicuesa create a Component Diagram: 1 Point
 * Iñigo Royo create a Class Diagram: 1 Point
 * David Nicuesa create a chengelog file: 1 Point
-* David Nicuesa improve the component diagrama: 1 Point
+* David Nicuesa improve the component diagram: 1 Point
 
 User name            | Points
 ---------------------|-------
