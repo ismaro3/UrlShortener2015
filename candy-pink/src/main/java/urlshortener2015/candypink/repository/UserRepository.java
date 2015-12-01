@@ -1,22 +1,18 @@
-package urlshortener2015.common.repository;
+package urlshortener2015.candypink.repository;
 
 import java.util.List;
 
-import urlshortener2015.common.domain.Click;
-
-public interface ClickRepository {
+public interface UserRepository {
 
 	User findByName(String name);
 
-	Click save(Click cl);
+	User save(User user);
 
-	void update(Click cl);
+	void update(User user);
 
-	void delete(Long id);
+	void delete(String name);
 
 	void deleteAll();
 
 	Long count();
-
-	List<Click> list(Long limit, Long offset);
 }
