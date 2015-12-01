@@ -51,7 +51,7 @@ public class UserRepositoryImpl implements UserRepository {
 			return jdbc.query("SELECT * FROM user WHERE name=?",
 					new Object[] { name }, rowMapper);
 		} catch (Exception e) {
-			log.debug("When select for name " + hash, e);
+			log.debug("When select for name " + name, e);
 			return null;
 		}
 	}
@@ -70,19 +70,19 @@ public class UserRepositoryImpl implements UserRepository {
 									"INSERT INTO USER VALUES (?, ?)",
 									Statement.RETURN_GENERATED_KEYS);
 					ps.setString(1, user.getName());
-					ps.setString(2, user.getHash());
+					ps.setString(2, user.getType());
 				}
 			}, holder);
-			new DirectFieldAccessor(cl).setPropertyValue("id", holder.getKey()
+			new DirectFieldAccessor(user).setPropertyValue("id", holder.getKey()
 					.longValue());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for user with user " + user.getName(), e);
-			return cl;
+			return user;
 		} catch (Exception e) {
 			log.debug("When insert a user", e);
 			return null;
 		}
-		return cl;
+		return user;
 	}
 	
 	@Override
