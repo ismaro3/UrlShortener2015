@@ -1,5 +1,5 @@
 # Web Engineering 2015-2016 / UrlShortener2015
-[![Build Status](https://travis-ci.org/UNIZAR-30246-WebEngineering/UrlShortener2015.svg)](https://travis-ci.org/albert17/UrlShortener2015)
+[![Build Status](https://travis-ci.org/albert17/UrlShortener2015.svg)](https://travis-ci.org/albert17/UrlShortener2015)
 
 ## Team
 
