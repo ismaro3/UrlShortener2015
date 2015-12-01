@@ -19,6 +19,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import urlshortener2015.candypink.domain.User;
+
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
