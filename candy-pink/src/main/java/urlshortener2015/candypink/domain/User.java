@@ -7,7 +7,7 @@ public class User {
 	/* Type of the user */
 	private String type;
 
-	public Person(String name, String type) {
+	public User(String name, String type) {
 		this.name = name;
 		this.type = type;
 	}
