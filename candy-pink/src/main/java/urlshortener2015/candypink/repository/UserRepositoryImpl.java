@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +18,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
-import urlshortener2015.common.domain.Click;
 
 
 @Repository
@@ -85,28 +82,25 @@ public class ClickRepositoryImpl implements ClickRepository {
 		}
 		return cl;
 	}
-
+	
 	@Override
-	public void update(Click cl) {
-		log.info("ID2: "+cl.getId()+"navegador: "+cl.getBrowser()+" SO: "+cl.getPlatform()+" Date:"+cl.getCreated());
+	public void update(User user) {
+		log.info("Name: "+user.getName()+" - Type: "+ user.getType());
 		try {
-			jdbc.update(
-					"update click set hash=?, created=?, referrer=?, browser=?, platform=?, ip=?, country=? where id=?",
-					cl.getHash(), cl.getCreated(), cl.getReferrer(),
-					cl.getBrowser(), cl.getPlatform(), cl.getIp(),
-					cl.getCountry(), cl.getId());
+			jdbc.update("update User set name=?, type=?",
+				     user.getName(), user.getType());
 			
 		} catch (Exception e) {
-			log.info("When update for id " + cl.getId(), e);
+			log.info("When update for user " + user.getName(), e);
 		}
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(String name) {
 		try {
-			jdbc.update("delete from click where id=?", id);
+			jdbc.update("delete from User where id=?", name);
 		} catch (Exception e) {
-			log.debug("When delete for id " + id, e);
+			log.debug("When delete for name " + name, e);
 		}
 	}
 
@@ -123,34 +117,10 @@ public class ClickRepositoryImpl implements ClickRepository {
 	public Long count() {
 		try {
 			return jdbc
-					.queryForObject("select count(*) from click", Long.class);
+					.queryForObject("select count(*) from User", Long.class);
 		} catch (Exception e) {
 			log.debug("When counting", e);
 		}
 		return -1L;
 	}
-
-	@Override
-	public List<Click> list(Long limit, Long offset) {
-		try {
-			return jdbc.query("SELECT * FROM click LIMIT ? OFFSET ?",
-					new Object[] { limit, offset }, rowMapper);
-		} catch (Exception e) {
-			log.debug("When select for limit " + limit + " and offset "
-					+ offset, e);
-			return null;
-		}
-	}
-
-	@Override
-	public Long clicksByHash(String hash) {
-		try {
-			return jdbc
-					.queryForObject("select count(*) from click where hash = ?", new Object[]{hash}, Long.class);
-		} catch (Exception e) {
-			log.debug("When counting hash "+hash, e);
-		}
-		return -1L;
-	}
-
 }
