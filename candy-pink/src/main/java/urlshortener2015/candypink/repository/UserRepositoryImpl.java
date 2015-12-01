@@ -1,4 +1,4 @@
-package urlshortener2015.common.repository;
+package urlshortener2015.candypink.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +31,7 @@ public class UserRepositoryImpl implements UserRepository {
 	private static final RowMapper<User> rowMapper = new RowMapper<User>() {
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new Click(rs.getString("name"), rs.getString("type"));
+			return new User(rs.getString("name"), rs.getString("type"));
 		}
 	};
 
@@ -49,7 +49,7 @@ public class UserRepositoryImpl implements UserRepository {
 	public User findByName(String name) {
 		try {
 			return jdbc.query("SELECT * FROM user WHERE name=?",
-					new Object[] { name }, rowMapper);
+					name, rowMapper);
 		} catch (Exception e) {
 			log.debug("When select for name " + name, e);
 			return null;
