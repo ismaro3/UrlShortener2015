@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class ClickRepositoryImpl implements ClickRepository {
+public class UserRepositoryImpl implements UserRepository {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(UserRepositoryImpl.class);
