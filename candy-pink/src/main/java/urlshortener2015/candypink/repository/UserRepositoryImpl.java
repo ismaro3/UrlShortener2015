@@ -48,7 +48,7 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User findByName(String name) {
 		try {
-			return jdbc.query("SELECT * FROM user WHERE name=?",
+			return jdbc.queryForObject("SELECT * FROM user WHERE name=?",
 					rowMapper, name);
 		} catch (Exception e) {
 			log.debug("When select for name " + name, e);
