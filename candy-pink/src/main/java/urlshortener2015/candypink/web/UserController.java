@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import urlshortener.candypink.domain.User;
-import urlshortener.candypink.repository.UserRepositoryImpl;
+import urlshortener2015.candypink.domain.User;
+import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
 @RestController
 @RequestMapping("/user")
@@ -21,7 +21,6 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	@Override
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> register(@RequestParam("username") String username,
 			        @RequestParam("password") String password, @RequestParam("email") String email,
