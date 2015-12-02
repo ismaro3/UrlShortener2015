@@ -4,13 +4,13 @@ import urlshortener2015.candypink.domain.User;
 
 public interface UserRepository {
 
-	User findByName(String name);
+	User findByUsername(String username);
 
 	User save(User user);
 
 	void update(User user);
 
-	void delete(String name);
+	void delete(String username);
 
 	void deleteAll();
 
