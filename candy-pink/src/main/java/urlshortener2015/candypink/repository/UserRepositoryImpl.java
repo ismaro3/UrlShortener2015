@@ -33,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return new User(rs.getString("username"), rs.getString("password"),
 					rs.getString("email"), rs.getString("role"),
-					rs.getString("name");
+					rs.getString("name"));
 		}
 	};
 
