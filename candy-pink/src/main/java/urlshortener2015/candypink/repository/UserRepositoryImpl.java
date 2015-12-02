@@ -71,6 +71,7 @@ public class UserRepositoryImpl implements UserRepository {
 									Statement.RETURN_GENERATED_KEYS);
 					ps.setString(1, user.getName());
 					ps.setString(2, user.getType());
+					return ps;
 				}
 			}, holder);
 			new DirectFieldAccessor(user).setPropertyValue("id", holder.getKey()
