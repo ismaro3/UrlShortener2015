@@ -20,7 +20,15 @@ import urlshortener2015.candypink.repository.UserRepositoryImpl;
 public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
+	private UserRepositoryImpl repo = new UserRepositoryImpl();
 
+	public UserController() {
+    	}
+
+	public UserController(UserRepository repo){
+        	this.repo = repo;
+    	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> register(@RequestParam("username") String username,
 			        @RequestParam("password") String password, @RequestParam("email") String email,
@@ -30,16 +38,16 @@ public class UserController {
 		//Verify the fields aren´t empty
 		if(verifyFields(user)) {
 		  //There are a user with the same username
-		  if(UserRepository.findByName() != null) {
+		  if(repo.findByName() != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
 		  //There are a user with the same email
-		  else if(UserReposiroty.findByEmail() != null) {
+		  else if(repo.findByEmail() != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
 		  // There aren´t other users with this username or email
 		  else {
-		    userRepository.save(user);
+		    repo.save(user);
          	    return new ResponseEntity<>(user, HttpStatus.CREATED);
 		  }
 		}
