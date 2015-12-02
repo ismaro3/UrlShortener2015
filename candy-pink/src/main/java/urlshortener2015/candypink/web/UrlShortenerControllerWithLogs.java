@@ -27,7 +27,7 @@ public class UrlShortenerControllerWithLogs extends UrlShortenerController {
 	}
 
 	@Override
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/short", method = RequestMethod.POST)
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
 			@RequestParam(value = "brand", required = false) String brand, HttpServletRequest request) {

@@ -26,4 +26,9 @@ public class PersistenceContext {
 		return new ClickRepositoryImpl(jdbc);
 	}
 	
+	@Bean
+	UserRepository userRepository() {
+		return new UserReposirotyImpl(jdbc);	
+	}
+	
 }
