@@ -57,6 +57,17 @@ public class UserRepositoryImpl implements UserRepository {
 			return null;
 		}
 	}
+	
+	@Override
+	public User findByEmail(String email) {
+		try {
+			return jdbc.queryForObject("SELECT * FROM user WHERE email=?",
+					rowMapper, email);
+		} catch (Exception e) {
+			log.debug("When select for email " + email, e);
+			return null;
+		}
+	}
 
 	@Override
 	public User save(final User user) {
