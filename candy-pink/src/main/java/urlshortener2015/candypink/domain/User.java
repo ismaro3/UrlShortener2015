@@ -2,11 +2,11 @@ package urlshortener2015.candypink.domain;
 
 public class User {
     
-	private String username
+	private String username;
 	private String password;
 	private String email;
 	private String role;
-	private String name
+	private String name;
 
 	public User(String username, String password, String email, String role, String name) {
 		this.username = username;
