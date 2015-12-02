@@ -3,6 +3,7 @@
 /.settings/
 /.gradle/
 /build/
+/candypink/build
 
 # Not temporal files
 *~
