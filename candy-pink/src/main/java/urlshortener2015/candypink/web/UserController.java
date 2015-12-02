@@ -39,7 +39,7 @@ public class UserController {
 		  // There aren´t other users with this username or email
 		  else {
 		    userRepository.save(user);
-         return new ResponseEntity<>(user, HttpStatus.CREATED);
+         	    return new ResponseEntity<>(user, HttpStatus.CREATED);
 		  }
 		}
 		// There are empty fields
@@ -48,31 +48,32 @@ public class UserController {
 		}
 	}
 
-  /**
-   * Return true if the user haven´t got empty fields. Return false otherwise.
-   * @param user - The user to verify.
-   * @return Return true if the user haven´t got empty fields. Return false otherwise.
-   */
+       /**
+	 * Return true if the user haven´t got empty fields. Return false otherwise.
+	 * @param user - The user to verify.
+	 * @return Return true if the user haven´t got empty fields. Return false otherwise.
+	 */
 	private boolean verifyFields(User user) {
-	  // Check username
-  	if(user.getUsername()==null || user.getUsername().isEmpty()) {
-  	  return false;
-  	}
-  	// Check password
-  	else if(user.getPassword()==null || user.getPassword().isEmpty()) {
-  	  return false;
-  	}
-  	// Check email
-  	else if(user.getEmail()==null || user.getEmail().isEmpty()) {
-  	  return false;
-  	}
-  	// Check role
-  	else if(user.getRole()==null || user.getRole().isEmpty()) {
-  	  return false;
-  	}
-  	//Check ame
-  	else if(user.getName()==null || user.getName().isEmpty()) {
-  	  return false;
-  	}
-  	return true;
+		  // Check username
+	  	if(user.getUsername()==null || user.getUsername().isEmpty()) {
+	  	  return false;
+	  	}
+	  	// Check password
+	  	else if(user.getPassword()==null || user.getPassword().isEmpty()) {
+	  	  return false;
+	  	}
+	  	// Check email
+	  	else if(user.getEmail()==null || user.getEmail().isEmpty()) {
+	  	  return false;
+	  	}
+	  	// Check role
+	  	else if(user.getRole()==null || user.getRole().isEmpty()) {
+	  	  return false;
+	  	}
+	  	//Check ame
+	  	else if(user.getName()==null || user.getName().isEmpty()) {
+	  	  return false;
+	  	}
+	  	return true;
+	}
 }
