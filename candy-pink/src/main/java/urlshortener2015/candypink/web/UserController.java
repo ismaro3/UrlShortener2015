@@ -26,7 +26,7 @@ public class UserController {
 	public UserController() {
     	}
 
-	public UserController(UserRepository repo){
+	public UserController(UserRepositoryImpl repo){
         	this.repo = repo;
     	}
 	@RequestMapping(method = RequestMethod.POST)
@@ -38,11 +38,11 @@ public class UserController {
 		//Verify the fields aren´t empty
 		if(verifyFields(user)) {
 		  //There are a user with the same username
-		  if(repo.findByName() != null) {
+		  if(repo.findByUsername(username) != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
 		  //There are a user with the same email
-		  else if(repo.findByEmail() != null) {
+		  else if(repo.findByEmail(email) != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
 		  // There aren´t other users with this username or email
