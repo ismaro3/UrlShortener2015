@@ -33,7 +33,7 @@ public class UserController {
 	public ResponseEntity<User> register(@RequestParam("username") String username,
 			        @RequestParam("password") String password, @RequestParam("email") String email,
 			        @RequestParam("role") String role, @RequestParam("name") String name, HttpServletRequest request) {
-		logger.info("Requested registration with username " + user.getUsername());
+		logger.info("Requested registration with username " + username);
 		User user = new User(username, password, email, role, name);
 		//Verify the fields aren´t empty
 		if(verifyFields(user)) {
