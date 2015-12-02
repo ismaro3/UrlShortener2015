@@ -49,7 +49,7 @@ public class UserRepositoryImpl implements UserRepository {
 	public User findByName(String name) {
 		try {
 			return jdbc.query("SELECT * FROM user WHERE name=?",
-					Object[] {name}, rowMapper);
+					rowMapper, name);
 		} catch (Exception e) {
 			log.debug("When select for name " + name, e);
 			return null;
