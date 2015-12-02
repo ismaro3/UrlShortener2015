@@ -5,6 +5,8 @@ import urlshortener2015.candypink.domain.User;
 public interface UserRepository {
 
 	User findByUsername(String username);
+	
+	User findByEmail(String email);
 
 	User save(User user);
 
