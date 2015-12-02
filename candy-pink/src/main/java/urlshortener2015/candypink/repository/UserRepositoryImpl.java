@@ -96,7 +96,7 @@ public class UserRepositoryImpl implements UserRepository {
 		log.info("Username: "+user.getUsername());
 		try {
 			jdbc.update("update User set password=?, email=?, role=?, name=? WHERE username=?",
-				     user.getPasswor(), user.getEmail(), user.getRole(), user.getName(), user.getUsername());
+				     user.getPassword(), user.getEmail(), user.getRole(), user.getName(), user.getUsername());
 			
 		} catch (Exception e) {
 			log.info("When update for user " + user.getName(), e);
