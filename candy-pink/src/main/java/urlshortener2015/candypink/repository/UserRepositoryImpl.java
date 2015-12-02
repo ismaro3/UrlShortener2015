@@ -31,7 +31,9 @@ public class UserRepositoryImpl implements UserRepository {
 	private static final RowMapper<User> rowMapper = new RowMapper<User>() {
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new User(rs.getString("name"), rs.getString("type"));
+			return new User(rs.getString("username"), rs.getString("password"),
+					rs.getString("email"), rs.getString("role"),
+					rs.getString("name");
 		}
 	};
 
@@ -46,12 +48,12 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User findByName(String name) {
+	public User findByUsername(String username) {
 		try {
-			return jdbc.queryForObject("SELECT * FROM user WHERE name=?",
-					rowMapper, name);
+			return jdbc.queryForObject("SELECT * FROM user WHERE username=?",
+					rowMapper, username);
 		} catch (Exception e) {
-			log.debug("When select for name " + name, e);
+			log.debug("When select for username " + username, e);
 			return null;
 		}
 	}
@@ -67,17 +69,20 @@ public class UserRepositoryImpl implements UserRepository {
 						throws SQLException {
 					PreparedStatement ps = conn
 							.prepareStatement(
-									"INSERT INTO USER VALUES (?, ?)",
+									"INSERT INTO USER VALUES (?, ?, ?, ?, ?)",
 									Statement.RETURN_GENERATED_KEYS);
-					ps.setString(1, user.getName());
-					ps.setString(2, user.getType());
+					ps.setString(1, user.getUsername());
+					ps.setString(2, user.getPassword());
+					ps.setString(3, user.getEmail());
+					ps.setString(4, user.getRole());
+					ps.setString(5, user.getName());
 					return ps;
 				}
 			}, holder);
 			new DirectFieldAccessor(user).setPropertyValue("id", holder.getKey()
 					.longValue());
 		} catch (DuplicateKeyException e) {
-			log.debug("When insert for user with user " + user.getName(), e);
+			log.debug("When insert for user with user " + user.getUsername(), e);
 			return user;
 		} catch (Exception e) {
 			log.debug("When insert a user", e);
@@ -88,10 +93,10 @@ public class UserRepositoryImpl implements UserRepository {
 	
 	@Override
 	public void update(User user) {
-		log.info("Name: "+user.getName()+" - Type: "+ user.getType());
+		log.info("Username: "+user.getUsername());
 		try {
-			jdbc.update("update User set name=?, type=?",
-				     user.getName(), user.getType());
+			jdbc.update("update User set password=?, email=?, role=?, name=? WHERE username=?",
+				     user.getPasswor(), user.getEmail(), user.getRole(), user.getName(), user.getUsername());
 			
 		} catch (Exception e) {
 			log.info("When update for user " + user.getName(), e);
@@ -99,11 +104,11 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public void delete(String name) {
+	public void delete(String username) {
 		try {
-			jdbc.update("delete from User where id=?", name);
+			jdbc.update("delete from User where username=?", username);
 		} catch (Exception e) {
-			log.debug("When delete for name " + name, e);
+			log.debug("When delete for username " + username, e);
 		}
 	}
 
