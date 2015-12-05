@@ -31,7 +31,7 @@ public class PersistenceContext {
 	
 	@Bean
 	UserRepository userRepository() {
-		return new UserReposirotyImpl(jdbc);	
+		return new UserRepositoryImpl(jdbc);	
 	}
 	
 }
