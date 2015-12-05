@@ -70,6 +70,17 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
+	public User findByUsernameOrEmail(String id) {
+		try {
+			return jdbc.queryForObject("SELECT * FROM user WHERE email=? OR username=?",
+					rowMapper, id, id);
+		} catch (Exception e) {
+			log.debug("When select for id " + id, e);
+			return null;
+		}
+	}
+
+	@Override
 	public User save(final User user) {
 		try {
 			KeyHolder holder = new GeneratedKeyHolder();
