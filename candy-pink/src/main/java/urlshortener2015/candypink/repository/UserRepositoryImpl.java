@@ -79,6 +79,17 @@ public class UserRepositoryImpl implements UserRepository {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean verify(String user, String password) {
+		try {
+			return jdbc.queryForObject("Select * FROM user WHERE (email=? or username=?) AND password=?",
+				     rowMapper, user, user, password) != null;
+			
+		} catch (Exception e) {
+			log.info("When update for user " + user.getName(), e);
+		}
+	}
 
 	@Override
 	public User save(final User user) {
