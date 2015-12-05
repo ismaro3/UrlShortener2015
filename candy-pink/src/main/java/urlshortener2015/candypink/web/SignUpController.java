@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; 
+
 import urlshortener2015.candypink.domain.User;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
@@ -50,6 +52,8 @@ public class SignUpController {
 		  }
 		  // There aren´t other users with this username or email
 		  else {
+		    BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+		    user.setPassword(encoder.encode(password));
 		    repo.save(user);
          	    return new ResponseEntity<>(user, HttpStatus.CREATED);
 		  }
