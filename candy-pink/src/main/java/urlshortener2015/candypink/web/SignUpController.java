@@ -16,19 +16,22 @@ import urlshortener2015.candypink.domain.User;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/signUp")
+public class SignController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-	private UserRepositoryImpl repo = new UserRepositoryImpl();
+	private SignUpRepositoryImpl repo = new UserRepositoryImpl();
 
-	public UserController() {
-    	}
+	public SignUpController() {}
 
 	public UserController(UserRepositoryImpl repo){
         	this.repo = repo;
     	}
+
+	/**
+	 *
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> register(@RequestParam("username") String username,
 			        @RequestParam("password") String password, @RequestParam("email") String email,
@@ -57,13 +60,13 @@ public class UserController {
 		}
 	}
 
-       /**
+    /**
 	 * Return true if the user haven´t got empty fields. Return false otherwise.
 	 * @param user - The user to verify.
 	 * @return Return true if the user haven´t got empty fields. Return false otherwise.
 	 */
 	private boolean verifyFields(User user) {
-		  // Check username
+		// Check username
 	  	if(user.getUsername()==null || user.getUsername().isEmpty()) {
 	  	  return false;
 	  	}
@@ -79,7 +82,7 @@ public class UserController {
 	  	else if(user.getRole()==null || user.getRole().isEmpty()) {
 	  	  return false;
 	  	}
-	  	//Check ame
+	  	//Check name
 	  	else if(user.getName()==null || user.getName().isEmpty()) {
 	  	  return false;
 	  	}

@@ -7,6 +7,8 @@ public interface UserRepository {
 	User findByUsername(String username);
 	
 	User findByEmail(String email);
+	
+	User findByUsernameOrEmail(String id);
 
 	User save(User user);
 
