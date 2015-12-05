@@ -4,7 +4,7 @@ import urlshortener2015.candypink.domain.UserShort;
 
 public interface UserShortRepository {
 
-	//List<ShortURL> findShortURLofUser(String username);
+	List<ShortURL> findShortURLofUser(String username);
 	
 	//List<ShortURL> findShortURLofUser(String username, String dateIni, String dateFin);
 	
