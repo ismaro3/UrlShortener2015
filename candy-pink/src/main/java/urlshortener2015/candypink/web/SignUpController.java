@@ -17,15 +17,15 @@ import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
 @RestController
 @RequestMapping("/signUp")
-public class SignController {
+public class SignUpController {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(SignUpController.class);
 	
-	private SignUpRepositoryImpl repo = new UserRepositoryImpl();
+	private UserRepositoryImpl repo = new UserRepositoryImpl();
 
 	public SignUpController() {}
 
-	public UserController(UserRepositoryImpl repo){
+	public SignUpController(UserRepositoryImpl repo){
         	this.repo = repo;
     	}
 
