@@ -5,6 +5,7 @@ buildscript {
   }
   dependencies {
     classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE'
+    classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
   }
 }
 
@@ -16,6 +17,7 @@ eclipse {
 
 apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
 
 mainClassName = 'urlshortener2015.candypink.Application'
 
@@ -26,8 +28,14 @@ dependencies {
     runtime 'org.hsqldb:hsqldb'
 
     // Provides java script libraries for static content
+    compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.webjars:bootstrap:3.3.5'
-    compile 'org.webjars:jquery:2.1.4'    
+    compile 'org.webjars:jquery:2.1.4' 
+    compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.13'
+    compile 'org.glassfish.jersey.core:jersey-server:2.13'
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.13'
+    compile 'org.glassfish.jersey.media:jersey-media-moxy:2.13'
+   testCompile 'junit:junit:4.11'   
 
     // Testing framework
     testCompile 'org.springframework.boot:spring-boot-starter-test'
