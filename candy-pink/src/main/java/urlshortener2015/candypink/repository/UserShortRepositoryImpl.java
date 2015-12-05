@@ -36,6 +36,17 @@ public class UserShortRepositoryImpl implements UserShortRepository{
 		}
 	};
 
+	private static final RowMapper<ShortURL> rowMapper2 = new RowMapper<ShortURL>() {
+		@Override
+		public ShortURL mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return new ShortURL(rs.getString("hash"), rs.getString("target"),
+					null, rs.getString("sponsor"), rs.getDate("created"),
+					rs.getString("owner"), rs.getInt("mode"),
+					rs.getBoolean("safe"), rs.getString("ip"),
+					rs.getString("country"));
+		}
+	};
+
 	@Autowired
 	protected JdbcTemplate jdbc;
 
@@ -50,7 +61,7 @@ public class UserShortRepositoryImpl implements UserShortRepository{
 		try {
 			return jdbc.query("SELECT s.* FROM SHORTURL s, USERSHORT u "
 					+ "WHERE u.user=? AND s.hash=u.shorturl",
-					new Object[]{username}, rowMapper);
+					new Object[]{username}, rowMapper2);
 		} catch (Exception e) {
 			log.debug("When select for shorturls of user: " +username, e);
 			return null;
@@ -62,7 +73,7 @@ public class UserShortRepositoryImpl implements UserShortRepository{
 			return jdbc.query("SELECT s.* FROM SHORTURL s, USERSHORT u "
 					+ "WHERE u.user=? AND s.hash=u.shorturl"
 					+ "AND s.create>? AND s.create<?",
-					new Object[]{username, dateIni, dateFin}, rowMapper);
+					new Object[]{username, dateIni, dateFin}, rowMapper2);
 		} catch (Exception e) {
 			log.debug("When select for shorturls of user: " +username, e);
 			return null;
