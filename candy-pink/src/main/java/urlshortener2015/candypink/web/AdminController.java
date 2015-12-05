@@ -16,31 +16,38 @@ import urlshortener2015.candypink.domain.User;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/admin")
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	private UserRepositoryImpl repo = new UserRepositoryImpl();
 
-	public LoginController() {}
+	public AdminController() {}
 
-	public LoginController(UserRepositoryImpl repo){
+	public AdminController(UserRepositoryImpl repo){
         	this.repo = repo;
     	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<User> login(@RequestParam("username") String id,
+	public ResponseEntity<User> login(@RequestParam("id") String id,
 			        @RequestParam("password"), HttpServletRequest request) {
 		logger.info("Requested login with username " + username);
 		//Verify the fields aren´t empty
 		if(verifyFields(id, password)) {
-		  //There are a user with this username or email
 		  User user = repo.findByUsernameOrEmail(id);
+		  //There are a user with this username or email
 		  if(user != null) {
 			// The password is correct
 			if(user.getPassword().equals(password)) {
-				return new ResponseEntity<>(user, HttpStatus.CREATED);
+				// The user is admin
+				if(user.getRole().equals("ADMIN")) {
+					return new ResponseEntity<>(user, HttpStatus.CREATED);
+				}
+				// The user is not admin
+				else {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
 			}
 			// The password is incorrect
 			else {
