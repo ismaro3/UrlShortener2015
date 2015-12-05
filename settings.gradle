@@ -1,5 +1,6 @@
 include ":common"
 include ":demo"
+include ":spam-check-service"
 include ":alizarin-crimson"
 include ":bangladesh-green"
 include ":candy-pink"
