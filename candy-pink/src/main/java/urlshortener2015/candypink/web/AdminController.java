@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import urlshortener2015.candypink.domain.User;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
@@ -38,8 +39,9 @@ public class AdminController {
 		  User user = repo.findByUsernameOrEmail(id);
 		  //There are a user with this username or email
 		  if(user != null) {
+			BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 			// The password is correct
-			if(user.getPassword().equals(password)) {
+			if(encoder.matches(password, user.getPassword())) {
 				// The user is admin
 				if(user.getRole().equals("ADMIN")) {
 					return new ResponseEntity<>(user, HttpStatus.CREATED);

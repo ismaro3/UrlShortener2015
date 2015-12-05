@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; 
+
 import urlshortener2015.candypink.domain.User;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/signUp")
@@ -35,8 +38,14 @@ public class SignUpController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> register(@RequestParam("username") String username,
 			        @RequestParam("password") String password, @RequestParam("email") String email,
-			        @RequestParam("role") String role, @RequestParam("name") String name, HttpServletRequest request) {
+			        @RequestParam("name") String name, HttpServletRequest request) {
 		logger.info("Requested registration with username " + username);
+		Random r = new Random();
+		String role;
+		switch (r.nextInt(2)) {
+			case 0: role = "USER_NORMAL";
+			case 1: role = "USER_PREMIUM";
+		}
 		User user = new User(username, password, email, role, name);
 		//Verify the fields aren´t empty
 		if(verifyFields(user)) {
@@ -50,6 +59,8 @@ public class SignUpController {
 		  }
 		  // There aren´t other users with this username or email
 		  else {
+		    BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+		    user.setPassword(encoder.encode(password));
 		    repo.save(user);
          	    return new ResponseEntity<>(user, HttpStatus.CREATED);
 		  }
