@@ -83,23 +83,8 @@ public class UserShortRepositoryImpl implements UserShortRepository{
 	@Override
 	public UserShort save(final UserShort us) {
 		try {
-			KeyHolder holder = new GeneratedKeyHolder();
-			jdbc.update(new PreparedStatementCreator() {
-
-				@Override
-				public PreparedStatement createPreparedStatement(Connection conn)
-						throws SQLException {
-					PreparedStatement ps = conn
-							.prepareStatement(
-									"INSERT INTO USERSHORT VALUES (?, ?)",
-									Statement.RETURN_GENERATED_KEYS);
-					ps.setString(1, us.getUsername());
-					ps.setString(2, us.getShortURL());
-					return ps;
-				}
-			}, holder);
-			new DirectFieldAccessor(us).setPropertyValue("id", holder.getKey()
-					.longValue());
+			jdbc.update("INSERT INTO USERSHORT VALUES (?, ?)",
+					us.getUsername(), us.getShortURL());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for UserShort with username " + us.getUsername(), e);
 			return us;
