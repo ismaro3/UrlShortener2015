@@ -65,7 +65,7 @@ public class UserRepositoryTests {
 	@Test
 	public void thatSaveRole() {
 		assertNotNull(repository.save(userRole()));
-		assertSame(jdbc.queryForObject("select rol from USER",
+		assertSame(jdbc.queryForObject("select role from USER",
 				String.class), userRole().getRole());
 	}
 	
@@ -73,7 +73,7 @@ public class UserRepositoryTests {
 	public void thatSaveName() {
 		assertNotNull(repository.save(userName()));
 		assertSame(jdbc.queryForObject("select name from USER",
-				String.class), userName().getUsername());
+				String.class), userName().getName());
 	}
 
 	@Test
@@ -101,7 +101,7 @@ public class UserRepositoryTests {
 		// Test find with an email
 		u = repository.findByUsernameOrEmail(userEmail().getEmail());
 		assertNotNull(u);
-		assertSame(u.getUsername(), userEmail().getEmail());
+		assertSame(u.getUsername(), userEmail().getUsername());
 	}
 
 	@Test
@@ -123,11 +123,11 @@ public class UserRepositoryTests {
 	@Test
 	public void thatUpdateUpdate() {
 		repository.save(user1());
-		User u = repository.findByUsernameOrEmail(user1().getName());
+		User u = repository.findByUsernameOrEmail(user1().getUsername());
 		assertEquals(u.getName(), "Name1");
 		repository.update(user1Modified());
-		u = repository.findByUsernameOrEmail(user1Modified().getName());
-		assertEquals(u.getName(), "Name1Update");
+		u = repository.findByUsernameOrEmail(user1Modified().getUsername());
+		assertEquals(u.getName(), "Name1Updated");
 	}
 	
 	@After

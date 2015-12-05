@@ -50,8 +50,8 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User findByUsernameOrEmail(String id) {
 		try {
-			return jdbc.queryForObject("SELECT * FROM user WHERE username=? OR email=?",
-					rowMapper, id, id);
+			return jdbc.queryForObject("SELECT * FROM USER WHERE username=? OR email=?",
+						   rowMapper,id, id);
 		} catch (Exception e) {
 			log.debug("When select for id " + id, e);
 			return null;
@@ -59,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User save(final User user) {
+	public User save(User user) {
 		try {
 			jdbc.update("INSERT INTO USER VALUES (?, ?, ?, ?, ?)",
 					user.getUsername(), user.getPassword(), user.getEmail(),

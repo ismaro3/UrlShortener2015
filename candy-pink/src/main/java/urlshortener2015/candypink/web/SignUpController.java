@@ -41,7 +41,7 @@ public class SignUpController {
 			        @RequestParam("name") String name, HttpServletRequest request) {
 		logger.info("Requested registration with username " + username);
 		Random r = new Random();
-		String role;
+		String role = null;
 		switch (r.nextInt(2)) {
 			case 0: role = "USER_NORMAL";
 			case 1: role = "USER_PREMIUM";
@@ -50,11 +50,11 @@ public class SignUpController {
 		//Verify the fields aren´t empty
 		if(verifyFields(user)) {
 		  //There are a user with the same username
-		  if(repo.findByUsername(username) != null) {
+		  if(repo.findByUsernameOrEmail(username) != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
 		  //There are a user with the same email
-		  else if(repo.findByEmail(email) != null) {
+		  else if(repo.findByUsernameOrEmail(email) != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
 		  // There aren´t other users with this username or email

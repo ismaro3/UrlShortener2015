@@ -33,6 +33,6 @@ public class UserFixture {
 	}
 
 	public static User badUser() {
-		return new User("null", "null", "null", "null", "null");
+		return new User(null, "null", "null", "null", "null");
 	}
 }
