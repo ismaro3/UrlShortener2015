@@ -46,7 +46,7 @@ public class UserShortRepositoryImpl implements UserShortRepository{
 		this.jdbc = jdbc;
 	}
 
-	/*public List<ShortURL> findShortURLofUser(String username) {
+	public List<ShortURL> findShortURLofUser(String username) {
 		try {
 			return jdbc.query("SELECT s.* FROM SHORTURL s, USERSHORT u "
 					+ "WHERE u.user=? AND s.hash=u.shorturl",
@@ -67,7 +67,7 @@ public class UserShortRepositoryImpl implements UserShortRepository{
 			log.debug("When select for shorturls of user: " +username, e);
 			return null;
 		}	
-	}*/
+	}
 	
 	@Override
 	public UserShort save(final UserShort us) {
