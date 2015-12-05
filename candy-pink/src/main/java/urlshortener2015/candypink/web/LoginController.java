@@ -19,7 +19,7 @@ import urlshortener2015.candypink.repository.UserRepositoryImpl;
 @RequestMapping("/login")
 public class LoginController {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	private UserRepositoryImpl repo = new UserRepositoryImpl();
 
@@ -31,8 +31,8 @@ public class LoginController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> login(@RequestParam("username") String id,
-			        @RequestParam("password"), HttpServletRequest request) {
-		logger.info("Requested login with username " + username);
+			        @RequestParam("password") String password, HttpServletRequest request) {
+		logger.info("Requested login with username " + id);
 		//Verify the fields aren´t empty
 		if(verifyFields(id, password)) {
 		  //There are a user with this username or email
