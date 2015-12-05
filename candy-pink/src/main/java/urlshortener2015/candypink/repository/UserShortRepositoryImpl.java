@@ -1,10 +1,12 @@
 package urlshortener2015.candypink.repository;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import urlshortener2015.candypink.domain.UserShort;
+import urlshortener2015.common.domain.ShortURL;
 
 @Repository
 public class UserShortRepositoryImpl implements UserShortRepository{
@@ -43,13 +46,13 @@ public class UserShortRepositoryImpl implements UserShortRepository{
 		this.jdbc = jdbc;
 	}
 
-	public List<ShortURL> findShortURLofUser(String username) {
+	/*public List<ShortURL> findShortURLofUser(String username) {
 		try {
 			return jdbc.query("SELECT s.* FROM SHORTURL s, USERSHORT u "
 					+ "WHERE u.user=? AND s.hash=u.shorturl",
-					new Object[], rowMapper);
+					new Object[]{username}, rowMapper);
 		} catch (Exception e) {
-			log.debug("When select for shorturls of user: " +usename, e);
+			log.debug("When select for shorturls of user: " +username, e);
 			return null;
 		}
 	}
@@ -57,13 +60,14 @@ public class UserShortRepositoryImpl implements UserShortRepository{
 	public List<ShortURL> findShortURLofUser(String username, String dateIni, String dateFin) {
 		try {
 			return jdbc.query("SELECT s.* FROM SHORTURL s, USERSHORT u "
-					+ "WHERE u.user=? AND s.hash=u.shorturl",
-					new Object[], rowMapper);
+					+ "WHERE u.user=? AND s.hash=u.shorturl"
+					+ "AND s.create>? AND s.create<?",
+					new Object[]{username, dateIni, dateFin}, rowMapper);
 		} catch (Exception e) {
-			log.debug("When select for shorturls of user: " +usename, e);
+			log.debug("When select for shorturls of user: " +username, e);
 			return null;
 		}	
-	}
+	}*/
 	
 	@Override
 	public UserShort save(final UserShort us) {
