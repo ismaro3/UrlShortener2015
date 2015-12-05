@@ -48,28 +48,6 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User findByUsername(String username) {
-		try {
-			return jdbc.queryForObject("SELECT * FROM user WHERE username=?",
-					rowMapper, username);
-		} catch (Exception e) {
-			log.debug("When select for username " + username, e);
-			return null;
-		}
-	}
-	
-	@Override
-	public User findByEmail(String email) {
-		try {
-			return jdbc.queryForObject("SELECT * FROM user WHERE email=?",
-					rowMapper, email);
-		} catch (Exception e) {
-			log.debug("When select for email " + email, e);
-			return null;
-		}
-	}
-
-	@Override
 	public User findByUsernameOrEmail(String id) {
 		try {
 			return jdbc.queryForObject("SELECT * FROM user WHERE email=? OR username=?",
@@ -77,17 +55,6 @@ public class UserRepositoryImpl implements UserRepository {
 		} catch (Exception e) {
 			log.debug("When select for id " + id, e);
 			return null;
-		}
-	}
-	
-	@Override
-	public boolean verify(String user, String password) {
-		try {
-			return jdbc.queryForObject("Select * FROM user WHERE (email=? or username=?) AND password=?",
-				     rowMapper, user, user, password) != null;
-			
-		} catch (Exception e) {
-			log.info("When update for user " + user.getName(), e);
 		}
 	}
 
