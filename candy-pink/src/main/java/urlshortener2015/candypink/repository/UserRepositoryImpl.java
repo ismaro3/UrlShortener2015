@@ -50,8 +50,8 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User findByUsernameOrEmail(String id) {
 		try {
-			return jdbc.queryForObject("SELECT * FROM user WHERE email=? OR username=?",
-					rowMapper, id, id);
+			return jdbc.queryForObject("SELECT * FROM USER WHERE username=? OR email=?",
+						   rowMapper,id, id);
 		} catch (Exception e) {
 			log.debug("When select for id " + id, e);
 			return null;
@@ -59,28 +59,11 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User save(final User user) {
+	public User save(User user) {
 		try {
-			KeyHolder holder = new GeneratedKeyHolder();
-			jdbc.update(new PreparedStatementCreator() {
-
-				@Override
-				public PreparedStatement createPreparedStatement(Connection conn)
-						throws SQLException {
-					PreparedStatement ps = conn
-							.prepareStatement(
-									"INSERT INTO USER VALUES (?, ?, ?, ?, ?)",
-									Statement.RETURN_GENERATED_KEYS);
-					ps.setString(1, user.getUsername());
-					ps.setString(2, user.getPassword());
-					ps.setString(3, user.getEmail());
-					ps.setString(4, user.getRole());
-					ps.setString(5, user.getName());
-					return ps;
-				}
-			}, holder);
-			new DirectFieldAccessor(user).setPropertyValue("id", holder.getKey()
-					.longValue());
+			jdbc.update("INSERT INTO USER VALUES (?, ?, ?, ?, ?)",
+					user.getUsername(), user.getPassword(), user.getEmail(),
+					user.getRole(), user.getName());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for user with user " + user.getUsername(), e);
 			return user;

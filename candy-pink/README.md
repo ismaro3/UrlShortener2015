@@ -29,11 +29,13 @@ The leader of the group (Alberto Álvarez) have to adjust the score of the other
 * Iñigo Royo create a Class Diagram: 1 Point
 * David Nicuesa create a chengelog file: 1 Point
 * David Nicuesa improve the component diagram: 1 Point
+* Santiago Gil learn about JavaScript and use it in the front-end. Moreover, he reviews the work of David Nicuesa and Alberto        Álvarez: 10 points.
+* David Nicuesa learn about Google Safe Browsing and use it in the application. Moreover he creates a big web service to do this functionality asynchronous.
 
 User name            | Points
 ---------------------|-------
-David Nicuesa Aranda | 3
+David Nicuesa Aranda | 13
+Santiago Gil Begué   | 11
 Iñigo Gascón Royo    | 1
-Santiago Gil Begué   | 1
 
 

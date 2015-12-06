@@ -1,0 +1,21 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://checker/web/ws/schema"
+           targetNamespace="http://checker/web/ws/schema" elementFormDefault="qualified">
+
+    <xs:element name="URLShort">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="hash" type="xs:string"/>
+                <xs:element name="target" type="xs:string"/>
+                 <xs:element name="uri" type="xs:string"/>
+                <xs:element name="sponsor" type="xs:string"/>
+                <xs:element name="created" type="xs:string"/>
+                <xs:element name="owner" type="xs:string"/>
+                <xs:element name="mode" type="xs:integer"/>
+                <xs:element name="safe" type="xs:boolean"/>
+                <xs:element name="ip" type="xs:string"/>
+                <xs:element name="country" type="xs:string"/>      
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
