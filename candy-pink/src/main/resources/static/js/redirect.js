@@ -1,3 +1,3 @@
-function redirect(where) {
-  window.location.href = where;
+function redirect() {
+	document.location = "login.html";
 }
