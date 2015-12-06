@@ -9,6 +9,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.UUID;
@@ -34,6 +35,7 @@ import urlshortener2015.common.repository.ClickRepository;
 import urlshortener2015.candypink.repository.ShortURLRepository;
 
 import com.google.common.hash.Hashing;
+import javax.ws.rs.client.WebTarget;
 
 @RestController
 public class UrlShortenerController {
@@ -121,9 +123,45 @@ public class UrlShortenerController {
 									id, null)).toUri(), sponsor, new Date(
 							System.currentTimeMillis()), owner,
 					HttpStatus.TEMPORARY_REDIRECT.value(), false, null, null, ip, null, null);
-			return shortURLRepository.save(su);
+			boolean spam = checkInternal(su);
+			if(!spam){
+				return shortURLRepository.save(su);	
+			}else{
+				return null;
+			}
 		} else {
 			return null;
 		}
+	}
+
+	/*
+	*This method checks an URI against the Google Safe Browsing API,
+	* then it updates the database if needed.
+	*According to Google's API, by making a GET request the URI sent
+	* is checked and message is created with status code in response.
+	*Status OK 200 means that uri is unsafe, and 204 indicates that is
+	* safe. Other reponse status are caused by error. 
+	*/
+   public boolean checkInternal(ShortURL url){
+		Client client = ClientBuilder.newClient();
+		
+		//Preparing URI to check 
+		WebTarget target = client.target("https://sb-ssl.google.com/safebrowsing/api/lookup");
+		WebTarget targetWithQueryParams = target.queryParam("key", "AIzaSyDI60aszp__CG9n4B3n3gd-YDEh-uowUwM");
+		targetWithQueryParams = targetWithQueryParams.queryParam("client", "CandyShort");
+		targetWithQueryParams = targetWithQueryParams.queryParam("appver","1.0");
+		targetWithQueryParams = targetWithQueryParams.queryParam("pver","3.1");
+		targetWithQueryParams = targetWithQueryParams.queryParam("url",URLEncoder.encode(url.getTarget()));
+
+		Response response = targetWithQueryParams.request(MediaType.TEXT_PLAIN_TYPE).get();
+		ShortURL res;
+		if(response.getStatus()==204){//Uri is safe
+			logger.info("La uri no es malware | no deseada");
+			return false;
+		}else if(response.getStatus()==200){//Uri is unsafe
+			logger.info("La uri es malware o no deseada");
+			return true;
+		}
+		return false;
 	}
 }
