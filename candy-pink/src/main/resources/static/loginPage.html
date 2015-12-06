@@ -3,6 +3,7 @@
 <head>
 <title>URL Shortener</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-signin-client_id" content="524571196627-84aatcf383nfc983vrvqum52alc3kbav.apps.googleusercontent.com">
 <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
 <link type="text/css" rel="stylesheet" href="css/bgStyle.css" media="all" />
 <link type="text/css" rel="stylesheet" href="css/form.css" media="all" />
@@ -10,6 +11,7 @@
 <script type="text/javascript" src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/login.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
 	<!-- Imagen de cabecera del sitio web -->
@@ -46,6 +48,16 @@
 				<p id="forgot"><a href="forgotPass.html"><label for="forget"><font color="blue">Forgot your password?</font></label></a></p> 					
 			</form>
 		</div>
+		<div class="g-signin2" data-onsuccess="onSignIn"></div>
+		<script>
+			function onSignIn(googleUser) {
+			  var profile = googleUser.getBasicProfile();
+			  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			  console.log('Name: ' + profile.getName());
+			  console.log('Image URL: ' + profile.getImageUrl());
+			  console.log('Email: ' + profile.getEmail());
+			};
+		</script>
 	</div>
 </body>
 </html>
