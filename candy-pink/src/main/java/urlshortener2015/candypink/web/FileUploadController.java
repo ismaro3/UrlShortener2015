@@ -1,4 +1,4 @@
-package uploader;
+package urlshortener2015.candypink.web;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
