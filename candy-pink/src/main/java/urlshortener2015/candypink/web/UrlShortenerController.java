@@ -120,7 +120,7 @@ public class UrlShortenerController {
 							methodOn(UrlShortenerController.class).redirectTo(
 									id, null)).toUri(), sponsor, new Date(
 							System.currentTimeMillis()), owner,
-					HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null, null);
+					HttpStatus.TEMPORARY_REDIRECT.value(), true, null, ip, null, null);
 			return shortURLRepository.save(su);
 		} else {
 			return null;

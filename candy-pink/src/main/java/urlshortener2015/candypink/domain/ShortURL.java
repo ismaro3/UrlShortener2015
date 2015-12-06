@@ -16,10 +16,11 @@ public class ShortURL {
 	private String ip;
 	private String country;
 	private String username;
+	private String reachable;
 
 	public ShortURL(String hash, String target, URI uri, String sponsor,
-			Date created, String owner, Integer mode, Boolean safe, String ip,
-			String country, String username) {
+			Date created, String owner, Integer mode, Boolean safe,
+			String reachable, String ip, String country, String username) {
 		this.hash = hash;
 		this.target = target;
 		this.uri = uri;
@@ -28,6 +29,7 @@ public class ShortURL {
 		this.owner = owner;
 		this.mode = mode;
 		this.safe = safe;
+		this.reachable = reachable;
 		this.ip = ip;
 		this.country = country;
 		this.username = username;
@@ -68,6 +70,9 @@ public class ShortURL {
 		return safe;
 	}
 
+	public String getReachable() {
+		return reachable;	
+	}
 	public String getIP() {
 		return ip;
 	}

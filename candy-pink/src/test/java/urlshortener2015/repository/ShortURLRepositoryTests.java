@@ -15,8 +15,12 @@ import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.urlS
 import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url1user1;
 import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url2user1;
 import static urlshortener2015.candypink.repository.fixture.UserFixture.user1;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url3user1Created;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url4user1Created;
 
 import java.util.List;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -109,6 +113,16 @@ public class ShortURLRepositoryTests {
 		repository.save(url1user1());
 		repository.save(url2user1());
 		List<ShortURL> su = repository.findByUser(user1().getUsername());
+		assertNotNull(su);
+		assertSame(su.size(), 2);
+	}
+
+	@Test
+	public void thatFindByUsernameWithTimeReturnsURLs() {
+		repoUser.save(user1());
+		repository.save(url3user1Created());
+		repository.save(url4user1Created());
+		List<ShortURL> su = repository.findByUserlast24h(user1().getUsername());
 		assertNotNull(su);
 		assertSame(su.size(), 2);
 	}
