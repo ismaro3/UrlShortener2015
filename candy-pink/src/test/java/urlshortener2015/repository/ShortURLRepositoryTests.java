@@ -84,6 +84,14 @@ public class ShortURLRepositoryTests {
 	}
 
 	@Test
+	public void tharisSafeisCorrect() {
+		assertNotNull(repository.save(urlSafe()));
+		assertSame(repository.isSafe(urlSafe().getHash()),true);
+		repository.mark(urlSafe(), false);
+		assertSame(repository.isSafe(urlSafe().getHash()),false);
+	}
+
+	@Test
 	public void thatSaveADuplicateHashIsSafelyIgnored() {
 		repository.save(url1());
 		assertNotNull(repository.save(url1()));

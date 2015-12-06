@@ -24,6 +24,7 @@ CREATE TABLE SHORTURL(
 	OWNER		VARCHAR(255),			-- User id
 	MODE		INTEGER,			-- Redirect mode
 	SAFE		BOOLEAN,			-- Safe target
+	SPAM		BOOLEAN,			-- Spam target
 	REACHABLE	TIMESTAMP,			-- Reachable
 	IP		VARCHAR(20),			-- IP
 	COUNTRY		VARCHAR(50),			-- Country

@@ -29,8 +29,8 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 			return new ShortURL(rs.getString("hash"), rs.getString("target"),
 					null, rs.getString("sponsor"), rs.getDate("created"),
 					rs.getString("owner"), rs.getInt("mode"), rs.getBoolean("safe"), 
-					rs.getString("reachable"), rs.getString("ip"), rs.getString("country"), 
-					rs.getString("username"));
+					rs.getBoolean("spam"), rs.getString("reachable"), rs.getString("ip"),
+					rs.getString("country"), rs.getString("username"));
 		}
 	};
 
@@ -58,9 +58,9 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	@Override
 	public ShortURL save(ShortURL su) {
 		try {
-			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?)",
+			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?)",
 					su.getHash(), su.getTarget(), su.getSponsor(),
-					su.getOwner(), su.getMode(), su.getSafe(),
+					su.getOwner(), su.getMode(), su.getSafe(), su.getSpam(),
 					su.getReachable(), su.getIP(), su.getCountry(), su.getUsername());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for key " + su.getHash(), e);
@@ -88,13 +88,34 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	}
 
 	@Override
+	public Boolean isSafe(String hash) {
+		try {
+			return (jdbc.queryForObject("SELECT * FROM shorturl WHERE hash=?",
+					rowMapper, hash)).getSafe();
+		} catch (Exception e) {
+			log.debug("When search safe for key " + hash, e);
+			return null;
+		}
+	}
+
+	@Override
+	public Boolean isSpam(String hash) {
+		try {
+			return (jdbc.queryForObject("SELECT * FROM shorturl WHERE hash=?",
+					rowMapper, hash)).getSpam();
+		} catch (Exception e) {
+			log.debug("When spam for key " + hash, e);
+			return null;
+		}
+	}
+
+	@Override
 	public void update(ShortURL su) {
 		try {
 			jdbc.update(
-					"update shorturl set target=?, sponsor=?, created=?, owner=?, mode=?, safe=?, reachable=? 								, ip=?, country=?, username=? where hash=?",
-					su.getTarget(), su.getSponsor(), su.getCreated(),
-					su.getOwner(), su.getMode(), su.getSafe(), su.getReachable(),
-					su.getIP(), su.getCountry(), su.getUsername(), su.getHash());
+					"update shorturl set target=?, sponsor=?, created=?, owner=?, mode=?, safe=?, spam=?," 						+" reachable=?, ip=?, country=?, username=? where hash=?",
+					su.getTarget(), su.getSponsor(), su.getCreated(), su.getOwner(), su.getMode(), 
+					su.getSafe(), su.getSpam(), su.getReachable(), su.getIP(), su.getCountry(), su.getUsername(), 						su.getHash());
 		} catch (Exception e) {
 			log.debug("When update for hash " + su.getHash(), e);
 		}

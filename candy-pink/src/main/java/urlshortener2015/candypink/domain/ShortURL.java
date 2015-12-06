@@ -13,13 +13,14 @@ public class ShortURL {
 	private String owner;
 	private Integer mode;
 	private Boolean safe;
+	private Boolean spam;
 	private String ip;
 	private String country;
 	private String username;
 	private String reachable;
 
 	public ShortURL(String hash, String target, URI uri, String sponsor,
-			Date created, String owner, Integer mode, Boolean safe,
+			Date created, String owner, Integer mode, Boolean safe, Boolean spam,
 			String reachable, String ip, String country, String username) {
 		this.hash = hash;
 		this.target = target;
@@ -29,6 +30,7 @@ public class ShortURL {
 		this.owner = owner;
 		this.mode = mode;
 		this.safe = safe;
+		this.spam = spam;
 		this.reachable = reachable;
 		this.ip = ip;
 		this.country = country;
@@ -68,6 +70,10 @@ public class ShortURL {
 
 	public Boolean getSafe() {
 		return safe;
+	}
+
+	public Boolean getSpam() {
+		return spam;
 	}
 
 	public String getReachable() {

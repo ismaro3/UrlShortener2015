@@ -14,6 +14,10 @@ public interface ShortURLRepository {
 
 	ShortURL mark(ShortURL urlSafe, boolean safeness);
 
+	Boolean isSafe(String hash);
+	
+	Boolean isSpam(String hash);
+
 	void update(ShortURL su);
 
 	void delete(String id);

@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
-
+import javax.ws.rs.core.MediaType;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -46,7 +46,7 @@ public class UrlShortenerController {
 	@Autowired
 	protected ClickRepository clickRepository;
 
-	@RequestMapping(value = "/{id:(?!link|index).*}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id:(?!link|index|login).*}", method = RequestMethod.GET)
 	public ResponseEntity<?> redirectTo(@PathVariable String id, HttpServletRequest request) {
 		logger.info("Requested redirection with hash " + id);
 		ShortURL l = shortURLRepository.findByKey(id);
@@ -85,20 +85,26 @@ public class UrlShortenerController {
 		Response response = client.target(url).request().get();
 		// Url is reachable
 		if (response.getStatus() == 200) {
-			logger.info("Uri " + url + " is valid");
+			logger.info("Uri " + url + " is reachable");
 			ShortURL su = createAndSaveIfValid(url, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
 			if (su != null) {
-				HttpHeaders h = new HttpHeaders();
-				h.setLocation(su.getUri());
-				return new ResponseEntity<>(su, h, HttpStatus.CREATED);
+				// Url requested is not safe
+				if (su.getSafe() == false) {
+					HttpHeaders h = new HttpHeaders();
+					h.setLocation(su.getUri());
+					return new ResponseEntity<>(su, h, HttpStatus.CREATED);
+				// Url requested is safe
+				} else {
+					return null;
+				}
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
 		// Url is not reachable
 		else {
-			return null;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -114,7 +120,7 @@ public class UrlShortenerController {
 							methodOn(UrlShortenerController.class).redirectTo(
 									id, null)).toUri(), sponsor, new Date(
 							System.currentTimeMillis()), owner,
-					HttpStatus.TEMPORARY_REDIRECT.value(), true, null, ip, null, null);
+					HttpStatus.TEMPORARY_REDIRECT.value(), true, null, null, ip, null, null);
 			return shortURLRepository.save(su);
 		} else {
 			return null;
