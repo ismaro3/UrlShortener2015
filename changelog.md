@@ -5,7 +5,9 @@
 ###Date:
 
 #Íñigo
-###Date:
+###Date: 6/12/2015
+-Question: Need to ask how the GreetingControler knows to whom must send 
+the message.
 
 #David
 ###Date: 5/12/2015

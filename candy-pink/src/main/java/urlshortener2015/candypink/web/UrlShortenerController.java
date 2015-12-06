@@ -1,4 +1,9 @@
-package urlshortener2015.common.web;
+package urlshortener2015.candypink.web;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -24,25 +29,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import urlshortener2015.common.domain.Click;
-import urlshortener2015.common.domain.ShortURL;
+import urlshortener2015.candypink.domain.ShortURL;
 import urlshortener2015.common.repository.ClickRepository;
-import urlshortener2015.common.repository.ShortURLRepository;
+import urlshortener2015.candypink.repository.ShortURLRepository;
 
 import com.google.common.hash.Hashing;
 
 @RestController
 public class UrlShortenerController {
-	private static final Logger log = LoggerFactory
-			.getLogger(UrlShortenerController.class);
+
+	private static final Logger logger = LoggerFactory.getLogger(UrlShortenerController.class);
+	
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
 
 	@Autowired
 	protected ClickRepository clickRepository;
 
-	@RequestMapping(value = "/{id:(?!link).*}", method = RequestMethod.GET)
-	public ResponseEntity<?> redirectTo(@PathVariable String id,
-			HttpServletRequest request) {
+	@RequestMapping(value = "/{id:(?!link|index).*}", method = RequestMethod.GET)
+	public ResponseEntity<?> redirectTo(@PathVariable String id, HttpServletRequest request) {
+		logger.info("Requested redirection with hash " + id);
 		ShortURL l = shortURLRepository.findByKey(id);
 		if (l != null) {
 			createAndSaveClick(id, extractIP(request));
@@ -56,7 +62,7 @@ public class UrlShortenerController {
 		Click cl = new Click(null, hash, new Date(System.currentTimeMillis()),
 				null, null, null, ip, null);
 		cl=clickRepository.save(cl);
-		log.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
+		logger.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
 	}
 
 	protected String extractIP(HttpServletRequest request) {
@@ -69,19 +75,30 @@ public class UrlShortenerController {
 		return new ResponseEntity<>(h, HttpStatus.valueOf(l.getMode()));
 	}
 
+
 	@RequestMapping(value = "/link", method = RequestMethod.POST)
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
-			@RequestParam(value = "brand", required = false) String brand,
-			HttpServletRequest request) {
-		ShortURL su = createAndSaveIfValid(url, sponsor, brand, UUID
+			@RequestParam(value = "brand", required = false) String brand, HttpServletRequest request) {
+		logger.info("Requested new short for uri " + url);
+		Client client = ClientBuilder.newClient();
+		Response response = client.target(url).request().get();
+		// Url is reachable
+		if (response.getStatus() == 200) {
+			logger.info("Uri " + url + " is valid");
+			ShortURL su = createAndSaveIfValid(url, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
-		if (su != null) {
-			HttpHeaders h = new HttpHeaders();
-			h.setLocation(su.getUri());
-			return new ResponseEntity<>(su, h, HttpStatus.CREATED);
-		} else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			if (su != null) {
+				HttpHeaders h = new HttpHeaders();
+				h.setLocation(su.getUri());
+				return new ResponseEntity<>(su, h, HttpStatus.CREATED);
+			} else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		}
+		// Url is not reachable
+		else {
+			return null;
 		}
 	}
 
@@ -97,11 +114,10 @@ public class UrlShortenerController {
 							methodOn(UrlShortenerController.class).redirectTo(
 									id, null)).toUri(), sponsor, new Date(
 							System.currentTimeMillis()), owner,
-					HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null);
+					HttpStatus.TEMPORARY_REDIRECT.value(), true, null, ip, null, null);
 			return shortURLRepository.save(su);
 		} else {
 			return null;
 		}
 	}
 }
-

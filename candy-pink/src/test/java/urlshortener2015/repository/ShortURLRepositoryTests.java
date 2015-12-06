@@ -1,19 +1,26 @@
-package urlshortener2015.common.repository;
+package urlshortener2015.candypink.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.HSQL;
-import static urlshortener2015.common.repository.fixture.ShortURLFixture.badUrl;
-import static urlshortener2015.common.repository.fixture.ShortURLFixture.url1;
-import static urlshortener2015.common.repository.fixture.ShortURLFixture.url1modified;
-import static urlshortener2015.common.repository.fixture.ShortURLFixture.url2;
-import static urlshortener2015.common.repository.fixture.ShortURLFixture.url3;
-import static urlshortener2015.common.repository.fixture.ShortURLFixture.urlSafe;
-import static urlshortener2015.common.repository.fixture.ShortURLFixture.urlSponsor;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.badUrl;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url1;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url1modified;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url2;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url3;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.urlSafe;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.urlSponsor;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url1user1;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url2user1;
+import static urlshortener2015.candypink.repository.fixture.UserFixture.user1;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url3user1Created;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url4user1Created;
 
 import java.util.List;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,14 +29,19 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
-import urlshortener2015.common.domain.ShortURL;
-import urlshortener2015.common.repository.ShortURLRepository;
-import urlshortener2015.common.repository.ShortURLRepositoryImpl;
+import urlshortener2015.candypink.domain.ShortURL;
+import urlshortener2015.candypink.repository.ShortURLRepository;
+import urlshortener2015.candypink.repository.ShortURLRepositoryImpl;
+
+import urlshortener2015.candypink.domain.User;
+import urlshortener2015.candypink.repository.UserRepository;
+import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
 public class ShortURLRepositoryTests {
 
 	private EmbeddedDatabase db;
 	private ShortURLRepository repository;
+	private UserRepository repoUser;
 	private JdbcTemplate jdbc;
 
 	@Before
@@ -38,6 +50,7 @@ public class ShortURLRepositoryTests {
 				.addScript("schema-hsqldb.sql").build();
 		jdbc = new JdbcTemplate(db);
 		repository = new ShortURLRepositoryImpl(jdbc);
+		repoUser = new UserRepositoryImpl(jdbc);
 	}
 
 	@Test
@@ -95,6 +108,26 @@ public class ShortURLRepositoryTests {
 	}
 
 	@Test
+	public void thatFindByUsernameReturnsURLs() {
+		repoUser.save(user1());
+		repository.save(url1user1());
+		repository.save(url2user1());
+		List<ShortURL> su = repository.findByUser(user1().getUsername());
+		assertNotNull(su);
+		assertSame(su.size(), 2);
+	}
+
+	@Test
+	public void thatFindByUsernameWithTimeReturnsURLs() {
+		repoUser.save(user1());
+		repository.save(url3user1Created());
+		repository.save(url4user1Created());
+		List<ShortURL> su = repository.findByUserlast24h(user1().getUsername());
+		assertNotNull(su);
+		assertSame(su.size(), 2);
+	}
+
+	@Test
 	public void thatFindByKeyReturnsNullWhenFails() {
 		repository.save(url1());
 		assertNull(repository.findByKey(url2().getHash()));
@@ -139,4 +172,3 @@ public class ShortURLRepositoryTests {
 	}
 
 }
-

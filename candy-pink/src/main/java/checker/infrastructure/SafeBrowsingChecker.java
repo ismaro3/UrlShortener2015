@@ -16,8 +16,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
-import urlshortener2015.common.repository.ShortURLRepositoryImpl;
-import urlshortener2015.common.domain.ShortURL;
+import urlshortener2015.candypink.repository.ShortURLRepositoryImpl;
+import urlshortener2015.candypink.domain.ShortURL;
 
 @Component("safeBrowsingChecker")
 public class SafeBrowsingChecker extends CheckerImpl {
