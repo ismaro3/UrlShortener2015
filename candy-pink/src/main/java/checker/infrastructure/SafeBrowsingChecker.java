@@ -55,7 +55,8 @@ public class SafeBrowsingChecker extends CheckerImpl {
 		
 		//Preparing URI to check 
 		WebTarget target = client.target("https://sb-ssl.google.com/safebrowsing/api/lookup");
-		WebTarget targetWithQueryParams = target.queryParam("client", client);
+		WebTarget targetWithQueryParams = target.queryParam("key", apiKey);
+		targetWithQueryParams = targetWithQueryParams.queryParam("client", client);
 		targetWithQueryParams = targetWithQueryParams.queryParam("appver",appver);
 		targetWithQueryParams = targetWithQueryParams.queryParam("pver",pver);
 		targetWithQueryParams = targetWithQueryParams.queryParam("url",url.getTarget());
