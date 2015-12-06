@@ -3,6 +3,7 @@ package urlshortener2015.common.web;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
@@ -91,12 +92,12 @@ public class UrlShortenerController {
 				"https" });
 		if (urlValidator.isValid(url)) {
 			String id = Hashing.murmur3_32()
-					.hashString(url, StandardCharsets.UTF_8).toString();
+				.hashString(url, StandardCharsets.UTF_8).toString();
 			ShortURL su = new ShortURL(id, url,
-					linkTo(
-							methodOn(UrlShortenerController.class).redirectTo(
-									id, null)).toUri(), sponsor, new Date(
-							System.currentTimeMillis()), owner,
+				linkTo(
+					methodOn(UrlShortenerController.class).redirectTo(
+					id, null)).toUri(), sponsor, new Date(
+					System.currentTimeMillis()), owner,
 					HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null);
 			return shortURLRepository.save(su);
 		} else {
