@@ -37,8 +37,8 @@
 			<h1><span>Sign Up</span> Join us </h1>
     </header>   	 
 		<div class="form">
-			<form id="contactform">
-			  <p class="contact"><label for="username">Create a username</label></p> 
+			<form id="contactform" action="signUp" method="POST">
+				<p class="contact"><label for="username">Create a username</label></p> 
 				<input id="username" name="username" placeholder="Choose a username" required="" type="text"></input>
 	
 				<p class="contact"><label for="password">Create a password</label></p> 
@@ -47,10 +47,10 @@
 				<p class="contact"><label for="repassword">Confirm your password</label></p> 
 				<input type="password" id="repassword" name="repassword" required=""></input>
 	
-				<p class="contact"><label for="name">Name</label></p> 
+				<p class="contact"><label for="name">Enter your name</label></p> 
 				<input id="name" name="name" placeholder="First and last name" required="" type="text"></input>
 	
-				<p class="contact"><label for="email">Email</label></p> 
+				<p class="contact"><label for="email">Enter your email</label></p> 
 				<input id="email" name="email" placeholder="example@domain.com" required="" type="email"></input>
   
 				<select class="select-style role" name="role">
