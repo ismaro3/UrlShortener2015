@@ -90,13 +90,13 @@ public class UrlShortenerController {
 				.randomUUID().toString(), extractIP(request));
 			if (su != null) {
 				// Url requested is not safe
-				if (su.getSafe == false) {
+				if (su.getSafe() == false) {
 					HttpHeaders h = new HttpHeaders();
 					h.setLocation(su.getUri());
 					return new ResponseEntity<>(su, h, HttpStatus.CREATED);
 				// Url requested is safe
 				} else {
-					
+					return null;
 				}
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -120,7 +120,7 @@ public class UrlShortenerController {
 							methodOn(UrlShortenerController.class).redirectTo(
 									id, null)).toUri(), sponsor, new Date(
 							System.currentTimeMillis()), owner,
-					HttpStatus.TEMPORARY_REDIRECT.value(), true, null, ip, null, null);
+					HttpStatus.TEMPORARY_REDIRECT.value(), true, null, null, ip, null, null);
 			return shortURLRepository.save(su);
 		} else {
 			return null;
