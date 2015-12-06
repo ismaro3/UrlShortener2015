@@ -36,28 +36,28 @@ public class LoginController {
 			        @RequestParam("password") String password, HttpServletRequest request) {
 		logger.info("Requested login with username " + id);
 		//Verify the fields aren´t empty
-		if(verifyFields(id, password)) {
-		  //There are a user with this username or email
-		  User user = repo.findByUsernameOrEmail(id);
-		  if(user != null) {
-			BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-			// The password is correct
-			if(encoder.matches(password, user.getPassword())) {
-				return new ResponseEntity<>(user, HttpStatus.CREATED);
+		if (verifyFields(id, password)) {
+			//There is a user with this username or email
+			User user = repo.findByUsernameOrEmail(id);
+			if (user != null) {
+				BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+				// The password is correct
+				if(encoder.matches(password, user.getPassword())) {
+					return new ResponseEntity<>(user, HttpStatus.CREATED);
+				}
+				// The password is incorrect
+				else {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
 			}
-			// The password is incorrect
+			//There aren't a user with this username or email
 			else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
-		  }
-		  //There aren't a user with this username or email
-		  else {
-		    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		  }
 		}
 		// There are empty fields
 		else {
-		  return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -69,12 +69,12 @@ public class LoginController {
 	 */
 	private boolean verifyFields(String id, String password) {
 		// Check id
-	  	if(id == null || id.isEmpty()) {
-	  	  return false;
+	  	if (id == null || id.isEmpty()) {
+	  		return false;
 	  	}
 	  	// Check password
-	  	else if(password == null || password.isEmpty()) {
-	  	  return false;
+	  	else if (password == null || password.isEmpty()) {
+	  		return false;
 	  	}
 	  	return true;
 	}
