@@ -1,6 +1,6 @@
 package checker.domain;
 
-import urlshortener2015.common.domain.ShortURL;
+import urlshortener2015.candypink.domain.ShortURL;
 
 public interface Checker{
 

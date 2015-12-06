@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import urlshortener2015.common.domain.ShortURL;
-import urlshortener2015.common.web.UrlShortenerController;
+import urlshortener2015.candypink.domain.ShortURL;
+import urlshortener2015.candypink.web.UrlShortenerController;
 
 @RestController
 public class UrlShortenerControllerWithLogs extends UrlShortenerController {

@@ -7,8 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import urlshortener2015.common.repository.ClickRepository;
 import urlshortener2015.common.repository.ClickRepositoryImpl;
-import urlshortener2015.common.repository.ShortURLRepository;
-import urlshortener2015.common.repository.ShortURLRepositoryImpl;
+import urlshortener2015.candypink.repository.ShortURLRepository;
+import urlshortener2015.candypink.repository.ShortURLRepositoryImpl;
 
 import urlshortener2015.candypink.repository.UserRepository;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;

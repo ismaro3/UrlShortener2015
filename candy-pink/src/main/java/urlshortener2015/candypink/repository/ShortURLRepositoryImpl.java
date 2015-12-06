@@ -1,4 +1,4 @@
-package urlshortener2015.common.repository;
+package urlshortener2015.candypink.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import urlshortener2015.common.domain.ShortURL;
+import urlshortener2015.candypink.domain.ShortURL;
 
 @Repository
 public class ShortURLRepositoryImpl implements ShortURLRepository {
@@ -30,7 +30,7 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 					null, rs.getString("sponsor"), rs.getDate("created"),
 					rs.getString("owner"), rs.getInt("mode"),
 					rs.getBoolean("safe"), rs.getString("ip"),
-					rs.getString("country"));
+					rs.getString("country"), rs.getString("username"));
 		}
 	};
 
@@ -58,10 +58,10 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	@Override
 	public ShortURL save(ShortURL su) {
 		try {
-			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,?,?,?,?,?,?)",
+			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,?,?,?,?,?,?,?)",
 					su.getHash(), su.getTarget(), su.getSponsor(),
 					su.getCreated(), su.getOwner(), su.getMode(), su.getSafe(),
-					su.getIP(), su.getCountry());
+					su.getIP(), su.getCountry(), su.getUsername());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for key " + su.getHash(), e);
 			return su;
@@ -91,10 +91,10 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	public void update(ShortURL su) {
 		try {
 			jdbc.update(
-					"update shorturl set target=?, sponsor=?, created=?, owner=?, mode=?, safe=?, ip=?, country=? where hash=?",
+					"update shorturl set target=?, sponsor=?, created=?, owner=?, mode=?, safe=?, ip=?, country=?, username=? where hash=?",
 					su.getTarget(), su.getSponsor(), su.getCreated(),
 					su.getOwner(), su.getMode(), su.getSafe(), su.getIP(),
-					su.getCountry(), su.getHash());
+					su.getCountry(), su.getUsername(), su.getHash());
 		} catch (Exception e) {
 			log.debug("When update for hash " + su.getHash(), e);
 		}
@@ -142,5 +142,15 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 			return Collections.emptyList();
 		}
 	}
-}
 
+	@Override
+	public List<ShortURL> findByUser(String user) {
+		try {
+			return jdbc.query("SELECT * FROM SHORTURL WHERE username=?",
+					new Object[]{user}, rowMapper);
+		} catch (Exception e) {
+			log.debug("When select for shorturls of user: " +user, e);
+			return null;
+		}
+	}
+}

@@ -1,4 +1,4 @@
-package urlshortener2015.common.domain;
+package urlshortener2015.candypink.domain;
 
 import java.net.URI;
 import java.sql.Date;
@@ -15,10 +15,11 @@ public class ShortURL {
 	private Boolean safe;
 	private String ip;
 	private String country;
+	private String username;
 
 	public ShortURL(String hash, String target, URI uri, String sponsor,
 			Date created, String owner, Integer mode, Boolean safe, String ip,
-			String country) {
+			String country, String username) {
 		this.hash = hash;
 		this.target = target;
 		this.uri = uri;
@@ -29,6 +30,7 @@ public class ShortURL {
 		this.safe = safe;
 		this.ip = ip;
 		this.country = country;
+		this.username = username;
 	}
 
 	public ShortURL() {
@@ -74,5 +76,7 @@ public class ShortURL {
 		return country;
 	}
 
+	public String getUsername() {
+		return username;
+	}
 }
-

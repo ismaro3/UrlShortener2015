@@ -1,8 +1,8 @@
-package urlshortener2015.common.repository;
+package urlshortener2015.candypink.repository;
 
 import java.util.List;
 
-import urlshortener2015.common.domain.ShortURL;
+import urlshortener2015.candypink.domain.ShortURL;
 
 public interface ShortURLRepository {
 
@@ -21,5 +21,7 @@ public interface ShortURLRepository {
 	Long count();
 
 	List<ShortURL> list(Long limit, Long offset);
+
+	List<ShortURL> findByUser(String user);
 
 }

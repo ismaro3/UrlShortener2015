@@ -1,4 +1,4 @@
-package urlshortener2015.common.web;
+package urlshortener2015.candypink.web;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import urlshortener2015.common.domain.Click;
-import urlshortener2015.common.domain.ShortURL;
+import urlshortener2015.candypink.domain.ShortURL;
 import urlshortener2015.common.repository.ClickRepository;
-import urlshortener2015.common.repository.ShortURLRepository;
+import urlshortener2015.candypink.repository.ShortURLRepository;
 
 import com.google.common.hash.Hashing;
 
@@ -75,7 +75,7 @@ public class UrlShortenerController {
 			@RequestParam(value = "brand", required = false) String brand,
 			HttpServletRequest request) {
 		ShortURL su = createAndSaveIfValid(url, sponsor, brand, UUID
-				.randomUUID().toString(), extractIP(request));
+				.randomUUID().toString(), extractIP(request), null);
 		if (su != null) {
 			HttpHeaders h = new HttpHeaders();
 			h.setLocation(su.getUri());
@@ -86,7 +86,7 @@ public class UrlShortenerController {
 	}
 
 	protected ShortURL createAndSaveIfValid(String url, String sponsor,
-			String brand, String owner, String ip) {
+			String brand, String owner, String ip, String user) {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
 		if (urlValidator.isValid(url)) {
@@ -97,11 +97,10 @@ public class UrlShortenerController {
 							methodOn(UrlShortenerController.class).redirectTo(
 									id, null)).toUri(), sponsor, new Date(
 							System.currentTimeMillis()), owner,
-					HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null);
+					HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null, null);
 			return shortURLRepository.save(su);
 		} else {
 			return null;
 		}
 	}
 }
-
