@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
-
+import javax.ws.rs.core.MediaType;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -45,12 +45,6 @@ public class UrlShortenerController {
 
 	@Autowired
 	protected ClickRepository clickRepository;
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public URI redirectToLogin(){
-		logger.info("Estoy dentro");
-		return URI.create("http://localhost:8080/login.html");
-	}
 
 	@RequestMapping(value = "/{id:(?!link|index|login).*}", method = RequestMethod.GET)
 	public ResponseEntity<?> redirectTo(@PathVariable String id, HttpServletRequest request) {
