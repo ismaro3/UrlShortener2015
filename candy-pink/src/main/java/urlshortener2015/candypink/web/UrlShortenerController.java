@@ -85,20 +85,26 @@ public class UrlShortenerController {
 		Response response = client.target(url).request().get();
 		// Url is reachable
 		if (response.getStatus() == 200) {
-			logger.info("Uri " + url + " is valid");
+			logger.info("Uri " + url + " is reachable");
 			ShortURL su = createAndSaveIfValid(url, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
 			if (su != null) {
-				HttpHeaders h = new HttpHeaders();
-				h.setLocation(su.getUri());
-				return new ResponseEntity<>(su, h, HttpStatus.CREATED);
+				// Url requested is not safe
+				if (su.getSafe == false) {
+					HttpHeaders h = new HttpHeaders();
+					h.setLocation(su.getUri());
+					return new ResponseEntity<>(su, h, HttpStatus.CREATED);
+				// Url requested is safe
+				} else {
+					
+				}
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
 		// Url is not reachable
 		else {
-			return null;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
