@@ -21,4 +21,13 @@ $(document).ready(
                     }
                 });
             });
-    });
+    }
+    function() {
+        $("#redirect").submit(
+            function(event) {
+                event.preventDefault();
+                 url = "http://localhost:8080/login.html";
+                $(location).attr("href", url);
+            });
+    }
+);

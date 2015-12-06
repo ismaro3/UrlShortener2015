@@ -46,7 +46,13 @@ public class UrlShortenerController {
 	@Autowired
 	protected ClickRepository clickRepository;
 
-	@RequestMapping(value = "/{id:(?!link|index).*}", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public URI redirectToLogin(){
+		logger.info("Estoy dentro");
+		return URI.create("http://localhost:8080/login.html");
+	}
+
+	@RequestMapping(value = "/{id:(?!link|index|login).*}", method = RequestMethod.GET)
 	public ResponseEntity<?> redirectTo(@PathVariable String id, HttpServletRequest request) {
 		logger.info("Requested redirection with hash " + id);
 		ShortURL l = shortURLRepository.findByKey(id);
