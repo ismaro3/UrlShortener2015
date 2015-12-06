@@ -1,6 +1,8 @@
 package urlshortener2015.candypink.web;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,16 @@ public class UrlShortenerControllerWithLogs extends UrlShortenerController {
 			@RequestParam(value = "sponsor", required = false) String sponsor,
 			@RequestParam(value = "brand", required = false) String brand, HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
-		return super.shortener(url, sponsor, brand, request);
+		Client client = ClientBuilder.newClient();
+		Response response = client.target(url).request().get();
+		// Url is reachable
+		if (response.getStatus() == 200) {
+			logger.info("Uri " + url + " is valid");
+			return super.shortener(url, sponsor, brand, request);
+		}
+		// Url is not reachable
+		else {
+			return null;
+		}
 	}
 }
