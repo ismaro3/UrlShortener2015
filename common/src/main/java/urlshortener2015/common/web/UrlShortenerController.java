@@ -3,12 +3,15 @@ package urlshortener2015.common.web;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 
 import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
@@ -90,15 +93,22 @@ public class UrlShortenerController {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
 		if (urlValidator.isValid(url)) {
-			String id = Hashing.murmur3_32()
+			Client client = ClientBuilder.newClient();
+			Response response = client.target(url).request().get();
+			if (response.getStatus() == 200) {
+				String id = Hashing.murmur3_32()
 					.hashString(url, StandardCharsets.UTF_8).toString();
-			ShortURL su = new ShortURL(id, url,
+				ShortURL su = new ShortURL(id, url,
 					linkTo(
-							methodOn(UrlShortenerController.class).redirectTo(
-									id, null)).toUri(), sponsor, new Date(
-							System.currentTimeMillis()), owner,
-					HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null);
-			return shortURLRepository.save(su);
+						methodOn(UrlShortenerController.class).redirectTo(
+						id, null)).toUri(), sponsor, new Date(
+						System.currentTimeMillis()), owner,
+						HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null);
+				return shortURLRepository.save(su);
+			}
+			else {
+				return null;
+			}
 		} else {
 			return null;
 		}
