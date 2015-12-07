@@ -30,7 +30,7 @@
 * 06/12/2015 9:00-21:00. All membes of the group keep on developing the service. David Nicuesa, Alberto Álvarez and Santiago Gil work together and Iñigo Gascón works via Skype. Again, each member specializes in one functionality of the proyect, but everyone helps when someone has big problems to keep on his part.
 
 #Award 
-The leader of the group (Alberto Álvarez) have to adjust the score of the other members, when a member of the group does a good task, I will give him a point.
+The leader of the group (Alberto Álvarez) has to adjust the score of the other members. Ehen a member of the group does a good task, he gives him a point.
 
 * Santiago Gil creates an organization file: 1 Point
 * David Nicuesa creates a Component Diagram: 1 Point
@@ -40,8 +40,8 @@ The leader of the group (Alberto Álvarez) have to adjust the score of the other
 * Santiago Gil learns about JavaScript and uses it in the front-end. Moreover, he reviews the work of David Nicuesa and Alberto        Álvarez: 10 points.
 * David Nicuesa learns about Google Safe Browsing and uses it in the application. Moreover he creates a big web service to do this functionality asynchronous.
 * Iñigo Gascón creates the functionality of upload a csv file and creates the functionality of login with google: 10 points.
-* Santiago Gil do the front-end of the application, improve the controllers and check a URL is reachable synchronously: 10 points.
-* David Nicuesa checks google safe browsing is working, learn about Spring Session and improve the controllers: 10 points.
+* Santiago Gil does the front-end of the application, improves the controllers and checks if a URL is reachable synchronously: 10 points.
+* David Nicuesa checks google safe browsing is working, learns about Spring Session and improves the controllers: 10 points.
 
 User name            | Points
 ---------------------|-------
