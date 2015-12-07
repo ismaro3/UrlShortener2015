@@ -123,9 +123,14 @@ public class UrlShortenerController {
 									id, null)).toUri(), sponsor, new Date(
 							System.currentTimeMillis()), owner,
 					HttpStatus.TEMPORARY_REDIRECT.value(), false, null, null, ip, null, null);
-			boolean spam = checkInternal(su);
-			if(!spam){
-				return shortURLRepository.save(su);	
+			//This checks if uri is malware
+			if(su != null){
+				boolean spam = checkInternal(su);	
+				if(!spam){
+					return shortURLRepository.save(su);	
+				}else{
+					return null;
+				}
 			}else{
 				return null;
 			}
