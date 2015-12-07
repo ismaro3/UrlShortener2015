@@ -31,11 +31,14 @@ The leader of the group (Alberto Álvarez) have to adjust the score of the other
 * David Nicuesa improve the component diagram: 1 Point
 * Santiago Gil learn about JavaScript and use it in the front-end. Moreover, he reviews the work of David Nicuesa and Alberto        Álvarez: 10 points.
 * David Nicuesa learn about Google Safe Browsing and use it in the application. Moreover he creates a big web service to do this functionality asynchronous.
+* Iñigo Gascón create the functionality of upload a csv file and create the functionality of log in with google: 10 points.
+* Santiago Gil do the front-end of the application ,improve the controllers and check a URL is reachable synchronously: 10 points.
+* David Nicuesa checks google safe browsing is working, learn about Spring Session and improve the controllers: 10 points.
 
 User name            | Points
 ---------------------|-------
-David Nicuesa Aranda | 13
-Santiago Gil Begué   | 11
-Iñigo Gascón Royo    | 1
+David Nicuesa Aranda | 23
+Santiago Gil Begué   | 21
+Iñigo Gascón Royo    | 11
 
 
