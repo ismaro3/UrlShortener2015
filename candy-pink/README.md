@@ -32,13 +32,13 @@
 #Award 
 The leader of the group (Alberto Álvarez) have to adjust the score of the other members, when a member of the group does a good task, I will give him a point.
 
-* Santiago Gil create a organization file: 1 Point
-* David Nicuesa create a Component Diagram: 1 Point
-* Iñigo Royo create a Class Diagram: 1 Point
-* David Nicuesa create a chengelog file: 1 Point
-* David Nicuesa improve the component diagram: 1 Point
-* Santiago Gil learn about JavaScript and use it in the front-end. Moreover, he reviews the work of David Nicuesa and Alberto        Álvarez: 10 points.
-* David Nicuesa learn about Google Safe Browsing and use it in the application. Moreover he creates a big web service to do this functionality asynchronous.
+* Santiago Gil creates an organization file: 1 Point
+* David Nicuesa creates a Component Diagram: 1 Point
+* Iñigo Royo creates a Class Diagram: 1 Point
+* David Nicuesa creates a chengelog file: 1 Point
+* David Nicuesa improves the component diagram: 1 Point
+* Santiago Gil learns about JavaScript and uses it in the front-end. Moreover, he reviews the work of David Nicuesa and Alberto        Álvarez: 10 points.
+* David Nicuesa learns about Google Safe Browsing and uses it in the application. Moreover he creates a big web service to do this functionality asynchronous.
 * Iñigo Gascón creates the functionality of upload a csv file and creates the functionality of login with google: 10 points.
 * Santiago Gil do the front-end of the application, improve the controllers and check a URL is reachable synchronously: 10 points.
 * David Nicuesa checks google safe browsing is working, learn about Spring Session and improve the controllers: 10 points.
