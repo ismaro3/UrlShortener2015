@@ -21,6 +21,14 @@
 
 * 04/11/2015 15:50-16:30. Santiago Gil Begué and David Nicuesa Aranda meet with the professor Francisco J. López Pellicer in order to get the project contract signed by all member of the group. It is also discussed how to begin the project (a initial design of it and how our components communicate themselves), and which Integrated Development Enviroment (IDE) to use.
 
+* 04/11/2015 15:50-16:30. Santiago Gil Begué and David Nicuesa Aranda meet with the professor Francisco J. López Pellicer in order to get the project contract signed by all member of the group. It is also discussed how to begin the project (a initial design of it and how our components communicate themselves), and which Integrated Development Enviroment (IDE) to use.
+
+* 19/11/2015 13:00-14:00 . All members of the group meet with the professor F. Javier Zarazaga-Soria in order to get the component's diagram of the service fixed. It is confirmed by F. Javier Zarazaga-Soria, and the group can begin to develop the service, and all the communications between the components of it.
+
+* 05/12/2015 12:00-22:00. David Nicuesa, Alberto Álvarez and Santiago Gil begin to implement the service. Work is realized together in three different computers, and supported on Github to get the work of all members synchronized. Each member specializes in one functionality of the proyect, but everyone helps when someone has big problems to keep on his part.
+ 
+* 06/12/2015 9:00-21:00. All membes of the group keep on developing the service. David Nicuesa, Alberto Álvarez and Santiago Gil work together and Iñigo Gascón works via Skype. Again, each member specializes in one functionality of the proyect, but everyone helps when someone has big problems to keep on his part.
+
 #Award 
 The leader of the group (Alberto Álvarez) have to adjust the score of the other members, when a member of the group does a good task, I will give him a point.
 
@@ -31,8 +39,8 @@ The leader of the group (Alberto Álvarez) have to adjust the score of the other
 * David Nicuesa improve the component diagram: 1 Point
 * Santiago Gil learn about JavaScript and use it in the front-end. Moreover, he reviews the work of David Nicuesa and Alberto        Álvarez: 10 points.
 * David Nicuesa learn about Google Safe Browsing and use it in the application. Moreover he creates a big web service to do this functionality asynchronous.
-* Iñigo Gascón create the functionality of upload a csv file and create the functionality of log in with google: 10 points.
-* Santiago Gil do the front-end of the application ,improve the controllers and check a URL is reachable synchronously: 10 points.
+* Iñigo Gascón creates the functionality of upload a csv file and creates the functionality of login with google: 10 points.
+* Santiago Gil do the front-end of the application, improve the controllers and check a URL is reachable synchronously: 10 points.
 * David Nicuesa checks google safe browsing is working, learn about Spring Session and improve the controllers: 10 points.
 
 User name            | Points
