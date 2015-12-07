@@ -30,7 +30,7 @@
 * 06/12/2015 9:00-21:00. All membes of the group keep on developing the service. David Nicuesa, Alberto Álvarez and Santiago Gil work together and Iñigo Gascón works via Skype. Again, each member specializes in one functionality of the proyect, but everyone helps when someone has big problems to keep on his part.
 
 #Award 
-The leader of the group (Alberto Álvarez) has to adjust the score of the other members. Ehen a member of the group does a good task, he gives him a point.
+The leader of the group (Alberto Álvarez) has to adjust the score of the other members. When a member of the group does a good task, he gives him a point.
 
 * Santiago Gil creates an organization file: 1 Point
 * David Nicuesa creates a Component Diagram: 1 Point
