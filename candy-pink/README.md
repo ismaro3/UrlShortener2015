@@ -27,7 +27,9 @@
 
 * 05/12/2015 12:00-22:00. David Nicuesa, Alberto Álvarez and Santiago Gil begin to implement the service. Work is realized together in three different computers, and supported on Github to get the work of all members synchronized. Each member specializes in one functionality of the proyect, but everyone helps when someone has big problems to keep on his part.
  
-* 06/12/2015 9:00-21:00. All membes of the group keep on developing the service. David Nicuesa, Alberto Álvarez and Santiago Gil work together and Iñigo Gascón works via Skype. Again, each member specializes in one functionality of the proyect, but everyone helps when someone has big problems to keep on his part.
+* 06/12/2015 9:00-21:00. All members of the group keep on developing the service. David Nicuesa, Alberto Álvarez and Santiago Gil work together and Iñigo Gascón works via Skype. Again, each member specializes in one functionality of the proyect, but everyone helps when someone has big problems to keep on his part.
+
+* 10/12/2015 13:15-15:00. All members of the group meet with the professor Francisco J. López Pellicer in order to get the project supervised. The professor reviews how the project is going by counting which functionalities are already implemented with "bare pass", "notable" and "outstanding". The review ends with a mark of three "bare pass". It is also discussed the design of the current project, and how Spring can making it easier.
 
 #Award 
 The leader of the group (Alberto Álvarez) has to adjust the score of the other members. When a member of the group does a good task, he gives him a point.
