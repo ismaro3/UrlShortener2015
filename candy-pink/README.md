@@ -31,6 +31,8 @@
 
 * 10/12/2015 13:15-15:00. All members of the group meet with the professor Francisco J. López Pellicer in order to get the project supervised. The professor reviews how the project is going by counting which functionalities are already implemented with "bare pass", "notable" and "outstanding". The review ends with a mark of three "bare pass". It is also discussed the design of the current project, and how Spring can making it easier.
 
+* 17/12/2015 12:00-13:30. Santiago Gil and Iñigo Gascon make a powerpoint presentation in order to explain the current project progress to all the Web Engineering's undergraduateds and the professors of the subject.
+
 #Award 
 The leader of the group (Alberto Álvarez) has to adjust the score of the other members. When a member of the group does a good task, he gives him a point.
 
