@@ -11,6 +11,8 @@ import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url1
 import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url2;
 import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url3;
 import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.urlSafe;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.urlSpam;
+import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.urlReachable;
 import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.urlSponsor;
 import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url1user1;
 import static urlshortener2015.candypink.repository.fixture.ShortURLFixture.url2user1;
@@ -84,11 +86,35 @@ public class ShortURLRepositoryTests {
 	}
 
 	@Test
-	public void tharisSafeisCorrect() {
-		assertNotNull(repository.save(urlSafe()));
-		assertSame(repository.isSafe(urlSafe().getHash()),true);
-		repository.mark(urlSafe(), false);
-		assertSame(repository.isSafe(urlSafe().getHash()),false);
+	public void thatSaveSpam() {
+		assertNotNull(repository.save(urlSpam()));
+		assertSame(
+				jdbc.queryForObject("select spam from SHORTURL", Boolean.class),
+				true);
+		repository.markSpam(urlSpam(), false);
+		assertSame(
+				jdbc.queryForObject("select spam from SHORTURL", Boolean.class),
+				false);
+		repository.markSpam(urlSpam(), true);
+		assertSame(
+				jdbc.queryForObject("select spam from SHORTURL", Boolean.class),
+				true);
+	}
+
+	@Test
+	public void thatSaveReachable() {
+		assertNotNull(repository.save(urlReachable()));
+		assertSame(
+				jdbc.queryForObject("select reachable from SHORTURL", Boolean.class),
+				true);
+		repository.markReachable(urlReachable(), false);
+		assertSame(
+				jdbc.queryForObject("select reachable from SHORTURL", Boolean.class),
+				false);
+		repository.markReachable(urlReachable(), true);
+		assertSame(
+				jdbc.queryForObject("select reachable from SHORTURL", Boolean.class),
+				true);
 	}
 
 	@Test
