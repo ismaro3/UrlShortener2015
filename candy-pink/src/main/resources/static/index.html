@@ -10,7 +10,7 @@
 <script type="text/javascript" src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
-<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/safeOptions.js"></script>
 </head>
 <body>
 	<!-- Imagen de cabecera del sitio web -->
@@ -40,12 +40,12 @@
 			<div class="col-lg-12 text-center"><br/>
 				<form class="col-lg-12" role="form" id="shortener" action="">
 					<div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
-						<input type="text" class="center-block form-control input-lg"
-							title="Enter a URL" placeholder="Enter a URL" name="url"></input>
-						<input type="checkbox" name="safe" value="Safe"> I want a safe short Url</input>
+						<p><input type="text" class="center-block form-control input-lg"
+							title="Enter a URL" placeholder="Enter a URL" name="url"></input></p>
+						<p><input id="safe" type="checkbox" name="safe" value="Safe" onchange="showSafeOptions()"> I want a safe short Url</input></p>
 						<div id="safeOptions" />
-						<span class="input-group-btn"><button
-								class="btn btn-lg btn-primary" type="submit">Short me!</button></span>
+						<p><span class="input-group-btn"><button
+								class="btn btn-lg btn-primary" type="submit">Short me!</button></span></p>
 					</div>
 				</form>
 			</div>
