@@ -29,7 +29,8 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 			return new ShortURL(rs.getString("hash"), rs.getString("target"),
 					null, rs.getString("sponsor"), rs.getDate("created"),
 					rs.getString("owner"), rs.getInt("mode"), rs.getBoolean("safe"), 
-					rs.getBoolean("spam"), rs.getString("reachable"), rs.getString("ip"),
+					rs.getBoolean("spam"), rs.getString("spamDate"),
+					rs.getBoolean("reachable"), rs.getString("reachableDate"), rs.getString("ip"),
 					rs.getString("country"), rs.getString("username"));
 		}
 	};
@@ -58,10 +59,10 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	@Override
 	public ShortURL save(ShortURL su) {
 		try {
-			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?)",
-					su.getHash(), su.getTarget(), su.getSponsor(),
-					su.getOwner(), su.getMode(), su.getSafe(), su.getSpam(),
-					su.getReachable(), su.getIP(), su.getCountry(), su.getUsername());
+			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?)",
+					su.getHash(), su.getTarget(), su.getSponsor(), su.getOwner(), su.getMode(),
+ 					su.getSafe(), su.getSpam(), su.getSpamDate(), su.getReachable(), 
+					su.getReachableDate(), su.getIP(), su.getCountry(), su.getUsername());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for key " + su.getHash(), e);
 			return su;
@@ -88,34 +89,38 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	}
 
 	@Override
-	public Boolean isSafe(String hash) {
+	public ShortURL markSpam(ShortURL url, boolean spam) {
 		try {
-			return (jdbc.queryForObject("SELECT * FROM shorturl WHERE hash=?",
-					rowMapper, hash)).getSafe();
+			jdbc.update("UPDATE shorturl SET spam=?, spamDate=CURRENT_TIMESTAMP WHERE hash=?", spam,
+					url.getHash());
+			return url;
 		} catch (Exception e) {
-			log.debug("When search safe for key " + hash, e);
+			log.debug("When mark spam", e);
 			return null;
-		}
+		}	
 	}
-
+	
 	@Override
-	public Boolean isSpam(String hash) {
+	public ShortURL markReachable(ShortURL url, boolean reachable) {
 		try {
-			return (jdbc.queryForObject("SELECT * FROM shorturl WHERE hash=?",
-					rowMapper, hash)).getSpam();
+			jdbc.update("UPDATE shorturl SET reachable=?, spamDate=CURRENT_TIMESTAMP WHERE hash=?", reachable,
+					url.getHash());
+			return url;
 		} catch (Exception e) {
-			log.debug("When spam for key " + hash, e);
+			log.debug("When mark rachable", e);
 			return null;
-		}
+		}		
 	}
+	
 
 	@Override
 	public void update(ShortURL su) {
 		try {
 			jdbc.update(
-					"update shorturl set target=?, sponsor=?, created=?, owner=?, mode=?, safe=?, spam=?," 						+" reachable=?, ip=?, country=?, username=? where hash=?",
+					"update shorturl set target=?, sponsor=?, created=?, owner=?, mode=?, safe=?, spam=?," 						+" spamDate=?, reachable=?, reachableDate=?, ip=?, country=?, username=? where hash=?",
 					su.getTarget(), su.getSponsor(), su.getCreated(), su.getOwner(), su.getMode(), 
-					su.getSafe(), su.getSpam(), su.getReachable(), su.getIP(), su.getCountry(), su.getUsername(), 						su.getHash());
+					su.getSafe(), su.getSpam(), su.getSpamDate(), su.getReachable(), su.getReachableDate(),
+					su.getIP(), su.getCountry(), su.getUsername(), su.getHash());
 		} catch (Exception e) {
 			log.debug("When update for hash " + su.getHash(), e);
 		}

@@ -14,13 +14,9 @@ public interface ShortURLRepository {
 
 	ShortURL mark(ShortURL urlSafe, boolean safeness);
 
-	ShortURL markSpam(ShortURL url, boolean isSpam);
+	ShortURL markSpam(ShortURL url, boolean spam);
 
-	ShortURL markReachable(ShortURL url, boolean isReachable);
-
-	Boolean isSafe(String hash);
-	
-	Boolean isSpam(String hash);
+	ShortURL markReachable(ShortURL url, boolean reachable);
 
 	void update(ShortURL su);
 

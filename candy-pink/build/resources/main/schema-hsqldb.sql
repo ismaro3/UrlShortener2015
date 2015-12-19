@@ -25,7 +25,9 @@ CREATE TABLE SHORTURL(
 	MODE		INTEGER,			-- Redirect mode
 	SAFE		BOOLEAN,			-- Safe target
 	SPAM		BOOLEAN,			-- Spam target
-	REACHABLE	TIMESTAMP,			-- Reachable
+	SPAMDATE	TIMESTAMP,			-- Last spam checking
+	REACHABLE	BOOLEAN,			-- Reachable	
+	REACHABLEDATE   TIMESTAMP,			-- Last reachabling checking	
 	IP		VARCHAR(20),			-- IP
 	COUNTRY		VARCHAR(50),			-- Country
 	USERNAME	VARCHAR(30) FOREIGN KEY REFERENCES USER(USERNAME)
