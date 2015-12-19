@@ -61,14 +61,25 @@ public class SafeBrowsingChecker extends CheckerImpl {
 		targetWithQueryParams = targetWithQueryParams.queryParam("pver",pver);
 		targetWithQueryParams = targetWithQueryParams.queryParam("url",url.getTarget());
 
+		//Request to check if URI is malware
 		Response response = targetWithQueryParams.request(MediaType.TEXT_PLAIN_TYPE).get();
 		ShortURL res;
+		boolean spam = false,reach = true;
 		if(response.getStatus()==204){//Uri is safe
-			res = shortURLRepositoryImpl.mark(url,true);
-			shortURLRepositoryImpl.update(res);
+			spam = false;
+			
 		}else if(response.getStatus()==200){//Uri is unsafe
-			res = shortURLRepositoryImpl.mark(url,false);
-			shortURLRepositoryImpl.update(res);
+			spam = true;
 		}
+		res = shortURLRepositoryImpl.markSpam(url,spam);
+		shortURLRepositoryImpl.update(res);
+
+		//Request to check if URI is reachable
+		target = client.target(url.getTarget());
+		response = target.request(MediaType.TEXT_PLAIN_TYPE).get();
+		if(response.getStatus() != 200){
+			reach = false;
+		}
+		shortURLRepositoryImpl.markReachable(url,reach);
 	}
 }
