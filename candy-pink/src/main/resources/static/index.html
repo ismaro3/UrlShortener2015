@@ -10,7 +10,7 @@
 <script type="text/javascript" src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
-<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/safeOptions.js"></script>
 </head>
 <body>
 	<!-- Imagen de cabecera del sitio web -->
@@ -37,14 +37,32 @@
 			<h1><span>Candy Pink URL Shortener</span> The biggest page to short URLs </h1>
         	</header>
 		<div class="row">
-			<div class="col-lg-12 text-center">
-				<br>
+			<div class="col-lg-12 text-center"><br/>
 				<form class="col-lg-12" role="form" id="shortener" action="">
 					<div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
-						<input type="text" class="center-block form-control input-lg"
-							title="Enter a URL" placeholder="Enter a URL" name="url">
-						<span class="input-group-btn"><button
-								class="btn btn-lg btn-primary" type="submit">Short me!</button></span>
+						<input type="url" class="center-block form-control input-lg" title="Enter a URL" placeholder="Enter a URL" name="url"></input>
+						<span class="input-group-btn"><button class="btn btn-lg btn-primary" type="submit">Short me!</button></span>
+					</div><br/>
+					<div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+						<button type="button" name="safe" value="safe" id="safe" onClick="showSafeOptions()"> I want a safe short Url</button>
+					</div><br/>
+					<div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+						<p hidden><select class="select-style users" name="users" id="show">
+							<option value="select"></option>Which users can access the url?</option>
+							<option value="all">All users</option>
+							<option value="normal">Only normal users</option>
+							<option value="premium">Only premium users</option>
+						</select></p>
+					</div><br/>
+					<div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+						<p hidden><select class="select-style time" name="time" id="show">
+							<option value="select">How long do you want the url to be safe?</option>
+							<option value="day">One day</option>
+							<option value="week">One week</option>
+							<option value="month">One month</option>
+							<option value="year">One year</option>
+							<option value="forever">Forever</option>
+						</select></p>
 					</div>
 				</form>
 			</div>
