@@ -33,6 +33,10 @@
 
 * 17/12/2015 12:00-13:30. Santiago Gil and Iñigo Gascon make a powerpoint presentation in order to explain the current project progress to all the Web Engineering's undergraduateds and the professors of the subject.
 
+* 17/12/2015 18:00-19:00. All members of the group get the powerpoint presentation finished, and practice the oral presentation.
+
+* 19/12/2015 08:30-13:30. David Nicuesa, Alberto Álvarez and Santiago Gil work together in order to progress and improve the project.
+
 #Award 
 The leader of the group (Alberto Álvarez) has to adjust the score of the other members. When a member of the group does a good task, he gives him a point.
 
