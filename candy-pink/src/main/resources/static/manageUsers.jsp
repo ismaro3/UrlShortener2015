@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/manageUsers.js"></script>
 </head>
-<body onload="showUsers((new UserRepositoryImpl()).getAllUsers())">
+<body onload="showUsers(<% (new UserRepositoryImpl()).getAllUsers() %>)">
 	<!-- Imagen de cabecera del sitio web -->
 	<center><img src="images/CandyLogoTrans.png" height="103" alt="CandyShort logo"/></center>
 	<!-- Menú con los botones descritos a continuación -->
