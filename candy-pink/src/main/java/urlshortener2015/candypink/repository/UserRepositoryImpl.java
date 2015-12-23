@@ -50,10 +50,9 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public List<ShortURL> getAllUsers() {
+	public List<User> getAllUsers() {
 		try {
-			return jdbc.query("SELECT * FROM USER WHERE target = ?",
-					new Object[] { target }, rowMapper);
+			return jdbc.query("SELECT * FROM USER", rowMapper);
 		} catch (Exception e) {
 			log.debug("When select for all users", e);
 			return Collections.emptyList();
