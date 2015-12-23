@@ -5,7 +5,7 @@ function showUsers() {
     text = "The are no users using your service<br>";
   }
   else {
-    text = fruits.join("<br>");
+    text = users.join("<br>");
   }
   document.getElementById("users").innerHTML = text;
 }
