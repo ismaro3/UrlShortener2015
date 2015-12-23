@@ -1,5 +1,5 @@
-<%@ page import="urlshortener2015.candypink.repository.UserRepositoryImpl" %>
 <!DOCTYPE html>
+<%@ page import="urlshortener2015.candypink.repository.UserRepositoryImpl" %>
 <html>
 <head>
 <title>URL Shortener</title>
