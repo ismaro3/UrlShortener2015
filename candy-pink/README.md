@@ -52,6 +52,7 @@ The leader of the group (Alberto Álvarez) has to adjust the score of the other 
 * David Nicuesa checks google safe browsing is working, learns about Spring Session and improves the controllers: 10 points.
 * Santiago Gil improves the front-end. 3 points
 * David Nicuesa improves the web service. 3 points
+* Santiago Gil motivates the team. 1 point
 
 User name            | Points
 ---------------------|-------
