@@ -55,7 +55,7 @@ public class UserRepositoryImpl implements UserRepository {
 			return jdbc.query("SELECT * FROM USER WHERE target = ?",
 					new Object[] { target }, rowMapper);
 		} catch (Exception e) {
-			log.debug("When select for all users, e);
+			log.debug("When select for all users", e);
 			return Collections.emptyList();
 		}
 	}
