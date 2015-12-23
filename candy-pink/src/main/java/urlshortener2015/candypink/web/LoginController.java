@@ -31,6 +31,10 @@ public class LoginController {
         	this.repo = repo;
     	}
 
+	@RequestMapping(method = RequestMethod.GET)
+	public String login(HttpServletRequest request) {
+		return "loginPage";
+	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> login(@RequestParam("username") String id,
 			        @RequestParam("password") String password, HttpServletRequest request) {

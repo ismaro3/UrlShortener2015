@@ -21,9 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
    		auth.jdbcAuthentication().dataSource(jdbc.getDataSource())
   			.usersByUsernameQuery(
-  	 		"select username,password from users where username=? and role!='ADMIN'")
+  	 		"select username,password from user where username=? and role!='ADMIN'")
   			.authoritiesByUsernameQuery(
-   			"select username, role from users where username=? and role='ADMIN'");
+   			"select username, role from user where username=? and role='ADMIN'");
  	} 
 
  	@Override
@@ -33,10 +33,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/",  "/webjars/**", "/css/**", "/images/**", "/js/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/admin").permitAll()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
+				.antMatchers("/profile").permitAll()
 				.antMatchers("/fileUpload").authenticated()
 				.and()
 				.formLogin()
-					.loginPage("/")
+					.loginPage("/login").permitAll()
 					.loginProcessingUrl("/login").permitAll()
 			.and()
 			.logout().permitAll();
