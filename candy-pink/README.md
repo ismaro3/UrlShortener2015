@@ -50,11 +50,13 @@ The leader of the group (Alberto Álvarez) has to adjust the score of the other 
 * Iñigo Gascón creates the functionality of upload a csv file and creates the functionality of login with google: 10 points.
 * Santiago Gil does the front-end of the application, improves the controllers and checks if a URL is reachable synchronously: 10 points.
 * David Nicuesa checks google safe browsing is working, learns about Spring Session and improves the controllers: 10 points.
+* Santiago Gil improves the front-end. 3 points
+* David Nicuesa improves the web service. 3 points
 
 User name            | Points
 ---------------------|-------
-David Nicuesa Aranda | 23
-Santiago Gil Begué   | 21
+David Nicuesa Aranda | 26
+Santiago Gil Begué   | 24
 Iñigo Gascón Royo    | 11
 
 
