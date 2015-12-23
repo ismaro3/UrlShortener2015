@@ -1,3 +1,4 @@
+<%@ page import="urlshortener2015.candypink.repository.UserRepositoryImpl" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +10,9 @@
 <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="js/manageUsers.js"></script>
 </head>
-<body>
+<body onload="showUsers(<% (new UserRepositoryImpl()).getAllUsers() %>)">
 	<!-- Imagen de cabecera del sitio web -->
 	<center><img src="images/CandyLogoTrans.png" height="103" alt="CandyShort logo"/></center>
 	<!-- Menú con los botones descritos a continuación -->
@@ -30,6 +32,26 @@
 			</div>
 		</div>
 	</nav>
-  
+  	<div class="container">
+  		<!-- Cabecera -->
+		<header>
+			<h1><span>Admin</span> Manage your users </h1>
+        	</header>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<!-- Usuarios -->
+				<div class="col-sm-offset-4 col-sm-4 text-center">
+					<br />
+					<div id="users"></div>
+				</div><br /> <br />
+				<!-- Boton para añadir un nuevo usuario -->
+				<div class="col-sm-offset-4 col-sm-4 text-center">
+					<span class="input-group-btn"><button class="btn btn-lg btn-primary">
+						<a href="signUpPage.html"><span class="glyphicon glyphicon-user"></span> Add a new user!</a>
+					</button></span>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

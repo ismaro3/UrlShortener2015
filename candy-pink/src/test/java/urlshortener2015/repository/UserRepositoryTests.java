@@ -130,6 +130,15 @@ public class UserRepositoryTests {
 		assertEquals(u.getName(), "Name1Updated");
 	}
 	
+	@Test
+	public void thatGetAllUsers() {
+		assertEquals(repository.getAllUsers().size(), 0);
+		repository.save(user1());
+		assertEquals(repository.getAllUsers().size(), 1);
+		repository.save(user2());
+		assertEquals(repository.getAllUsers().size(), 2);
+	}
+	
 	@After
 	public void shutdown() {
 		db.shutdown();

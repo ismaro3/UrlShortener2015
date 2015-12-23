@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.Collections;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +47,16 @@ public class UserRepositoryImpl implements UserRepository {
 
 	public UserRepositoryImpl(JdbcTemplate jdbc) {
 		this.jdbc = jdbc;
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		try {
+			return jdbc.query("SELECT * FROM USER", rowMapper);
+		} catch (Exception e) {
+			log.debug("When select for all users", e);
+			return Collections.emptyList();
+		}
 	}
 
 	@Override

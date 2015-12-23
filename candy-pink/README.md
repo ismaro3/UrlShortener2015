@@ -37,6 +37,8 @@
 
 * 19/12/2015 08:30-13:30. David Nicuesa, Alberto Álvarez and Santiago Gil work together in order to progress and improve the project.
 
+* 23/12/2015 17:00-21:00. Alberto Álvarez and Santiago Gil work together in order to progress and improve the project.
+
 #Award 
 The leader of the group (Alberto Álvarez) has to adjust the score of the other members. When a member of the group does a good task, he gives him a point.
 
