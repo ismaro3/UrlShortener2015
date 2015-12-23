@@ -57,7 +57,7 @@ The leader of the group (Alberto Álvarez) has to adjust the score of the other 
 User name            | Points
 ---------------------|-------
 David Nicuesa Aranda | 26
-Santiago Gil Begué   | 24
+Santiago Gil Begué   | 25
 Iñigo Gascón Royo    | 11
 
 
