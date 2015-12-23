@@ -154,7 +154,7 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 		} catch (Exception e) {
 			log.debug("When select for limit " + limit + " and offset "
 					+ offset, e);
-			return null;
+			return Collections.emptyList();
 		}
 	}
 
@@ -176,7 +176,7 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 					new Object[]{user}, rowMapper);
 		} catch (Exception e) {
 			log.debug("When select for shorturls of user: " +user, e);
-			return null;
+			return Collections.emptyList();
 		}
 	}
 
@@ -187,7 +187,7 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 					new Object[]{user}, rowMapper);
 		} catch (Exception e) {
 			log.debug("When select for shorturls of user with time: " +user, e);
-			return null;
+			return Collections.emptyList();
 		}
 	}
 }
