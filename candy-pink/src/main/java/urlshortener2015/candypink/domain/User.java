@@ -1,5 +1,8 @@
 package urlshortener2015.candypink.domain;
 
+import javax.persistence.Entity;
+
+@Entity
 public class User {
     
 	private String username;
