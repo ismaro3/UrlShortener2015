@@ -1,0 +1,30 @@
+package urlshortener2015.candypink.web;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import urlshortener2015.candypink.repository.UserRepositoryImpl;
+
+@RestController
+@RequestMapping("/manageUsers")
+public class ManageUsersController {
+
+	private static final Logger logger = LoggerFactory.getLogger(ManageUsersController.class);
+	
+	private UserRepositoryImpl repo = new UserRepositoryImpl();
+
+	public ManageUsersController() {}
+
+	public ManageUsersController(UserRepositoryImpl repo) {
+    this.repo = repo;
+  }
+  
+  @RequestMapping(method = RequestMethod.GET)
+  public String getUsers(Model model) {
+    logger.info("Requested all users info");
+    model.addAttribute("users", postRepository.getAllUsers());
+    return "manageUsers";
+  }
+}
