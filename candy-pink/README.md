@@ -55,11 +55,13 @@ The leader of the group (Alberto Álvarez) has to adjust the score of the other 
 * Santiago Gil improves the front-end. 3 points
 * David Nicuesa improves the web service. 3 points
 * Santiago Gil motivates the team. 1 point
+* David Nicuesa helps to Alberto and Santiago. 1 point
+* Santiago Gil works in the front-end. 2 points
 
 User name            | Points
 ---------------------|-------
-David Nicuesa Aranda | 26
-Santiago Gil Begué   | 25
+David Nicuesa Aranda | 27
+Santiago Gil Begué   | 27
 Iñigo Gascón Royo    | 11
 
 
