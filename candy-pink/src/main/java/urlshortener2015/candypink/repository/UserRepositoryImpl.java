@@ -74,7 +74,7 @@ public class UserRepositoryImpl implements UserRepository {
 		try {
 			jdbc.update("INSERT INTO USERS VALUES (?, ?, ?, ?)",
 					user.getUsername(), user.getPassword(), user.getEnabled(),user.getEmail());
-			jdbc.update("INSERT INTO AUTHORITIES VALUES(?,?)",
+			jdbc.update("INSERT INTO AUTHORITIES VALUES (?, ?)",
 					user.getUsername(), user.getAuthority());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for user with user " + user.getUsername(), e);

@@ -71,8 +71,8 @@ public class UserRepositoryTests {
 	@Test
 	public void thatSaveAuthority() {
 		assertNotNull(repository.save(userAuthority()));
-		assertSame(jdbc.queryForObject("select authority from USERS",
-				String.class), userAuthority().getAuthority());
+		User u = repository.findByUsernameOrEmail(userAuthority.getUsername());
+		assertSame(u.getAuthority(), userAuthority().getAuthority());
 	}
 
 	@Test
