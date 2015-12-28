@@ -43,7 +43,7 @@ public class AdminController {
 			// The password is correct
 			if(encoder.matches(password, user.getPassword())) {
 				// The user is admin
-				if(user.getRole().equals("ADMIN")) {
+				if(user.getAuthority().equals("ROLE_ADMIN")) {
 					return new ResponseEntity<>(user, HttpStatus.CREATED);
 				}
 				// The user is not admin

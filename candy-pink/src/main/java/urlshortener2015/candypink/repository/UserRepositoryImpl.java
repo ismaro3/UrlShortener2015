@@ -34,7 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return new User(rs.getString("username"), rs.getString("password"),
-					rs.getBoolean("enabled"), rs.getString("email"), rs.getString("authority");
+					rs.getBoolean("enabled"), rs.getString("email"), rs.getString("authority"));
 		}
 	};
 
@@ -73,9 +73,9 @@ public class UserRepositoryImpl implements UserRepository {
 	public User save(User user) {
 		try {
 			jdbc.update("INSERT INTO USERS VALUES (?, ?, ?, ?)",
-					user.getUsername(), user.getPassword(), user.getEnabled(),cruser.getEmail();
+					user.getUsername(), user.getPassword(), user.getEnabled(),user.getEmail());
 			jdbc.update("INSERT INTO AUTHORITIES VALUES(?,?)",
-					user.getUsername(), user.getAuthority)
+					user.getUsername(), user.getAuthority());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for user with user " + user.getUsername(), e);
 			return user;
@@ -90,12 +90,12 @@ public class UserRepositoryImpl implements UserRepository {
 	public void update(User user) {
 		log.info("Username: "+user.getUsername());
 		try {
-			jdbc.update("update Users set password=?, email=?, role=? WHERE username=?",
-				     user.getPassword(), user.getEmail(), user.getRole(), user.getUsername());
+			jdbc.update("update Users set password=?, email=? WHERE username=?",
+				     user.getPassword(), user.getEmail(), user.getUsername());
 			jdbc.update("update Authorities set authority=? where userame=?",
-				     user.getAuthority(), user.getUsername())
+				     user.getAuthority(), user.getUsername());
 		} catch (Exception e) {
-			log.info("When update for user " + user.getName(), e);
+			log.info("When update for user " + user.getUsername(), e);
 		}
 	}
 
@@ -103,7 +103,7 @@ public class UserRepositoryImpl implements UserRepository {
 	public void delete(String username) {
 		try {
 			jdbc.update("delete from Users where username=?", username);
-			jdbc.update("delete from Authorities where username=?", username)
+			jdbc.update("delete from Authorities where username=?", username);
 		} catch (Exception e) {
 			log.debug("When delete for username " + username, e);
 		}
@@ -113,7 +113,7 @@ public class UserRepositoryImpl implements UserRepository {
 	public void deleteAll() {
 		try {
 			jdbc.update("delete from Users");
-			jdbc.update("delete from Authorities")
+			jdbc.update("delete from Authorities");
 		} catch (Exception e) {
 			log.debug("When delete all", e);
 		}
