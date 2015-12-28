@@ -51,10 +51,10 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public List<User> getAllUsers() {
 		try {
-			jdbc.query("SELECT u.username, u.password, u.enabled, u.email, a.authority 
-			            FROM USERS u, AUTHORITIES a 
-			            WHERE u.username=a.username", 
-			            new Object[]{user}, rowMapper);
+			return jdbc.query("SELECT u.username, u.password, u.enabled, u.email, a.authority"
+						+" FROM USERS u, AUTHORITIES a" 
+			            +" WHERE u.username=a.username", 
+			            rowMapper);
 		} catch (Exception e) {
 			log.debug("When select for all users", e);
 			return Collections.emptyList();
@@ -64,9 +64,9 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User findByUsernameOrEmail(String id) {
 		try {
-			return jdbc.queryForObject("SELECT u.username, u.password, u.enabled, u.email, a.authority 
-			                            FROM USERS u, AUTHORITIES a 
-			                            WHERE u.username=? OR u.email=? AND u.username=a.username",
+			return jdbc.queryForObject("SELECT u.username, u.password, u.enabled, u.email, a.authority" 
+			                            +" FROM USERS u, AUTHORITIES a "
+			                            +"WHERE u.username=? OR u.email=? AND u.username=a.username",
          					    rowMapper,id, id);
 		} catch (Exception e) {
 			log.debug("When select for id " + id, e);
@@ -107,8 +107,8 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public void delete(String username) {
 		try {
-			jdbc.update("delete from Users where username=?", username);
 			jdbc.update("delete from Authorities where username=?", username);
+			jdbc.update("delete from Users where username=?", username);
 		} catch (Exception e) {
 			log.debug("When delete for username " + username, e);
 		}
