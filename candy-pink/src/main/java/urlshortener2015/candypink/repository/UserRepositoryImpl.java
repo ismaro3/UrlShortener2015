@@ -61,7 +61,9 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User findByUsernameOrEmail(String id) {
 		try {
-			return jdbc.queryForObject("SELECT * FROM USERS WHERE username=? OR email=?",
+			return jdbc.queryForObject("SELECT u.username, u.password, u.enabled,"
+				+ "u.email, a.authority FROM USERS u, AUTHORITIES a WHERE u.username=?"
+				+ " OR u.email=? AND u.username=a.username",
 						   rowMapper,id, id);
 		} catch (Exception e) {
 			log.debug("When select for id " + id, e);
