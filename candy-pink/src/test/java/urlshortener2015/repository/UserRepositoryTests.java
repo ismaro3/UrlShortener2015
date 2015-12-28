@@ -71,7 +71,7 @@ public class UserRepositoryTests {
 	@Test
 	public void thatSaveAuthority() {
 		assertNotNull(repository.save(userAuthority()));
-		User u = repository.findByUsernameOrEmail(userAuthority.getUsername());
+		User u = repository.findByUsernameOrEmail(userAuthority().getUsername());
 		assertSame(u.getAuthority(), userAuthority().getAuthority());
 	}
 
