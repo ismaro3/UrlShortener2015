@@ -34,8 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return new User(rs.getString("username"), rs.getString("password"),
-					rs.getString("email"), rs.getString("role"),
-					rs.getString("name"));
+					rs.getString("email"), rs.getString("role");
 		}
 	};
 
@@ -73,9 +72,9 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User save(User user) {
 		try {
-			jdbc.update("INSERT INTO USER VALUES (?, ?, ?, ?, ?)",
+			jdbc.update("INSERT INTO USER VALUES (?, ?, ?, ?)",
 					user.getUsername(), user.getPassword(), user.getEmail(),
-					user.getRole(), user.getName());
+					user.getRole();
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for user with user " + user.getUsername(), e);
 			return user;
@@ -90,8 +89,8 @@ public class UserRepositoryImpl implements UserRepository {
 	public void update(User user) {
 		log.info("Username: "+user.getUsername());
 		try {
-			jdbc.update("update User set password=?, email=?, role=?, name=? WHERE username=?",
-				     user.getPassword(), user.getEmail(), user.getRole(), user.getName(), user.getUsername());
+			jdbc.update("update User set password=?, email=?, role=? WHERE username=?",
+				     user.getPassword(), user.getEmail(), user.getRole(), user.getUsername());
 			
 		} catch (Exception e) {
 			log.info("When update for user " + user.getName(), e);

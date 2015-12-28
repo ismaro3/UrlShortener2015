@@ -46,7 +46,7 @@ public class SignUpController {
 			case 0: role = "USER_NORMAL";
 			case 1: role = "USER_PREMIUM";
 		}
-		User user = new User(username, password, email, role, name);
+		User user = new User(username, password, email, role);
 		//Verify the fields aren´t empty
 		if(verifyFields(user)) {
 		  //There are a user with the same username

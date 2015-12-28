@@ -68,13 +68,6 @@ public class UserRepositoryTests {
 		assertSame(jdbc.queryForObject("select role from USER",
 				String.class), userRole().getRole());
 	}
-	
-	@Test
-	public void thatSaveName() {
-		assertNotNull(repository.save(userName()));
-		assertSame(jdbc.queryForObject("select name from USER",
-				String.class), userName().getName());
-	}
 
 	@Test
 	public void thatSaveADuplicateUserIsSafelyIgnored() {
