@@ -45,5 +45,3 @@ CREATE TABLE CLICK(
 	IP		VARCHAR(20),				-- IP
 	COUNTRY		VARCHAR(50)					-- Country
 );
-
-INSERT INTO USER('albert95', 'pene', 'alberto@pene.es', 'USER', 'Alberto');
