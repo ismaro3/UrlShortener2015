@@ -94,10 +94,10 @@ public class SignUpController {
 	}
 	
 	private String transform(String role) {
-		if(role == "Normal") {
+		if(role.equals("Normal")) {
 			return "ROLE_NORMAL";
 		}
-		else if(role == "Premium") {
+		else if(role.equals("Premium")) {
 			return "ROLE_PREMIUM";
 		}
 		else {
