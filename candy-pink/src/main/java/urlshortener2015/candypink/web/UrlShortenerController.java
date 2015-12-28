@@ -50,7 +50,6 @@ public class UrlShortenerController {
 		logger.info("Requested redirection with hash " + id);
 		ShortURL l = shortURLRepository.findByKey(id);
 		if (l != null) {
-			createAndSaveClick(id, extractIP(request));
 			return createSuccessfulRedirectToResponse(l);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
