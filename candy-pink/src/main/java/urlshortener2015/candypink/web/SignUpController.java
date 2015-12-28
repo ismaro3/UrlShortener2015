@@ -39,7 +39,7 @@ public class SignUpController {
 			        @RequestParam("password") String password, @RequestParam("email") String email,
 			        @RequestParam("authority") String name, HttpServletRequest request) {
 		logger.info("Requested registration with username " + username);
-		User user = new User(username, password, true, email, authority);
+		User user = new User(username, password, true, email, transform(authority));
 		//Verify the fields aren´t empty
 		if(verifyFields(user)) {
 		  //There are a user with the same username
@@ -91,5 +91,17 @@ public class SignUpController {
 	  	  return false;
 	  	}
 	  	return true;
+	}
+	
+	private String transform(String role) {
+		if(role == "Normal") {
+			return "ROLE_NORMAL";
+		}
+		else if(role == "Premium") {
+			return "ROLE_PREMIUM"
+		}
+		else {
+			return null;
+		}
 	}
 }
