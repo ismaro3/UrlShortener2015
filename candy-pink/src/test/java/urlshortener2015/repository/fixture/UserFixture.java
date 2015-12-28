@@ -5,34 +5,30 @@ import urlshortener2015.candypink.domain.User;
 public class UserFixture {
 
 	public static User user1() {
-		return new User("user1", "null", "null", "null", "Name1");
+		return new User("user1", "pwd1", "user1@email.com", "null");
 	}
 	
 	public static User user1Modified() {
-		return new User("user1", "null", "null", "null", "Name1Updated");
+		return new User("user1", "pwd2", "user1@email.com", "null");
 	}	
 
 	public static User user2() {
-		return new User("user2", "null", "null", "null", "null");
+		return new User("user2", "pwd2", "user2@email.com", "null");
 	}
 
 	public static User userPassword() {
-		return new User("user3", "password", "null", "null", "null");
+		return new User("user3", "password", "null", "null");
 	}
 
 	public static User userEmail() {
-		return new User("user4", "null", "email", "null", "null");
+		return new User("user4", "null", "email", "null");
 	}
 
 	public static User userRole() {
-		return new User("user5", "null", "null", "rol", "null");
-	}
-
-	public static User userName() {
-		return new User("user6", "null", "null", "null", "name");
+		return new User("user5", "null", "null", "rol");
 	}
 
 	public static User badUser() {
-		return new User(null, "null", "null", "null", "null");
+		return new User(null, "null", "null", "null");
 	}
 }
