@@ -11,7 +11,6 @@ import static urlshortener2015.candypink.repository.fixture.UserFixture.user2;
 import static urlshortener2015.candypink.repository.fixture.UserFixture.userPassword;
 import static urlshortener2015.candypink.repository.fixture.UserFixture.userEmail;
 import static urlshortener2015.candypink.repository.fixture.UserFixture.userRole;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.userName;
 import static urlshortener2015.candypink.repository.fixture.UserFixture.badUser;
 
 import java.util.List;
@@ -117,10 +116,10 @@ public class UserRepositoryTests {
 	public void thatUpdateUpdate() {
 		repository.save(user1());
 		User u = repository.findByUsernameOrEmail(user1().getUsername());
-		assertEquals(u.getName(), "Name1");
+		assertEquals(u.getPassword(), "pwd1");
 		repository.update(user1Modified());
 		u = repository.findByUsernameOrEmail(user1Modified().getUsername());
-		assertEquals(u.getName(), "Name1Updated");
+		assertEquals(u.getPassword(), "pwd2");
 	}
 	
 	@Test
