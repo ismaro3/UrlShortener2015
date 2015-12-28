@@ -37,7 +37,7 @@ public class SignUpController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> register(@RequestParam("username") String username,
 			        @RequestParam("password") String password, @RequestParam("email") String email,
-			        @RequestParam("authority") String name, HttpServletRequest request) {
+			        @RequestParam("authority") String authority, HttpServletRequest request) {
 		logger.info("Requested registration with username " + username);
 		User user = new User(username, password, true, email, transform(authority));
 		//Verify the fields aren´t empty
@@ -79,7 +79,7 @@ public class SignUpController {
 	  	  return false;
 	  	}
 	  	// Check Enabled
-	  	else if(user.getEnabled()==null || user.getEnabled().isEmpty()) {
+	  	else if(user.getEnabled()==null || !user.getEnabled()) {
 	  	  return false;
 	  	}
 	  	// Check email
@@ -98,7 +98,7 @@ public class SignUpController {
 			return "ROLE_NORMAL";
 		}
 		else if(role == "Premium") {
-			return "ROLE_PREMIUM"
+			return "ROLE_PREMIUM";
 		}
 		else {
 			return null;
