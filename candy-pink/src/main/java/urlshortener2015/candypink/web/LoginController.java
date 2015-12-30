@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,9 +33,13 @@ public class LoginController {
     	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String login(HttpServletRequest request) {
-		return "loginPage";
+	public ModelAndView login(HttpServletRequest request) {
+		logger.info("Login view requested");
+		ModelAndView model = new ModelAndView();
+		model.setViewName("loginPage");
+		return model;
 	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> login(@RequestParam("username") String id,
 			        @RequestParam("password") String password, HttpServletRequest request) {
