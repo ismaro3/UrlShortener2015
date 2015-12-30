@@ -2,14 +2,14 @@
 <html>
 <head>
 <title>URL Shortener</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="../static/css/bgStyle.css" media="all" />
-<link type="text/css" rel="stylesheet" href="../static/css/form.css" media="all" />
+<link type="text/css" rel="stylesheet" href="css/bgStyle.css" media="all" />
+<link type="text/css" rel="stylesheet" href="css/form.css" media="all" />
 <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="../static/js/manageUsers.js"></script>
+<script type="text/javascript" src="js/manageUsers.js"></script>
 </head>
 <body>
 	<!-- Imagen de cabecera del sitio web -->
@@ -50,6 +50,7 @@
 									<th>Password</th>
 									<th>Email</th>
 									<th>Role</th>
+									<th>Delete</th>
 				  				</tr>
 				  			</thead>
 				  			<tbody>
@@ -58,7 +59,12 @@
 				  						<td><div th:text="${user.username}"></div></td>
 										<td><div th:text="${user.password}"></div></td>
 										<td><div th:text="${user.email}"></div></td>
-										<td><div th:text="${user.role}"></div></td>
+										<td><div th:text="${user.authority}"></div></td>
+										<td>
+											<span class="input-group-btn"><button class="btn btn-lg btn-primary">
+												<span class="glyphicon glyphicon-user"></span> Add a new user!
+											</button></span>
+										</td>
 				  					</tr>
 				  				</p>
 				  			</tbody>
@@ -68,9 +74,11 @@
 				</div>
 				<!-- Boton para añadir un nuevo usuario -->
 				<div class="col-sm-offset-4 col-sm-4 text-center">
-					<span class="input-group-btn"><button class="btn btn-lg btn-primary">
-						<a href="signUpPage.html"><span class="glyphicon glyphicon-user"></span> Add a new user!</a>
-					</button></span>
+					<a href="signUpPage.html">
+						<span class="input-group-btn"><button class="btn btn-lg btn-primary">
+							<span class="glyphicon glyphicon-user"></span> Add a new user!
+						</button></span>
+					</a>
 				</div>
 			</div>
 		</div>
