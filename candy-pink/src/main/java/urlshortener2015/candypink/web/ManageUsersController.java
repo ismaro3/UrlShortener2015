@@ -1,5 +1,6 @@
 package urlshortener2015.candypink.web;
 
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -27,6 +28,6 @@ public class ManageUsersController {
   	public void getUsers(Model model, HttpServletResponse response) {
 		logger.info("Requested all users info");
     		model.addAttribute("users", repo.getAllUsers());
-		response.sendRedirect("manageUsers");
+		response.sendRedirect("manageUsersPage.html");
   	}
 }
