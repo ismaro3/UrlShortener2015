@@ -53,8 +53,7 @@ public class UserRepositoryImpl implements UserRepository {
 		try {
 			return jdbc.query("SELECT u.username, u.password, u.enabled, u.email, a.authority"
 				       + " FROM USERS u, AUTHORITIES a"
-				       + " WHERE u.username=a.username",
-			           	new Object[] {}, rowMapper);
+				       + " WHERE u.username=a.username", rowMapper);
 		} catch (Exception e) {
 			log.debug("When select for all users", e);
 			return Collections.emptyList();

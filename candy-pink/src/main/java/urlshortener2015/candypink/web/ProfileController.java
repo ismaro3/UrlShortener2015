@@ -20,9 +20,9 @@ import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
 @RestController
 @RequestMapping("/profile")
-public class LoginController {
+public class ProfileController {
 
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 	
 	private UserRepositoryImpl repo = new UserRepositoryImpl();
 
