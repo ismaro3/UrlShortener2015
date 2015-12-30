@@ -1,6 +1,9 @@
 package urlshortener2015.candypink.web;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -25,7 +28,7 @@ public class ManageUsersController {
   	}
   
   	@RequestMapping(method = RequestMethod.GET)
-  	public void getUsers(Model model, HttpServletResponse response) {
+  	public void getUsers(Model model, HttpServletResponse response) throws IOException {
 		logger.info("Requested all users info");
     		model.addAttribute("users", repo.getAllUsers());
 		response.sendRedirect("manageUsersPage.html");
