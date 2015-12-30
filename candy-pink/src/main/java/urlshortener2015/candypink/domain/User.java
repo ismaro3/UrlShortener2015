@@ -11,6 +11,7 @@ public class User {
 	public User(String username, String password, Boolean enabled, String email, String authority) {
 		this.username = username;
 		this.password = password;
+		this.enabled = enabled;
 		this.email = email;
 		this.authority = authority;
 	}
@@ -38,6 +39,7 @@ public class User {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;	
 	}
+
 	public String getEmail() {
 		return this.email;	
 	}

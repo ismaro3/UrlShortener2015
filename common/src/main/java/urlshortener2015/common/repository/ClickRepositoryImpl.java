@@ -100,8 +100,7 @@ public class ClickRepositoryImpl implements ClickRepository {
 	public void update(Click cl) {
 		log.info("ID2: "+cl.getId()+"navegador: "+cl.getBrowser()+" SO: "+cl.getPlatform()+" Date:"+cl.getCreated());
 		try {
-			jdbc.update(
-					"update click set hash=?, created=?, referrer=?, browser=?, platform=?, ip=?, country=? where id=?",
+			jdbc.update("update click set hash=?, created=?, referrer=?, browser=?, platform=?, ip=?, country=? where id=?",
 					cl.getHash(), cl.getCreated(), cl.getReferrer(),
 					cl.getBrowser(), cl.getPlatform(), cl.getIp(),
 					cl.getCountry(), cl.getId());
@@ -132,8 +131,7 @@ public class ClickRepositoryImpl implements ClickRepository {
 	@Override
 	public Long count() {
 		try {
-			return jdbc
-					.queryForObject("select count(*) from click", Long.class);
+			return jdbc.queryForObject("select count(*) from click", Long.class);
 		} catch (Exception e) {
 			log.debug("When counting", e);
 		}
@@ -155,8 +153,7 @@ public class ClickRepositoryImpl implements ClickRepository {
 	@Override
 	public Long clicksByHash(String hash) {
 		try {
-			return jdbc
-					.queryForObject("select count(*) from click where hash = ?", new Object[]{hash}, Long.class);
+			return jdbc.queryForObject("select count(*) from click where hash = ?", new Object[]{hash}, Long.class);
 		} catch (Exception e) {
 			log.debug("When counting hash "+hash, e);
 		}

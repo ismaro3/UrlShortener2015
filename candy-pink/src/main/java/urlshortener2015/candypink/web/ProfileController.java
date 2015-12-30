@@ -19,24 +19,24 @@ import urlshortener2015.candypink.domain.User;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
 @RestController
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/profile")
+public class ProfileController {
 
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 	
 	private UserRepositoryImpl repo = new UserRepositoryImpl();
 
-	public LoginController() {}
+	public ProfileController() {}
 
-	public LoginController(UserRepositoryImpl repo){
+	public ProfileController(UserRepositoryImpl repo){
         	this.repo = repo;
     	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView login(HttpServletRequest request) {
-		logger.info("Login view requested");
+	public ModelAndView profile(HttpServletRequest request) {
+		logger.info("Profile requested");
 		ModelAndView model = new ModelAndView();
-		model.setViewName("loginPage.html");
+		model.setViewName("profilePage.html");
 		return model;
 	}
 

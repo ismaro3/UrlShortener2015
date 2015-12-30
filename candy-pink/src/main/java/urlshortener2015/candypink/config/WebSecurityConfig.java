@@ -28,9 +28,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
  	@Override
  	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable()
+		.authorizeRequests()
+			.antMatchers("/", "/signUp", "/webjars/**", "/css/**", "/images/**", "/js/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/link").permitAll()
+			.anyRequest().authenticated()
+			.and()
+		.formLogin()
+			.loginPage("/login")
+			.permitAll(); 
+		/*.and()
+		  .formLogin().loginPage("/login").failureUrl("/fallaco")
+		  .usernameParameter("username").passwordParameter("password")
+		.and()
+		  .logout().logoutSuccessUrl("/login?logout")
+		.and()
+		  .exceptionHandling().accessDeniedPage("/403")
+		.and()
+		  .csrf();*/
+		/**
    		http.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/",  "/webjars/**", "/css/**", "/images/**", "/js/**").permitAll()
+				
 				.antMatchers(HttpMethod.POST, "/admin").permitAll()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
 				.antMatchers("/profile").permitAll()
@@ -40,6 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					.loginPage("/login").permitAll()
 					.loginProcessingUrl("/login").permitAll()
 			.and()
-			.logout().permitAll();
+			.logout().permitAll();*/
  	}
 }

@@ -78,7 +78,7 @@ public class UserRepositoryTests {
 	@Test
 	public void thatSaveADuplicateUserIsSafelyIgnored() {
 		repository.save(user1());
-		assertNotNull(repository.save(user1()));
+		assertNull(repository.save(user1()));
 		assertSame(jdbc.queryForObject("select count(*) from USERS",
 				Integer.class), 1);
 	}
