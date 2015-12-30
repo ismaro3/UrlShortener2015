@@ -53,16 +53,22 @@
 									<th>Delete</th>
 				  				</tr>
 				  			</thead>
+							<!-- Users -->
 				  			<tbody>
 				  				<p th:each="user : ${users}">
 				  					<tr>
+										<!-- Username -->
 				  						<td><div th:text="${user.username}"></div></td>
+										<!-- Password -->
 										<td><div th:text="${user.password}"></div></td>
+										<!-- Email -->
 										<td><div th:text="${user.email}"></div></td>
+										<!-- Role -->
 										<td><div th:text="${user.authority}"></div></td>
+										<!-- Button to remove him -->
 										<td>
 											<span class="input-group-btn"><button class="btn btn-lg btn-primary">
-												<span class="glyphicon glyphicon-user"></span> Add a new user!
+												<span class="glyphicon glyphicon-remove"></span> Remove user
 											</button></span>
 										</td>
 				  					</tr>
