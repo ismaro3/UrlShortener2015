@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>URL Shortener</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
 <link type="text/css" rel="stylesheet" href="css/bgStyle.css" media="all" />
 <link type="text/css" rel="stylesheet" href="css/form.css" media="all" />
@@ -50,15 +50,27 @@
 									<th>Password</th>
 									<th>Email</th>
 									<th>Role</th>
+									<th>Delete</th>
 				  				</tr>
 				  			</thead>
+							<!-- Users -->
 				  			<tbody>
 				  				<p th:each="user : ${users}">
 				  					<tr>
+										<!-- Username -->
 				  						<td><div th:text="${user.username}"></div></td>
+										<!-- Password -->
 										<td><div th:text="${user.password}"></div></td>
+										<!-- Email -->
 										<td><div th:text="${user.email}"></div></td>
-										<td><div th:text="${user.role}"></div></td>
+										<!-- Role -->
+										<td><div th:text="${user.authority}"></div></td>
+										<!-- Button to remove him -->
+										<td>
+											<span class="input-group-btn"><button class="btn btn-lg btn-primary">
+												<span class="glyphicon glyphicon-remove"></span> Remove user
+											</button></span>
+										</td>
 				  					</tr>
 				  				</p>
 				  			</tbody>
@@ -68,9 +80,11 @@
 				</div>
 				<!-- Boton para añadir un nuevo usuario -->
 				<div class="col-sm-offset-4 col-sm-4 text-center">
-					<span class="input-group-btn"><button class="btn btn-lg btn-primary">
-						<a href="signUpPage.html"><span class="glyphicon glyphicon-user"></span> Add a new user!</a>
-					</button></span>
+					<a href="signUpPage.html">
+						<span class="input-group-btn"><button class="btn btn-lg btn-primary">
+							<span class="glyphicon glyphicon-user"></span> Add a new user!
+						</button></span>
+					</a>
 				</div>
 			</div>
 		</div>

@@ -36,7 +36,7 @@ public class LoginController {
 	public ModelAndView login(HttpServletRequest request) {
 		logger.info("Login view requested");
 		ModelAndView model = new ModelAndView();
-		model.setViewName("loginPage.html");
+		model.setViewName("loginPage");
 		return model;
 	}
 

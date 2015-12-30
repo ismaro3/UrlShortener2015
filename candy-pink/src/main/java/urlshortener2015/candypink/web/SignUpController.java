@@ -41,7 +41,7 @@ public class SignUpController {
 	public ModelAndView register() {
 		logger.info("Registry view requested");
 		ModelAndView model = new ModelAndView();
-		model.setViewName("signUpPage.html");
+		model.setViewName("signUpPage");
 		return model;
 	}
 	/**
@@ -70,7 +70,7 @@ public class SignUpController {
 		    user.setPassword(encoder.encode(password));
 		    logger.info("Requested registration correct");
 		    user = repo.save(user);
-		    logger.info("Requested registration done " + user.getUsername());
+		    logger.info("Requested registration done of user " + user.getUsername());
          	    return new ResponseEntity<>(user, HttpStatus.CREATED);
 		  }
 		}
@@ -80,7 +80,7 @@ public class SignUpController {
 		}
 	}
 
-    /**
+   	/**
 	 * Return true if the user haven´t got empty fields. Return false otherwise.
 	 * @param user - The user to verify.
 	 * @return Return true if the user haven´t got empty fields. Return false otherwise.
