@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +53,8 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public List<User> getAllUsers() {
 		try {
-			return jdbc.query("SELECT u.username, u.password, u.enabled, u.email, a.authority"
+			return jdbc.query(
+					 "SELECT u.username, u.password, u.enabled, u.email, a.authority"
 				       + " FROM USERS u, AUTHORITIES a"
 				       + " WHERE u.username=a.username", rowMapper);
 		} catch (Exception e) {

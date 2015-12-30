@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +20,8 @@ public class ManageUsersController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ManageUsersController.class);
 	
-	private UserRepositoryImpl repo = new UserRepositoryImpl();
+	@Autowired
+	protected UserRepositoryImpl repo;
 
 	public ManageUsersController() {}
 
@@ -31,7 +33,6 @@ public class ManageUsersController {
   	public void getUsers(Model model, HttpServletResponse response) throws IOException {
 		logger.info("Requested all users info");
     		model.addAttribute("users", repo.getAllUsers());
-    		logger.info("Numero de usuarios: " + repo.getAllUsers().size() + repo.count());
 		response.sendRedirect("manageUsersPage.html");
   	}
 }
