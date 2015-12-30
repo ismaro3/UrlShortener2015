@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,8 @@ public class SignUpController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SignUpController.class);
 	
-	private UserRepositoryImpl repo = new UserRepositoryImpl();
+	@Autowired
+	protected UserRepositoryImpl repo;
 
 	public SignUpController() {}
 
@@ -38,15 +40,16 @@ public class SignUpController {
 	public ResponseEntity<User> register(@RequestParam("username") String username,
 			        @RequestParam("password") String password, @RequestParam("email") String email,
 			        @RequestParam("authority") String authority, HttpServletRequest request) {
-		logger.info("Requested registration with username " + username);
+		logger.info("Requested registration with username " + username + password + email + transform(authority));
 		User user = new User(username, password, true, email, transform(authority));
 		//Verify the fields aren´t empty
 		if(verifyFields(user)) {
-		  //There are a user with the same username
+		  logger.info("Requested registration verified");
+		  // There are users with the same username
 		  if(repo.findByUsernameOrEmail(username) != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
-		  //There are a user with the same email
+		  // There are users with the same email
 		  else if(repo.findByUsernameOrEmail(email) != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
@@ -54,7 +57,9 @@ public class SignUpController {
 		  else {
 		    BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		    user.setPassword(encoder.encode(password));
-		    repo.save(user);
+		    logger.info("Requested registration correct");
+		    user = repo.save(user);
+		    logger.info("Requested registration done " + user.getUsername());
          	    return new ResponseEntity<>(user, HttpStatus.CREATED);
 		  }
 		}
@@ -94,10 +99,10 @@ public class SignUpController {
 	}
 	
 	private String transform(String role) {
-		if(role.equals("Normal")) {
+		if (role.equals("Normal")) {
 			return "ROLE_NORMAL";
 		}
-		else if(role.equals("Premium")) {
+		else if (role.equals("Premium")) {
 			return "ROLE_PREMIUM";
 		}
 		else {

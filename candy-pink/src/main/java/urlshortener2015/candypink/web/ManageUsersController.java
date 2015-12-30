@@ -31,7 +31,7 @@ public class ManageUsersController {
   	public void getUsers(Model model, HttpServletResponse response) throws IOException {
 		logger.info("Requested all users info");
     		model.addAttribute("users", repo.getAllUsers());
-    		logger.info("Numero de usuarios: " + repo.getAllUsers().size());
+    		logger.info("Numero de usuarios: " + repo.getAllUsers().size() + repo.count());
 		response.sendRedirect("manageUsersPage.html");
   	}
 }

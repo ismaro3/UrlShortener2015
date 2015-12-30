@@ -52,9 +52,9 @@ public class UserRepositoryImpl implements UserRepository {
 	public List<User> getAllUsers() {
 		try {
 			return jdbc.query("SELECT u.username, u.password, u.enabled, u.email, a.authority"
-						+" FROM USERS u, AUTHORITIES a" 
-			            +" WHERE u.username=a.username", 
-			            rowMapper);
+				       + " FROM USERS u, AUTHORITIES a"
+				       + " WHERE u.username=a.username",
+			           	new Object[] {}, rowMapper);
 		} catch (Exception e) {
 			log.debug("When select for all users", e);
 			return Collections.emptyList();
@@ -67,7 +67,7 @@ public class UserRepositoryImpl implements UserRepository {
 			return jdbc.queryForObject("SELECT u.username, u.password, u.enabled, u.email, a.authority" 
 			                            +" FROM USERS u, AUTHORITIES a "
 			                            +"WHERE u.username=? OR u.email=? AND u.username=a.username",
-         					    rowMapper,id, id);
+         					    rowMapper, id, id);
 		} catch (Exception e) {
 			log.debug("When select for id " + id, e);
 			return null;
@@ -77,18 +77,19 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User save(User user) {
 		try {
+			log.info("Password " + user.getPassword());
 			jdbc.update("INSERT INTO USERS VALUES (?, ?, ?, ?)",
-					user.getUsername(), user.getPassword(), user.getEnabled(),user.getEmail());
+					user.getUsername(), user.getPassword(), user.getEnabled(), user.getEmail());
 			jdbc.update("INSERT INTO AUTHORITIES VALUES (?, ?)",
 					user.getUsername(), user.getAuthority());
-		} catch (DuplicateKeyException e) {
-			log.debug("When insert for user with user " + user.getUsername(), e);
 			return user;
+		} catch (DuplicateKeyException e) {
+			log.info("When insert for user with user " + user.getUsername());
+			return null;
 		} catch (Exception e) {
-			log.debug("When insert a user", e);
+			log.info("When insert a user " + e);
 			return null;
 		}
-		return user;
 	}
 	
 	@Override
@@ -127,8 +128,7 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public Long count() {
 		try {
-			return jdbc
-					.queryForObject("select count(*) from Users", Long.class);
+			return jdbc.queryForObject("select count(*) from Users", Long.class);
 		} catch (Exception e) {
 			log.debug("When counting", e);
 		}
