@@ -24,9 +24,9 @@ public class ManageUsersController {
   	}
   
   	@RequestMapping(method = RequestMethod.GET)
-  	public String getUsers(Model model) {
+  	public void getUsers(Model model, HttpServletResponse response) {
 		logger.info("Requested all users info");
     		model.addAttribute("users", repo.getAllUsers());
-		return "manageUsers";
+		response.sendRedirect("manageUsers");
   	}
 }
