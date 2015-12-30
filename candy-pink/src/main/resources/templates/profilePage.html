@@ -39,7 +39,26 @@
 			<div class="col-lg-12 text-center">
 				<div class="col-sm-offset-4 col-sm-4 text-center">
 					<br />
-					<div id="result" />
+					<ul> 
+						<div class="table-reponsive">
+			  			<table class="table table-bordered">
+			  				<thead>
+				  				<tr class="success">
+									<th>Date</th>
+									<th>URI created</th>
+				  				</tr>
+				  			</thead>
+				  			<tbody>
+				  				<p th:each="uri : ${uris}">
+				  					<tr>
+										<td><div th:text="${uri.created}"></div></td>
+				  						<td><div th:text="${uri.hash}"></div></td>
+				  					</tr>
+				  				</p>
+				  			</tbody>
+			  			</table>
+						</div>
+					</ul>
 				</div>
 			</div>
 		</div>
