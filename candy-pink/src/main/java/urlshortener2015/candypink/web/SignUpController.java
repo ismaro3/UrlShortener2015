@@ -16,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import urlshortener2015.candypink.domain.User;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/signUp")
@@ -38,15 +37,9 @@ public class SignUpController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> register(@RequestParam("username") String username,
 			        @RequestParam("password") String password, @RequestParam("email") String email,
-			        @RequestParam("name") String name, HttpServletRequest request) {
+			        @RequestParam("authority") String authority, HttpServletRequest request) {
 		logger.info("Requested registration with username " + username);
-		Random r = new Random();
-		String role = null;
-		switch (r.nextInt(2)) {
-			case 0: role = "USER_NORMAL";
-			case 1: role = "USER_PREMIUM";
-		}
-		User user = new User(username, password, email, role, name);
+		User user = new User(username, password, true, email, transform(authority));
 		//Verify the fields aren´t empty
 		if(verifyFields(user)) {
 		  //There are a user with the same username
@@ -85,18 +78,30 @@ public class SignUpController {
 	  	else if(user.getPassword()==null || user.getPassword().isEmpty()) {
 	  	  return false;
 	  	}
+	  	// Check Enabled
+	  	else if(user.getEnabled()==null || !user.getEnabled()) {
+	  	  return false;
+	  	}
 	  	// Check email
 	  	else if(user.getEmail()==null || user.getEmail().isEmpty()) {
 	  	  return false;
 	  	}
-	  	// Check role
-	  	else if(user.getRole()==null || user.getRole().isEmpty()) {
-	  	  return false;
-	  	}
-	  	//Check name
-	  	else if(user.getName()==null || user.getName().isEmpty()) {
+	  	// Check authority
+	  	else if(user.getAuthority()==null || user.getAuthority().isEmpty()) {
 	  	  return false;
 	  	}
 	  	return true;
+	}
+	
+	private String transform(String role) {
+		if(role.equals("Normal")) {
+			return "ROLE_NORMAL";
+		}
+		else if(role.equals("Premium")) {
+			return "ROLE_PREMIUM";
+		}
+		else {
+			return null;
+		}
 	}
 }

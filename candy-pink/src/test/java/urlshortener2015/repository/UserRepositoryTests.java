@@ -10,8 +10,7 @@ import static urlshortener2015.candypink.repository.fixture.UserFixture.user1Mod
 import static urlshortener2015.candypink.repository.fixture.UserFixture.user2;
 import static urlshortener2015.candypink.repository.fixture.UserFixture.userPassword;
 import static urlshortener2015.candypink.repository.fixture.UserFixture.userEmail;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.userRole;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.userName;
+import static urlshortener2015.candypink.repository.fixture.UserFixture.userAuthority;
 import static urlshortener2015.candypink.repository.fixture.UserFixture.badUser;
 
 import java.util.List;
@@ -44,50 +43,50 @@ public class UserRepositoryTests {
 	@Test
 	public void thatSavePersistsTheUser() {
 		assertNotNull(repository.save(user1()));
-		assertSame(jdbc.queryForObject("select count(*) from USER",
+		assertSame(jdbc.queryForObject("select count(*) from USERS",
 				Integer.class), 1);
 	}
 
 	@Test
 	public void thatSavePassword() {
 		assertNotNull(repository.save(userPassword()));
-		assertSame(jdbc.queryForObject("select password from USER",
+		assertSame(jdbc.queryForObject("select password from USERS",
 				String.class), userPassword().getPassword());
 	}
 	
 	@Test
 	public void thatSaveEmail() {
 		assertNotNull(repository.save(userEmail()));
-		assertSame(jdbc.queryForObject("select email from USER",
+		assertSame(jdbc.queryForObject("select email from USERS",
 				String.class), userEmail().getEmail());
 	}
 
 	@Test
-	public void thatSaveRole() {
-		assertNotNull(repository.save(userRole()));
-		assertSame(jdbc.queryForObject("select role from USER",
-				String.class), userRole().getRole());
+	public void thatIsEnabled() {
+		assertNotNull(repository.save(user1()));
+		assertSame(jdbc.queryForObject("select enabled from USERS",
+				Boolean.class), user1().getEnabled());
 	}
-	
+
 	@Test
-	public void thatSaveName() {
-		assertNotNull(repository.save(userName()));
-		assertSame(jdbc.queryForObject("select name from USER",
-				String.class), userName().getName());
+	public void thatSaveAuthority() {
+		assertNotNull(repository.save(userAuthority()));
+		User u = repository.findByUsernameOrEmail(userAuthority().getUsername());
+		assertSame(u.getAuthority(), userAuthority().getAuthority());
 	}
 
 	@Test
 	public void thatSaveADuplicateUserIsSafelyIgnored() {
 		repository.save(user1());
 		assertNotNull(repository.save(user1()));
-		assertSame(jdbc.queryForObject("select count(*) from USER",
+		assertSame(jdbc.queryForObject("select count(*) from USERS",
 				Integer.class), 1);
 	}
 
 	@Test
 	public void thatErrorsInSaveReturnsNull() {
 		assertNull(repository.save(badUser()));
-		assertSame(jdbc.queryForObject("select count(*) from USER",
+		assertSame(jdbc.queryForObject("select count(*) from USERS",
 				Integer.class), 0);
 	}
 
@@ -124,10 +123,10 @@ public class UserRepositoryTests {
 	public void thatUpdateUpdate() {
 		repository.save(user1());
 		User u = repository.findByUsernameOrEmail(user1().getUsername());
-		assertEquals(u.getName(), "Name1");
+		assertEquals(u.getPassword(), "pwd1");
 		repository.update(user1Modified());
 		u = repository.findByUsernameOrEmail(user1Modified().getUsername());
-		assertEquals(u.getName(), "Name1Updated");
+		assertEquals(u.getPassword(), "pwd2");
 	}
 	
 	@Test

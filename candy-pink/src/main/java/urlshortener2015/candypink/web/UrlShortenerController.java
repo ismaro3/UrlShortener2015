@@ -45,26 +45,15 @@ public class UrlShortenerController {
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
 
-	@Autowired
-	protected ClickRepository clickRepository;
-
 	@RequestMapping(value = "/{id:(?!link|index|login|signUp|profile|manage).*}", method = RequestMethod.GET)
 	public ResponseEntity<?> redirectTo(@PathVariable String id, HttpServletRequest request) {
 		logger.info("Requested redirection with hash " + id);
 		ShortURL l = shortURLRepository.findByKey(id);
 		if (l != null) {
-			createAndSaveClick(id, extractIP(request));
 			return createSuccessfulRedirectToResponse(l);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-	}
-
-	protected void createAndSaveClick(String hash, String ip) {
-		Click cl = new Click(null, hash, new Date(System.currentTimeMillis()),
-				null, null, null, ip, null);
-		cl=clickRepository.save(cl);
-		logger.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
 	}
 
 	protected String extractIP(HttpServletRequest request) {

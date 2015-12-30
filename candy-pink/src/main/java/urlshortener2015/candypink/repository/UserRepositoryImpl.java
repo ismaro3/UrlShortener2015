@@ -34,8 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return new User(rs.getString("username"), rs.getString("password"),
-					rs.getString("email"), rs.getString("role"),
-					rs.getString("name"));
+					rs.getBoolean("enabled"), rs.getString("email"), rs.getString("authority"));
 		}
 	};
 
@@ -52,7 +51,10 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public List<User> getAllUsers() {
 		try {
-			return jdbc.query("SELECT * FROM USER", rowMapper);
+			return jdbc.query("SELECT u.username, u.password, u.enabled, u.email, a.authority"
+						+" FROM USERS u, AUTHORITIES a" 
+			            +" WHERE u.username=a.username", 
+			            rowMapper);
 		} catch (Exception e) {
 			log.debug("When select for all users", e);
 			return Collections.emptyList();
@@ -62,8 +64,10 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User findByUsernameOrEmail(String id) {
 		try {
-			return jdbc.queryForObject("SELECT * FROM USER WHERE username=? OR email=?",
-						   rowMapper,id, id);
+			return jdbc.queryForObject("SELECT u.username, u.password, u.enabled, u.email, a.authority" 
+			                            +" FROM USERS u, AUTHORITIES a "
+			                            +"WHERE u.username=? OR u.email=? AND u.username=a.username",
+         					    rowMapper,id, id);
 		} catch (Exception e) {
 			log.debug("When select for id " + id, e);
 			return null;
@@ -73,9 +77,10 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User save(User user) {
 		try {
-			jdbc.update("INSERT INTO USER VALUES (?, ?, ?, ?, ?)",
-					user.getUsername(), user.getPassword(), user.getEmail(),
-					user.getRole(), user.getName());
+			jdbc.update("INSERT INTO USERS VALUES (?, ?, ?, ?)",
+					user.getUsername(), user.getPassword(), user.getEnabled(),user.getEmail());
+			jdbc.update("INSERT INTO AUTHORITIES VALUES (?, ?)",
+					user.getUsername(), user.getAuthority());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for user with user " + user.getUsername(), e);
 			return user;
@@ -90,18 +95,20 @@ public class UserRepositoryImpl implements UserRepository {
 	public void update(User user) {
 		log.info("Username: "+user.getUsername());
 		try {
-			jdbc.update("update User set password=?, email=?, role=?, name=? WHERE username=?",
-				     user.getPassword(), user.getEmail(), user.getRole(), user.getName(), user.getUsername());
-			
+			jdbc.update("update Users set password=?, email=? WHERE username=?",
+				     user.getPassword(), user.getEmail(), user.getUsername());
+			jdbc.update("update Authorities set authority=? where userame=?",
+				     user.getAuthority(), user.getUsername());
 		} catch (Exception e) {
-			log.info("When update for user " + user.getName(), e);
+			log.info("When update for user " + user.getUsername(), e);
 		}
 	}
 
 	@Override
 	public void delete(String username) {
 		try {
-			jdbc.update("delete from User where username=?", username);
+			jdbc.update("delete from Authorities where username=?", username);
+			jdbc.update("delete from Users where username=?", username);
 		} catch (Exception e) {
 			log.debug("When delete for username " + username, e);
 		}
@@ -110,7 +117,8 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public void deleteAll() {
 		try {
-			jdbc.update("delete from User");
+			jdbc.update("delete from Users");
+			jdbc.update("delete from Authorities");
 		} catch (Exception e) {
 			log.debug("When delete all", e);
 		}
@@ -120,7 +128,7 @@ public class UserRepositoryImpl implements UserRepository {
 	public Long count() {
 		try {
 			return jdbc
-					.queryForObject("select count(*) from User", Long.class);
+					.queryForObject("select count(*) from Users", Long.class);
 		} catch (Exception e) {
 			log.debug("When counting", e);
 		}
