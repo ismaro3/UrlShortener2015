@@ -84,18 +84,18 @@ public class UrlShortenerController {
 				if (su.getSafe() == false) {
 					HttpHeaders h = new HttpHeaders();
 					h.setLocation(su.getUri());
-					return new ResponseEntity<>(su, h, HttpStatus.CREATED);
+					return new ResponseEntity<ShortURL>(su, h, HttpStatus.CREATED);
 				// Url requested is safe
 				} else {
 					return null;
 				}
 			} else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
 			}
 		}
 		// Url is not reachable
 		else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
