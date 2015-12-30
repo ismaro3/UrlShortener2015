@@ -39,6 +39,7 @@ public class User {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;	
 	}
+
 	public String getEmail() {
 		return this.email;	
 	}

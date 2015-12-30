@@ -1,18 +1,17 @@
-<%@ page import="urlshortener2015.candypink.repository.UserRepositoryImpl" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>URL Shortener</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="css/bgStyle.css" media="all" />
-<link type="text/css" rel="stylesheet" href="css/form.css" media="all" />
+<link type="text/css" rel="stylesheet" href="../static/css/bgStyle.css" media="all" />
+<link type="text/css" rel="stylesheet" href="../static/css/form.css" media="all" />
 <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="js/manageUsers.js"></script>
+<script type="text/javascript" src="../static/js/manageUsers.js"></script>
 </head>
-<body onload="showUsers(<% (new UserRepositoryImpl()).getAllUsers() %>)">
+<body>
 	<!-- Imagen de cabecera del sitio web -->
 	<center><img src="images/CandyLogoTrans.png" height="103" alt="CandyShort logo"/></center>
 	<!-- Menú con los botones descritos a continuación -->
@@ -42,8 +41,31 @@
 				<!-- Usuarios -->
 				<div class="col-sm-offset-4 col-sm-4 text-center">
 					<br />
-					<div id="users"></div>
-				</div><br /> <br />
+					<ul> 
+						<div class="table-reponsive">
+			  			<table class="table table-bordered">
+			  				<thead>
+				  				<tr class="success">
+									<th>Usename</th>
+									<th>Password</th>
+									<th>Email</th>
+									<th>Role</th>
+				  				</tr>
+				  			</thead>
+				  			<tbody>
+				  				<p th:each="user : ${users}">
+				  					<tr>
+				  						<td><div th:text="${user.username}"></div></td>
+										<td><div th:text="${user.password}"></div></td>
+										<td><div th:text="${user.email}"></div></td>
+										<td><div th:text="${user.role}"></div></td>
+				  					</tr>
+				  				</p>
+				  			</tbody>
+			  			</table>
+						</div>
+					</ul>
+				</div>
 				<!-- Boton para añadir un nuevo usuario -->
 				<div class="col-sm-offset-4 col-sm-4 text-center">
 					<span class="input-group-btn"><button class="btn btn-lg btn-primary">
