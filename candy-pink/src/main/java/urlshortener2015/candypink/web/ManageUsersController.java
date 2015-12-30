@@ -33,6 +33,6 @@ public class ManageUsersController {
   	public void getUsers(Model model, HttpServletResponse response) throws IOException {
 		logger.info("Requested all users info");
     		model.addAttribute("users", repo.getAllUsers());
-		response.sendRedirect("manageUsersPage.html");
+		response.sendRedirect("manageUsersPage");
   	}
 }
