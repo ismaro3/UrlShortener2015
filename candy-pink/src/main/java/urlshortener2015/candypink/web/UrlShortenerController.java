@@ -53,7 +53,7 @@ public class UrlShortenerController {
 			if (l.getSafe() == true) {
 				// Token doesn't match
 				if (!token.equals(l.getToken())) {
-					request.getRequestDispathcer("incorrectToken.html").forward(request, response);
+					response.sendRedirect("incorrectToken.html");
 					return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 				}
 			}
