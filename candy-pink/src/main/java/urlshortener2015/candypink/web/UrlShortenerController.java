@@ -46,6 +46,7 @@ public class UrlShortenerController {
 		logger.info("Client token " + token + " - Real token: " + l.getToken());
 		if (l != null) {
 			// URL is safe, we must check token
+			logger.info("Is URL safe?: " + l.getSafe());
 			if (l.getSafe() == true) {
 				// Token doesn't match
 				if (!token.equals(l.getToken())) {
