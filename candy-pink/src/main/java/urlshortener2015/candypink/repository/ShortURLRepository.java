@@ -30,4 +30,6 @@ public interface ShortURLRepository {
 	
 	List<ShortURL> findByUserlast24h(String user);
 
+	List<ShortURL> findByTimeHours(Integer hours);
+
 }

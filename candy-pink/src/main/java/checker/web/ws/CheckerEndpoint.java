@@ -20,7 +20,13 @@ public class CheckerEndpoint {
 	public GetCheckerResponse translator(@RequestPayload GetCheckerRequest request) {
 		GetCheckerResponse response = new GetCheckerResponse();
 		boolean result = checker.queueUrl(request.getUrl());
-		response.setResultCode("ok");
+		String code;
+		if(result){
+			code = "ok";
+		}else{
+			code = "error";
+		}
+		response.setResultCode(code);
 		return response;
 	}
 
