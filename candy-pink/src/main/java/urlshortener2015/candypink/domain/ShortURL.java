@@ -7,8 +7,8 @@ public class ShortURL {
 
 	private String hash;
 	private String target;
-	private String token;
 	private URI uri;
+	private String token;
 	private String sponsor;
 	private Date created;
 	private String owner;
@@ -28,8 +28,8 @@ public class ShortURL {
 			String ip, String country, String username) {
 		this.hash = hash;
 		this.target = target;
-		this.token = token;
 		this.uri = uri;
+		this.token = token;
 		this.sponsor = sponsor;
 		this.created = created;
 		this.owner = owner;
@@ -54,15 +54,15 @@ public class ShortURL {
 	public String getTarget() {
 		return target;
 	}
-	
-	public String getToken() {
-		return token;
-	}
 
 	public URI getUri() {
 		return uri;
 	}
 
+	public String getToken() {
+		return token;
+	}
+	
 	public Date getCreated() {
 		return created;
 	}
