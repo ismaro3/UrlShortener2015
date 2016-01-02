@@ -14,6 +14,7 @@ import urlshortener2015.candypink.domain.ShortURL;
 import urlshortener2015.candypink.repository.ShortURLRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -40,7 +41,7 @@ public class UrlShortenerController {
 	@RequestMapping(value = "/{id:(?!link|index|login|signUp|profile|manage).*}", method = RequestMethod.GET)
 	public ResponseEntity<?> redirectTo(@PathVariable String id, 
 					    @RequestParam(value = "token", required = false) String token,
-					    HttpServletRequest request) {
+					    HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Requested redirection with hash " + id);
 		ShortURL l = shortURLRepository.findByKey(id);
 		logger.info("Client token " + token + " - Real token: " + l.getToken());
@@ -50,9 +51,8 @@ public class UrlShortenerController {
 			if (l.getSafe() == true) {
 				// Token doesn't match
 				if (!token.equals(l.getToken())) {
-					HttpHeaders h = new HttpHeaders();
-					h.setLocation(URI.create("http://localhost:8080/incorrectToken.html"));
-					return new ResponseEntity<>(h, HttpStatus.FORBIDDEN);
+					response.sendRedirect("incorrectToken.html");
+					return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 				}
 			}
 			// Url is not safe or token matches
