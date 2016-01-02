@@ -4,6 +4,7 @@ function showSafeOptions() {
 		$("p").show();
 	} else {
 		document.getElementById("safe").innerHTML = " I want a safe short Url";
+		document.getElementById("show").value = "select";
 		$("p").hide();
 	}
 }
