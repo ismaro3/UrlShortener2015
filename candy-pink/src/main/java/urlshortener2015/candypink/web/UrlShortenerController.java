@@ -22,6 +22,7 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.Random;
 import java.util.UUID;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -72,18 +73,15 @@ public class UrlShortenerController {
 		// Url is reachable
 		if (response.getStatus() == 200) {
 			logger.info("Uri " + url + " is reachable");
+			// Url requested is safe -> True
+			// Url requested is not safe -> False
+			boolean safe = !(users.equals("select") && time.equals("select"));
 			ShortURL su = createAndSaveIfValid(url, safe, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
 			if (su != null) {
-				// Url requested is not safe
-				if (users.equals("select") && time.equals("select")) {
-					HttpHeaders h = new HttpHeaders();
-					h.setLocation(su.getUri());
-					return new ResponseEntity<ShortURL>(su, h, HttpStatus.CREATED);
-				// Url requested is safe
-				} else {
-					return null;
-				}
+				HttpHeaders h = new HttpHeaders();
+				h.setLocation(su.getUri());
+				return new ResponseEntity<ShortURL>(su, h, HttpStatus.CREATED);
 			} else {
 				return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
 			}
@@ -94,20 +92,27 @@ public class UrlShortenerController {
 		}
 	}
 
-	protected ShortURL createAndSaveIfValid(String url, String token, String sponsor,
+	protected ShortURL createAndSaveIfValid(String url, boolean safe, String sponsor,
 			String brand, String owner, String ip) {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
 		if (urlValidator.isValid(url)) {
 			String id = Hashing.murmur3_32()
 					.hashString(url, StandardCharsets.UTF_8).toString();
+			String token = null;
+			// If Url is safe, we create the token, else token = null
+			if (safe == true) {
+				// Random token of ten digits
+				token = createToken(10);
+			}
+			// ShortUrl
 			ShortURL su = new ShortURL(id, url,
 					linkTo(
 						methodOn(UrlShortenerController.class).redirectTo(
 							id, null)).toUri(), token, sponsor,
 							new Date(System.currentTimeMillis()),
 							owner, HttpStatus.TEMPORARY_REDIRECT.value(),
-							false, null,null,null, null, ip, null, null);
+							safe, null,null,null, null, ip, null, null);
 			// This checks if uri is malware
 			if (su != null) {
 				boolean spam = checkInternal(su);	
@@ -124,7 +129,7 @@ public class UrlShortenerController {
 		}
 	}
 
-	/*
+	/**
 	* This method checks an URI against the Google Safe Browsing API,
 	* then it updates the database if needed.
 	* According to Google's API, by making a GET request the URI sent
@@ -132,7 +137,7 @@ public class UrlShortenerController {
 	* Status OK 200 means that uri is unsafe, and 204 indicates that is
 	* safe. Other reponse status are caused by error. 
 	*/
-   public boolean checkInternal(ShortURL url){
+   	public boolean checkInternal(ShortURL url) {
 		Client client = ClientBuilder.newClient();
 		
 		// Preparing URI to check 
@@ -153,5 +158,19 @@ public class UrlShortenerController {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Creates a random token of digits
+	 * @param length - length of the token to return
+	 */
+	private String createToken(int length) {
+		Random r = new Random();
+		String token = "";
+		for (int i = 0; i < length; i++) {
+			// Only digits in the token
+			token += r.nextInt(10);
+		}
+		return token;
 	}
 }
