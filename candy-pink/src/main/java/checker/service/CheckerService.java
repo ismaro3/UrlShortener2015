@@ -1,8 +1,9 @@
 package checker.service;
 
-import urlshortener2015.candypink.domain.ShortURL;
+/**
+ * Created by david on 1/01/16.
+ */
+public interface CheckerService {
 
-public interface CheckerService{
-
-	void checkURL(ShortURL url);
+    public boolean queueUrl(String url);
 }

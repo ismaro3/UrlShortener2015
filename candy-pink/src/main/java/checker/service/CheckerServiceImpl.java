@@ -1,19 +1,22 @@
 package checker.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import urlshortener2015.candypink.domain.ShortURL;
-import checker.domain.Checker;
+import javax.annotation.Resource;
+import java.util.concurrent.LinkedBlockingQueue;
+
+/**
+ * Created by david on 1/01/16.
+ */
 
 @Service
-public class CheckerServiceImpl implements CheckerService{
+public class CheckerServiceImpl implements CheckerService {
 
-	@Autowired
-	Checker checker;
+    @Resource
+    protected LinkedBlockingQueue<String> sharedQueue;
 
-	@Override
-	public void checkURL(ShortURL url){
-		checker.checkURL(url);
-	}
+    @Override
+    public boolean queueUrl(String url){
+       return sharedQueue.offer(url);
+    }
 }
