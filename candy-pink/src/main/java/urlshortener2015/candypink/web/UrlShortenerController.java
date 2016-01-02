@@ -48,7 +48,7 @@ public class UrlShortenerController {
 			// URL is safe, we must check token
 			if (l.getSafe() == true) {
 				// Token doesn't match
-				if (token.equals(l.getToken())) {
+				if (!token.equals(l.getToken())) {
 					return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 				}
 			}
