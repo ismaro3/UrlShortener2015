@@ -21,7 +21,7 @@ import urlshortener2015.candypink.repository.UserRepositoryImpl;
 @RequestMapping("/403")
 public class FailController {
 
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger logger = LoggerFactory.getLogger(FailController.class);
 	
 
 	public FailController() {}

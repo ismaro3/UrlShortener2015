@@ -16,7 +16,7 @@ public class ProfileController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 	
-	@Autowired
+	
 	protected ShortURLRepositoryImpl repo;
 
 	public ProfileController() {}

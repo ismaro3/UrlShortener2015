@@ -1,7 +1,7 @@
 package urlshortener2015.candypink.web;
 
 import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,8 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	private UserRepositoryImpl repo = new UserRepositoryImpl();
+	@Autowired
+	private UserRepositoryImpl repo;
 
 	public LoginController() {}
 
@@ -33,10 +34,13 @@ public class LoginController {
     	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView login(HttpServletRequest request) {
+	public ModelAndView login(@RequestParam(value = "error", required = false) String error, HttpServletRequest request) {
 		logger.info("Login view requested");
+		if(error!=null) {
+			logger.info(error);
+		}
 		ModelAndView model = new ModelAndView();
-		model.setViewName("loginPage");
+		model.setViewName("loginPage.html");
 		return model;
 	}
 
