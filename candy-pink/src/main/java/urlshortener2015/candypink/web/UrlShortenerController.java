@@ -51,7 +51,7 @@ public class UrlShortenerController {
 				// Token doesn't match
 				if (!token.equals(l.getToken())) {
 					HttpHeaders h = new HttpHeaders();
-					h.setLocation(URI.create("incorrectToken.html"));
+					h.setLocation(URI.create("http://localhost:8080/incorrectToken.html"));
 					return new ResponseEntity<>(h, HttpStatus.FORBIDDEN);
 				}
 			}
