@@ -39,9 +39,8 @@ dependencies {
     compile 'org.springframework:spring-web:4.1.6.RELEASE'
     compile "org.springframework.session:spring-session-data-redis:1.0.2.RELEASE"
     compile 'org.springframework.security:spring-security-crypto:3.1.0.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-security'
-    //compile("org.thymeleaf:thymeleaf-spring4")
-    //compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
+    compile("org.thymeleaf:thymeleaf-spring4")
+    compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
     testCompile 'junit:junit:4.11'   
 
     // Testing framework
