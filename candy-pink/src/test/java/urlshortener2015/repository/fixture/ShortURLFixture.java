@@ -1,9 +1,6 @@
-package urlshortener2015.candypink.repository.fixture;
+package urlshortener2015.repository.fixture;
 
 import urlshortener2015.candypink.domain.ShortURL;
-
-import java.sql.Timestamp;
-import java.util.Date;
 
 public class ShortURLFixture {
 
