@@ -69,6 +69,7 @@ public class UrlShortenerController {
 
 	@RequestMapping(value = "/link", method = RequestMethod.POST)
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
+			@RequestParam(value = "token", required = false) String token,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
 			@RequestParam(value = "brand", required = false) String brand, HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
@@ -77,7 +78,7 @@ public class UrlShortenerController {
 		// Url is reachable
 		if (response.getStatus() == 200) {
 			logger.info("Uri " + url + " is reachable");
-			ShortURL su = createAndSaveIfValid(url, sponsor, brand, UUID
+			ShortURL su = createAndSaveIfValid(url, token, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
 			if (su != null) {
 				// Url requested is not safe
@@ -99,7 +100,7 @@ public class UrlShortenerController {
 		}
 	}
 
-	protected ShortURL createAndSaveIfValid(String url, String sponsor,
+	protected ShortURL createAndSaveIfValid(String url, String token, String sponsor,
 			String brand, String owner, String ip) {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
@@ -108,19 +109,20 @@ public class UrlShortenerController {
 					.hashString(url, StandardCharsets.UTF_8).toString();
 			ShortURL su = new ShortURL(id, url,
 					linkTo(
-							methodOn(UrlShortenerController.class).redirectTo(
-									id, null)).toUri(), sponsor, new Date(
-							System.currentTimeMillis()), owner,
-					HttpStatus.TEMPORARY_REDIRECT.value(), false, null,null,null, null, ip, null, null);
-			//This checks if uri is malware
-			if(su != null){
+						methodOn(UrlShortenerController.class).redirectTo(
+							id, null)).toUri(), token, sponsor,
+							new Date(System.currentTimeMillis()),
+							owner, HttpStatus.TEMPORARY_REDIRECT.value(),
+							false, null,null,null, null, ip, null, null);
+			// This checks if uri is malware
+			if (su != null) {
 				boolean spam = checkInternal(su);	
-				if(!spam){
+				if (!spam) {
 					return shortURLRepository.save(su);	
-				}else{
+				} else {
 					return null;
 				}
-			}else{
+			} else {
 				return null;
 			}
 		} else {
@@ -129,17 +131,17 @@ public class UrlShortenerController {
 	}
 
 	/*
-	*This method checks an URI against the Google Safe Browsing API,
+	* This method checks an URI against the Google Safe Browsing API,
 	* then it updates the database if needed.
-	*According to Google's API, by making a GET request the URI sent
+	* According to Google's API, by making a GET request the URI sent
 	* is checked and message is created with status code in response.
-	*Status OK 200 means that uri is unsafe, and 204 indicates that is
+	* Status OK 200 means that uri is unsafe, and 204 indicates that is
 	* safe. Other reponse status are caused by error. 
 	*/
    public boolean checkInternal(ShortURL url){
 		Client client = ClientBuilder.newClient();
 		
-		//Preparing URI to check 
+		// Preparing URI to check 
 		WebTarget target = client.target("https://sb-ssl.google.com/safebrowsing/api/lookup");
 		WebTarget targetWithQueryParams = target.queryParam("key", "AIzaSyDI60aszp__CG9n4B3n3gd-YDEh-uowUwM");
 		targetWithQueryParams = targetWithQueryParams.queryParam("client", "CandyShort");
@@ -149,10 +151,10 @@ public class UrlShortenerController {
 
 		Response response = targetWithQueryParams.request(MediaType.TEXT_PLAIN_TYPE).get();
 		ShortURL res;
-		if(response.getStatus()==204){//Uri is safe
+		if (response.getStatus()==204) { 		// Uri is safe
 			logger.info("La uri no es malware | no deseada");
 			return false;
-		}else if(response.getStatus()==200){//Uri is unsafe
+		} else if (response.getStatus()==200) { 	// Uri is unsafe
 			logger.info("La uri es malware o no deseada");
 			return true;
 		}
