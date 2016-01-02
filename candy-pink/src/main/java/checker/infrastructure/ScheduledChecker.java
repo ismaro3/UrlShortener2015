@@ -1,9 +1,13 @@
 package checker.infrastructure;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import urlshortener2015.candypink.domain.ShortURL;
+import urlshortener2015.candypink.repository.ShortURLRepository;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -13,19 +17,24 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Component
 public class ScheduledChecker {
 
-    private String[] urls = {"http://www.unizar.es","http://www.google.es","http://www.twitter.com"};
     @Resource
     protected LinkedBlockingQueue<String> sharedQueue;
 
+    @Autowired
+    protected ShortURLRepository shortURLRepository;
+
     /*
-    * This method is executed every 12 (43200000ms)hours after the previous
+    * This method is executed every hour after the previous
     * excution
     * */
-    @Scheduled(fixedDelay = 10000)//in order to probe every 10 secs
+    @Scheduled(fixedDelay = 360000)
     private void checkingDaemon(){
-        String url = urls[new Random().nextInt(3)];
-        try {
-            sharedQueue.put(url);   //This needs to be blocking
-        } catch (InterruptedException e) {}
+        List<ShortURL> resultList = shortURLRepository.findByTimeHours(new Integer(1));
+        for(ShortURL url : resultList){
+            try {
+                sharedQueue.put(url.getTarget());   //This is blocking
+            } catch (InterruptedException e) {}
+
+        }
     }
 }
