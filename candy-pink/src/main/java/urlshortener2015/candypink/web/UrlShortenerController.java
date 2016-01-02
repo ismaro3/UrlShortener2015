@@ -1,21 +1,6 @@
 package urlshortener2015.candypink.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.MediaType;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.net.URI;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.sql.Date;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.google.common.hash.Hashing;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,19 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import urlshortener2015.common.domain.Click;
+import org.springframework.web.bind.annotation.*;
 import urlshortener2015.candypink.domain.ShortURL;
-import urlshortener2015.common.repository.ClickRepository;
 import urlshortener2015.candypink.repository.ShortURLRepository;
 
-import com.google.common.hash.Hashing;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.util.UUID;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class UrlShortenerController {
@@ -69,14 +59,20 @@ public class UrlShortenerController {
 
 	@RequestMapping(value = "/link", method = RequestMethod.POST)
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
-			@RequestParam(value = "token", required = false) String token,
+			@RequestParam(value = "safe", required = false) String safe,
+			@RequestParam(value = "users", required = false) String users,
+			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
-			@RequestParam(value = "brand", required = false) String brand, HttpServletRequest request) {
+			@RequestParam(value = "brand", required = false) String brand,
+			HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
 		logger.info("Uri" + url);
 		logger.info("Token" + token);
 		logger.info("Sponsor" + sponsor);
 		logger.info("Brand" + brand);
+		logger.info("Safe: " + safe);
+		logger.info("Users: " + users);
+		logger.info("Time: " + time);
 		Client client = ClientBuilder.newClient();
 		Response response = client.target(url).request().get();
 		// Url is reachable
@@ -89,18 +85,18 @@ public class UrlShortenerController {
 				if (su.getSafe() == false) {
 					HttpHeaders h = new HttpHeaders();
 					h.setLocation(su.getUri());
-					return new ResponseEntity<>(su, h, HttpStatus.CREATED);
+					return new ResponseEntity<ShortURL>(su, h, HttpStatus.CREATED);
 				// Url requested is safe
 				} else {
 					return null;
 				}
 			} else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
 			}
 		}
 		// Url is not reachable
 		else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
