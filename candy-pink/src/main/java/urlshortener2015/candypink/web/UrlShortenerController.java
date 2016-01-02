@@ -1,21 +1,6 @@
 package urlshortener2015.candypink.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.MediaType;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.net.URI;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.sql.Date;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.google.common.hash.Hashing;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,19 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import urlshortener2015.common.domain.Click;
+import org.springframework.web.bind.annotation.*;
 import urlshortener2015.candypink.domain.ShortURL;
-import urlshortener2015.common.repository.ClickRepository;
 import urlshortener2015.candypink.repository.ShortURLRepository;
 
-import com.google.common.hash.Hashing;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.util.UUID;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class UrlShortenerController {
@@ -69,6 +59,7 @@ public class UrlShortenerController {
 
 	@RequestMapping(value = "/link", method = RequestMethod.POST)
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
+			@RequestParam(value = "token", required = false) String token,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
 			@RequestParam(value = "brand", required = false) String brand, HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
@@ -77,7 +68,7 @@ public class UrlShortenerController {
 		// Url is reachable
 		if (response.getStatus() == 200) {
 			logger.info("Uri " + url + " is reachable");
-			ShortURL su = createAndSaveIfValid(url, sponsor, brand, UUID
+			ShortURL su = createAndSaveIfValid(url, token, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
 			if (su != null) {
 				// Url requested is not safe
@@ -99,7 +90,7 @@ public class UrlShortenerController {
 		}
 	}
 
-	protected ShortURL createAndSaveIfValid(String url, String sponsor,
+	protected ShortURL createAndSaveIfValid(String url, String token, String sponsor,
 			String brand, String owner, String ip) {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
@@ -108,19 +99,20 @@ public class UrlShortenerController {
 					.hashString(url, StandardCharsets.UTF_8).toString();
 			ShortURL su = new ShortURL(id, url,
 					linkTo(
-							methodOn(UrlShortenerController.class).redirectTo(
-									id, null)).toUri(), sponsor, new Date(
-							System.currentTimeMillis()), owner,
-					HttpStatus.TEMPORARY_REDIRECT.value(), false, null,null,null, null, ip, null, null);
-			//This checks if uri is malware
-			if(su != null){
+						methodOn(UrlShortenerController.class).redirectTo(
+							id, null)).toUri(), token, sponsor,
+							new Date(System.currentTimeMillis()),
+							owner, HttpStatus.TEMPORARY_REDIRECT.value(),
+							false, null,null,null, null, ip, null, null);
+			// This checks if uri is malware
+			if (su != null) {
 				boolean spam = checkInternal(su);	
-				if(!spam){
+				if (!spam) {
 					return shortURLRepository.save(su);	
-				}else{
+				} else {
 					return null;
 				}
-			}else{
+			} else {
 				return null;
 			}
 		} else {
@@ -129,17 +121,17 @@ public class UrlShortenerController {
 	}
 
 	/*
-	*This method checks an URI against the Google Safe Browsing API,
+	* This method checks an URI against the Google Safe Browsing API,
 	* then it updates the database if needed.
-	*According to Google's API, by making a GET request the URI sent
+	* According to Google's API, by making a GET request the URI sent
 	* is checked and message is created with status code in response.
-	*Status OK 200 means that uri is unsafe, and 204 indicates that is
+	* Status OK 200 means that uri is unsafe, and 204 indicates that is
 	* safe. Other reponse status are caused by error. 
 	*/
    public boolean checkInternal(ShortURL url){
 		Client client = ClientBuilder.newClient();
 		
-		//Preparing URI to check 
+		// Preparing URI to check 
 		WebTarget target = client.target("https://sb-ssl.google.com/safebrowsing/api/lookup");
 		WebTarget targetWithQueryParams = target.queryParam("key", "AIzaSyDI60aszp__CG9n4B3n3gd-YDEh-uowUwM");
 		targetWithQueryParams = targetWithQueryParams.queryParam("client", "CandyShort");
@@ -149,10 +141,10 @@ public class UrlShortenerController {
 
 		Response response = targetWithQueryParams.request(MediaType.TEXT_PLAIN_TYPE).get();
 		ShortURL res;
-		if(response.getStatus()==204){//Uri is safe
+		if (response.getStatus()==204) { 		// Uri is safe
 			logger.info("La uri no es malware | no deseada");
 			return false;
-		}else if(response.getStatus()==200){//Uri is unsafe
+		} else if (response.getStatus()==200) { 	// Uri is unsafe
 			logger.info("La uri es malware o no deseada");
 			return true;
 		}

@@ -1,10 +1,5 @@
 package urlshortener2015.candypink.repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,8 +9,12 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
 import urlshortener2015.candypink.domain.ShortURL;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 
 @Repository
 public class ShortURLRepositoryImpl implements ShortURLRepository {
@@ -27,7 +26,8 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 		@Override
 		public ShortURL mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return new ShortURL(rs.getString("hash"), rs.getString("target"),
-					null, rs.getString("sponsor"), rs.getDate("created"),
+					null, rs.getString("token"),
+					rs.getString("sponsor"), rs.getDate("created"),
 					rs.getString("owner"), rs.getInt("mode"), rs.getBoolean("safe"), 
 					rs.getBoolean("spam"), rs.getString("spamDate"),
 					rs.getBoolean("reachable"), rs.getString("reachableDate"), rs.getString("ip"),
@@ -59,9 +59,9 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	@Override
 	public ShortURL save(ShortURL su) {
 		try {
-			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?)",
-					su.getHash(), su.getTarget(), su.getSponsor(), su.getOwner(), su.getMode(),
- 					su.getSafe(), su.getSpam(), su.getSpamDate(), su.getReachable(), 
+			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?)",
+					su.getHash(), su.getToken(), su.getTarget(), su.getSponsor(), su.getOwner(),
+					su.getMode(), su.getSafe(), su.getSpam(), su.getSpamDate(), su.getReachable(), 
 					su.getReachableDate(), su.getIP(), su.getCountry(), su.getUsername());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for key " + su.getHash(), e);

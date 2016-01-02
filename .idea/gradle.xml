@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="createEmptyContentRootDirectories" value="true" />
+        <option name="distributionType" value="WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/alizarin-crimson" />
+            <option value="$PROJECT_DIR$/bangladesh-green" />
+            <option value="$PROJECT_DIR$/candy-pink" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/demo" />
+            <option value="$PROJECT_DIR$/dim-gray" />
+            <option value="$PROJECT_DIR$/eerie-black" />
+            <option value="$PROJECT_DIR$/fuzzy-wuzzy" />
+            <option value="$PROJECT_DIR$/golden-brown" />
+            <option value="$PROJECT_DIR$/heat-wave" />
+            <option value="$PROJECT_DIR$/imperial-red" />
+            <option value="$PROJECT_DIR$/japanese-violet" />
+            <option value="$PROJECT_DIR$/lavender-gray" />
+            <option value="$PROJECT_DIR$/navajo-white" />
+            <option value="$PROJECT_DIR$/spam-check-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

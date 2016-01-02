@@ -61,11 +61,13 @@ The leader of the group (Alberto Álvarez) has to adjust the score of the other 
 * Santiago Gil motivates the team. 1 point
 * David Nicuesa helps to Alberto and Santiago. 1 point
 * Santiago Gil works in the front-end. 2 points
+* David Nicuesa was in the meeting with the proffesor. He worked all afternoon and evening, despite the delivery report. 20 points
+* Santiago Gil was in the meeting with the proffesor. He worked all afternoon and evening, despite the delivery report. 20 points
 
 User name            | Points
 ---------------------|-------
-David Nicuesa Aranda | 27
-Santiago Gil Begué   | 27
+David Nicuesa Aranda | 47
+Santiago Gil Begué   | 47
 Iñigo Gascón Royo    | 11
 
 

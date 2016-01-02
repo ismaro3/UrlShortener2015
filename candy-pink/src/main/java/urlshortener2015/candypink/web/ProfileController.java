@@ -15,9 +15,10 @@ import urlshortener2015.candypink.repository.ShortURLRepositoryImpl;
 public class ProfileController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
-	
+
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
+
 
 	public ProfileController() {}
 
