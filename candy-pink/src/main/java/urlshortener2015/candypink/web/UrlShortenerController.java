@@ -4,6 +4,7 @@ import com.google.common.hash.Hashing;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,15 +14,18 @@ import urlshortener2015.candypink.domain.ShortURL;
 import urlshortener2015.candypink.repository.ShortURLRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.Random;
 import java.util.UUID;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -35,11 +39,25 @@ public class UrlShortenerController {
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
 
-	@RequestMapping(value = "/{id:(?!link|index|login|signUp|profile|manage).*}", method = RequestMethod.GET)
-	public ResponseEntity<?> redirectTo(@PathVariable String id, HttpServletRequest request) {
+	@RequestMapping(value = "/{id:(?!link|index|login|signUp|profile|manageUsers|incorrectToken).*}", method = RequestMethod.GET)
+	public ResponseEntity<?> redirectTo(@PathVariable String id, 
+					    @RequestParam(value = "token", required = false) String token,
+					    HttpServletRequest request, HttpServletResponse response)
+					    throws IOException {
 		logger.info("Requested redirection with hash " + id);
 		ShortURL l = shortURLRepository.findByKey(id);
+		logger.info("Client token " + token + " - Real token: " + l.getToken());
 		if (l != null) {
+			// URL is safe, we must check token
+			logger.info("Is URL safe?: " + l.getSafe());
+			if (l.getSafe() == true) {
+				// Token doesn't match
+				if (!token.equals(l.getToken())) {
+					response.sendRedirect("incorrectToken.html");
+					return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+				}
+			}
+			// Url is not safe or token matches
 			return createSuccessfulRedirectToResponse(l);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -59,36 +77,28 @@ public class UrlShortenerController {
 
 	@RequestMapping(value = "/link", method = RequestMethod.POST)
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
-			@RequestParam(value = "safe", required = false) String safe,
 			@RequestParam(value = "users", required = false) String users,
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
 			@RequestParam(value = "brand", required = false) String brand,
 			HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
-		logger.info("Uri" + url);
-		logger.info("Sponsor" + sponsor);
-		logger.info("Brand" + brand);
-		logger.info("Safe: " + safe);
-		logger.info("Users: " + users);
-		logger.info("Time: " + time);
+		logger.info("Users who can redirect: " + users);
+		logger.info("Time to be safe: " + time);
 		Client client = ClientBuilder.newClient();
 		Response response = client.target(url).request().get();
 		// Url is reachable
 		if (response.getStatus() == 200) {
 			logger.info("Uri " + url + " is reachable");
+			// Url requested is safe -> True
+			// Url requested is not safe -> False
+			boolean safe = !(users.equals("select") && time.equals("select"));
 			ShortURL su = createAndSaveIfValid(url, safe, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
 			if (su != null) {
-				// Url requested is not safe
-				if (su.getSafe() == false) {
-					HttpHeaders h = new HttpHeaders();
-					h.setLocation(su.getUri());
-					return new ResponseEntity<ShortURL>(su, h, HttpStatus.CREATED);
-				// Url requested is safe
-				} else {
-					return null;
-				}
+				HttpHeaders h = new HttpHeaders();
+				h.setLocation(su.getUri());
+				return new ResponseEntity<ShortURL>(su, h, HttpStatus.CREATED);
 			} else {
 				return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
 			}
@@ -99,20 +109,31 @@ public class UrlShortenerController {
 		}
 	}
 
-	protected ShortURL createAndSaveIfValid(String url, String token, String sponsor,
+	protected ShortURL createAndSaveIfValid(String url, boolean safe, String sponsor,
 			String brand, String owner, String ip) {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
 		if (urlValidator.isValid(url)) {
 			String id = Hashing.murmur3_32()
 					.hashString(url, StandardCharsets.UTF_8).toString();
-			ShortURL su = new ShortURL(id, url,
+			String token = null;
+			// If Url is safe, we create the token, else token = null
+			if (safe == true) {
+				// Random token of ten digits
+				token = createToken(10);
+			}
+			// ShortUrl
+			ShortURL su = null;
+			try {
+				su = new ShortURL(id, url,
 					linkTo(
 						methodOn(UrlShortenerController.class).redirectTo(
-							id, null)).toUri(), token, sponsor,
+							id, token, null, null)).toUri(), token, sponsor,
 							new Date(System.currentTimeMillis()),
 							owner, HttpStatus.TEMPORARY_REDIRECT.value(),
-							false, null,null,null, null, ip, null, null);
+							safe, null,null,null, null, ip, null, null);
+			}
+			catch (IOException e) {}
 			// This checks if uri is malware
 			if (su != null) {
 				boolean spam = checkInternal(su);	
@@ -129,7 +150,7 @@ public class UrlShortenerController {
 		}
 	}
 
-	/*
+	/**
 	* This method checks an URI against the Google Safe Browsing API,
 	* then it updates the database if needed.
 	* According to Google's API, by making a GET request the URI sent
@@ -137,7 +158,7 @@ public class UrlShortenerController {
 	* Status OK 200 means that uri is unsafe, and 204 indicates that is
 	* safe. Other reponse status are caused by error. 
 	*/
-   public boolean checkInternal(ShortURL url){
+   	public boolean checkInternal(ShortURL url) {
 		Client client = ClientBuilder.newClient();
 		
 		// Preparing URI to check 
@@ -158,5 +179,19 @@ public class UrlShortenerController {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Creates a random token of digits
+	 * @param length - length of the token to return
+	 */
+	private String createToken(int length) {
+		Random r = new Random();
+		String token = "";
+		for (int i = 0; i < length; i++) {
+			// Only digits in the token
+			token += r.nextInt(10);
+		}
+		return token;
 	}
 }
