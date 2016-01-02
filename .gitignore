@@ -10,7 +10,7 @@
 
 #Other files from intelliJ
 /.idea
-/gradlew.bat
-/UrlShortener2015.iml
+*.bat
+*.iml
 /gradlew
 
