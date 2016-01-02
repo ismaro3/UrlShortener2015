@@ -110,4 +110,12 @@ public class ShortURL {
 	public String getUsername() {
 		return username;
 	}
+
+	public void setSpamDate(String date){this.spamDate = date;}
+
+	public void setReachableDate(String date){this.spamDate = date;}
+
+	public void setReachable(Boolean reach){this.reachable = reach;}
+
+	public void setSpam(Boolean spam){this.spam = spam;}
 }
