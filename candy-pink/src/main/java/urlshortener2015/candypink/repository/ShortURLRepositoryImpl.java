@@ -27,7 +27,7 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 		@Override
 		public ShortURL mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return new ShortURL(rs.getString("hash"), rs.getString("target"),
-					rs.getString("token"), null,
+					null, rs.getString("token"),
 					rs.getString("sponsor"), rs.getDate("created"),
 					rs.getString("owner"), rs.getInt("mode"), rs.getBoolean("safe"), 
 					rs.getBoolean("spam"), rs.getString("spamDate"),
