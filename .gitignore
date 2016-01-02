@@ -4,11 +4,13 @@
 /.gradle/
 /gradle/
 /build/
-/gradlew
 /candy-pink/build/
-/.idea/
 # Not temporal files
 *~
+
 #Other files from intelliJ
-*.iml
-*.bat
+/.idea
+/gradlew.bat
+/UrlShortener2015.iml
+/gradlew
+
