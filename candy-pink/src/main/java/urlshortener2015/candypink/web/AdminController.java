@@ -1,33 +1,34 @@
 package urlshortener2015.candypink.web;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import urlshortener2015.candypink.domain.User;
+import urlshortener2015.candypink.repository.UserRepository;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	
-	private UserRepositoryImpl repo = new UserRepositoryImpl();
+
+	@Autowired
+	protected UserRepository userRepository;
 
 	public AdminController() {}
 
-	public AdminController(UserRepositoryImpl repo){
-        	this.repo = repo;
+	public AdminController(UserRepositoryImpl userRepository){
+        	this.userRepository = userRepository;
     	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -36,7 +37,7 @@ public class AdminController {
 		logger.info("Requested login with username " + id);
 		//Verify the fields aren´t empty
 		if(verifyFields(id, password)) {
-		  User user = repo.findByUsernameOrEmail(id);
+		  User user = userRepository.findByUsernameOrEmail(id);
 		  //There are a user with this username or email
 		  if(user != null) {
 			BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import urlshortener2015.candypink.repository.UserRepository;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
 
 @Controller
@@ -17,18 +17,18 @@ public class ManageUsersController {
 	private static final Logger logger = LoggerFactory.getLogger(ManageUsersController.class);
 	
 	@Autowired
-	protected UserRepositoryImpl repo;
+	protected UserRepository userRepository;
 
 	public ManageUsersController() {}
 
-	public ManageUsersController(UserRepositoryImpl repo) {
-		this.repo = repo;
+	public ManageUsersController(UserRepositoryImpl userRepository) {
+		this.userRepository = userRepository;
   	}
   
   	@RequestMapping(method = RequestMethod.GET)
   	public String getUsers(Model model) {
 		logger.info("Requested all users info");
-    		model.addAttribute("users", repo.getAllUsers());
+    		model.addAttribute("users", userRepository.getAllUsers());
 		return "manageUsersPage";
   	}
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import urlshortener2015.candypink.repository.ShortURLRepository;
 import urlshortener2015.candypink.repository.ShortURLRepositoryImpl;
 
 @Controller
@@ -17,18 +17,18 @@ public class ProfileController {
 	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 	
 	@Autowired
-	protected ShortURLRepositoryImpl repo;
+	protected ShortURLRepository shortURLRepository;
 
 	public ProfileController() {}
 
-	public ProfileController(ShortURLRepositoryImpl repo) {
-		this.repo = repo;
+	public ProfileController(ShortURLRepositoryImpl shortURLRepository) {
+		this.shortURLRepository = shortURLRepository;
   	}
   
   	@RequestMapping(method = RequestMethod.GET)
   	public String getUrisFromUser(Model model, String user) {
 		logger.info("Requested profile from user " + user);
-    		model.addAttribute("uris", repo.findByUserlast24h(user));
+    		model.addAttribute("uris", shortURLRepository.findByUserlast24h(user));
 		return "profilePage";
   	}
 }
