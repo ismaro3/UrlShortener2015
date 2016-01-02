@@ -183,10 +183,21 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	@Override 
 	public List<ShortURL> findByUserlast24h(String user) {
 		try {
-			return jdbc.query("SELECT * FROM SHORTURL WHERE username=? AND created>=(CURRENT_TIMESTAMP - interval '1' day) 					AND created<=CURRENT_TIMESTAMP",
+			return jdbc.query("SELECT * FROM SHORTURL WHERE username=? AND created>=(CURRENT_TIMESTAMP - interval '1' day) AND created<=CURRENT_TIMESTAMP",
 					new Object[]{user}, rowMapper);
 		} catch (Exception e) {
 			log.debug("When select for shorturls of user with time: " +user, e);
+			return Collections.emptyList();
+		}
+	}
+
+	@Override
+	public List<ShortURL> findByTimeHours(Integer hours) {
+		try {
+			return jdbc.query("SELECT * FROM SHORTURL WHERE created>=(CURRENT_TIMESTAMP - interval '"+ hours.intValue()+"' hour) AND created<=CURRENT_TIMESTAMP",
+					new Object[]{hours}, rowMapper);
+		} catch (Exception e) {
+			log.debug("When select for shorturls with time: " +hours, e);
 			return Collections.emptyList();
 		}
 	}

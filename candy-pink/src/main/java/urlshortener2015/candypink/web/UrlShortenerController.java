@@ -8,10 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ws.client.core.WebServiceTemplate;
+
+import checker.web.ws.schema.GetCheckerRequest;
+import checker.web.ws.schema.GetCheckerResponse;
 import urlshortener2015.candypink.domain.ShortURL;
 import urlshortener2015.candypink.repository.ShortURLRepository;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -31,6 +38,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class UrlShortenerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UrlShortenerController.class);
+
+	private Jaxb2Marshaller marshaller;//Communication to WS
 	
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
@@ -73,28 +82,31 @@ public class UrlShortenerController {
 		logger.info("Users: " + users);
 		logger.info("Time: " + time);
 		Client client = ClientBuilder.newClient();
-		Response response = client.target(url).request().get();
-		// Url is reachable
-		if (response.getStatus() == 200) {
-			logger.info("Uri " + url + " is reachable");
-			ShortURL su = createAndSaveIfValid(url, safe, sponsor, brand, UUID
-				.randomUUID().toString(), extractIP(request));
-			if (su != null) {
-				// Url requested is not safe
-				if (su.getSafe() == false) {
-					HttpHeaders h = new HttpHeaders();
-					h.setLocation(su.getUri());
+		ShortURL su = createAndSaveIfValid(url, safe, sponsor, brand, UUID
+			.randomUUID().toString(), extractIP(request));
+		if (su != null) {
+			// Url requested is not safe
+			if (su.getSafe() == false) {
+				HttpHeaders h = new HttpHeaders();
+				h.setLocation(su.getUri());
+				logger.info("Requesting to Checker service");
+				GetCheckerRequest requestToWs = new GetCheckerRequest();
+				requestToWs.setUrl(url);
+				Object response = new WebServiceTemplate(marshaller).marshalSendAndReceive("http://localhost:"
+						+ "8080" + "/ws", requestToWs);
+				GetCheckerResponse checkerResponse = (GetCheckerResponse) response;
+				String resultCode = checkerResponse.getResultCode();
+				logger.info("respuesta recibida por el Web Service: "+resultCode);
+				if(resultCode.equals("ok")){
 					return new ResponseEntity<ShortURL>(su, h, HttpStatus.CREATED);
-				// Url requested is safe
-				} else {
-					return null;
+				}else{
+					return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
 				}
+				// Url requested is safe
 			} else {
-				return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
+				return null;
 			}
-		}
-		// Url is not reachable
-		else {
+		} else {
 			return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -113,20 +125,23 @@ public class UrlShortenerController {
 							new Date(System.currentTimeMillis()),
 							owner, HttpStatus.TEMPORARY_REDIRECT.value(),
 							false, null,null,null, null, ip, null, null);
-			// This checks if uri is malware
 			if (su != null) {
-				boolean spam = checkInternal(su);	
-				if (!spam) {
-					return shortURLRepository.save(su);	
-				} else {
-					return null;
-				}
+					return shortURLRepository.save(su);
 			} else {
 				return null;
 			}
 		} else {
 			return null;
 		}
+	}
+
+	@PostConstruct
+	private void initWsComs(){
+		marshaller = new Jaxb2Marshaller();
+		marshaller.setPackagesToScan(ClassUtils.getPackageName(GetCheckerRequest.class));
+		try {
+			marshaller.afterPropertiesSet();
+		} catch (Exception e) {}
 	}
 
 	/*
