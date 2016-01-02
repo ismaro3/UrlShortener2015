@@ -50,7 +50,9 @@ public class UrlShortenerController {
 			if (l.getSafe() == true) {
 				// Token doesn't match
 				if (!token.equals(l.getToken())) {
-					return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+					HttpHeaders h = new HttpHeaders();
+					h.setLocation(URI.create(incorrectToken.html));
+					return new ResponseEntity<>(h, HttpStatus.FORBIDDEN);
 				}
 			}
 			// Url is not safe or token matches
