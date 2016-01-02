@@ -2,24 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ec2145e-3015-4039-82b0-9a1bb50dc17b" name="Default" comment="&quot;Conflicts solved&quot;">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/config/PersistenceContext.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/config/WebSecurityConfig.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/candy-pink/src/main/resources/templates/403.html" afterPath="$PROJECT_DIR$/candy-pink/src/main/resources/static/403.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/candy-pink/src/main/resources/templates/loginPage.html" afterPath="$PROJECT_DIR$/candy-pink/src/main/resources/static/loginPage.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/candy-pink/src/main/resources/templates/profilePage.html" afterPath="$PROJECT_DIR$/candy-pink/src/main/resources/static/profilePage.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/candy-pink/src/main/resources/templates/signUpPage.html" afterPath="$PROJECT_DIR$/candy-pink/src/main/resources/static/signUpPage.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/candy-pink/src/main/resources/templates/uploader.html" afterPath="$PROJECT_DIR$/candy-pink/src/main/resources/static/uploader.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/FailController.java" afterPath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/FailController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/LoginController.java" afterPath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/ProfileController.java" afterPath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/ProfileController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/README.md" afterPath="$PROJECT_DIR$/candy-pink/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/domain/ShortURL.java" afterPath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/domain/ShortURL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/src/test/java/urlshortener2015/repository/fixture/ShortURLFixture.java" afterPath="$PROJECT_DIR$/candy-pink/src/test/java/urlshortener2015/repository/fixture/ShortURLFixture.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/repository/ShortURLRepositoryImpl.java" afterPath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/repository/ShortURLRepositoryImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/SignUpController.java" afterPath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/SignUpController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/UrlShortenerController.java" afterPath="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/UrlShortenerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/build.gradle" afterPath="$PROJECT_DIR$/candy-pink/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/candy-pink/src/main/resources/schema-hsqldb.sql" afterPath="$PROJECT_DIR$/candy-pink/src/main/resources/schema-hsqldb.sql" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/alizarin-crimson/alizarin-crimson.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bangladesh-green/bangladesh-green.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dim-gray/dim-gray.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/eerie-black/eerie-black.iml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UrlShortener2015.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -3424,7 +3411,7 @@
       <workItem from="1451504820881" duration="2898000" />
       <workItem from="1451610362567" duration="75000" />
       <workItem from="1451611877754" duration="1152000" />
-      <workItem from="1451727278561" duration="7205000" />
+      <workItem from="1451727278561" duration="7413000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Testing intelliJ&quot;">
       <created>1451498971048</created>
@@ -3442,10 +3429,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17882000" />
+    <option name="totallyTimeSpent" value="18090000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
+    <frame x="65" y="24" width="1301" height="744" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
