@@ -67,7 +67,6 @@ public class UrlShortenerController {
 			HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
 		logger.info("Uri" + url);
-		logger.info("Token" + token);
 		logger.info("Sponsor" + sponsor);
 		logger.info("Brand" + brand);
 		logger.info("Safe: " + safe);
@@ -78,7 +77,7 @@ public class UrlShortenerController {
 		// Url is reachable
 		if (response.getStatus() == 200) {
 			logger.info("Uri " + url + " is reachable");
-			ShortURL su = createAndSaveIfValid(url, token, sponsor, brand, UUID
+			ShortURL su = createAndSaveIfValid(url, safe, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
 			if (su != null) {
 				// Url requested is not safe
