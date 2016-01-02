@@ -59,10 +59,16 @@ public class UrlShortenerController {
 
 	@RequestMapping(value = "/link", method = RequestMethod.POST)
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
-			@RequestParam(value = "token", required = false) String token,
+			@RequestParam(value = "safe", required = false) String safe,
+			@RequestParam(value = "users", required = false) String users,
+			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
-			@RequestParam(value = "brand", required = false) String brand, HttpServletRequest request) {
+			@RequestParam(value = "brand", required = false) String brand,
+			HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
+		logger.info("Safe: " + safe);
+		logger.info("Users: " + users);
+		logger.info("Time: " + time);
 		Client client = ClientBuilder.newClient();
 		Response response = client.target(url).request().get();
 		// Url is reachable
