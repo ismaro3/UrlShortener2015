@@ -81,7 +81,7 @@ public class UrlShortenerController {
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
 			@RequestParam(value = "brand", required = false) String brand,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws IOException {
 		logger.info("Requested new short for uri " + url);
 		logger.info("Users who can redirect: " + users);
 		logger.info("Time to be safe: " + time);
@@ -110,7 +110,7 @@ public class UrlShortenerController {
 	}
 
 	protected ShortURL createAndSaveIfValid(String url, boolean safe, String sponsor,
-			String brand, String owner, String ip) {
+			String brand, String owner, String ip) throws IOExcepion {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
 		if (urlValidator.isValid(url)) {
