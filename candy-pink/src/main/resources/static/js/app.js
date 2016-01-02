@@ -14,7 +14,7 @@ $(document).ready(
                             + "'>"
                             + msg.uri
                             + "</a></div>"
-                            + "<div class='alert alert-success lead'>And your token is: '"
+                            + "<div class='alert alert-success lead'>And your token is: "
                             + msg.token
                             + "</div>");
                     },
