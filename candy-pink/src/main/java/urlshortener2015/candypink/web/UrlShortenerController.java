@@ -123,7 +123,7 @@ public class UrlShortenerController {
 				token = createToken(10);
 			}
 			// ShortUrl
-			ShortURL su = null
+			ShortURL su = null;
 			try {
 				su = new ShortURL(id, url,
 					linkTo(
