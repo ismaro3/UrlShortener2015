@@ -13,7 +13,10 @@ $(document).ready(
                             + msg.uri
                             + "'>"
                             + msg.uri
-                            + "</a></div>");
+                            + "</a></div>"
+                            + "<div class='alert alert-success lead'>And your token is: '"
+                            + msg.token
+                            + "</div>");
                     },
                     error : function() {
                         $("#result").html(
