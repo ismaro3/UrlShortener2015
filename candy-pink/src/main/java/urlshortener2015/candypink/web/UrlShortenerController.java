@@ -124,7 +124,7 @@ public class UrlShortenerController {
 			ShortURL su = new ShortURL(id, url,
 					linkTo(
 						methodOn(UrlShortenerController.class).redirectTo(
-							id, token, null)).toUri(), token, sponsor,
+							id, token, null, null)).toUri(), token, sponsor,
 							new Date(System.currentTimeMillis()),
 							owner, HttpStatus.TEMPORARY_REDIRECT.value(),
 							safe, null,null,null, null, ip, null, null);
