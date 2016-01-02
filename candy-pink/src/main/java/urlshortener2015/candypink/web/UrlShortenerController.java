@@ -39,7 +39,7 @@ public class UrlShortenerController {
 
 	@RequestMapping(value = "/{id:(?!link|index|login|signUp|profile|manage).*}", method = RequestMethod.GET)
 	public ResponseEntity<?> redirectTo(@PathVariable String id, 
-					    @RequestParam String token,
+					    @RequestParam(value = "token", required = false) String token,
 					    HttpServletRequest request) {
 		logger.info("Requested redirection with hash " + id);
 		ShortURL l = shortURLRepository.findByKey(id);
