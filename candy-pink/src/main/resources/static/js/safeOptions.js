@@ -6,6 +6,6 @@ function showSafeOptions() {
 		document.getElementById("safe").innerHTML = " I want a safe short Url";
 		document.getElementById("users").selectedIndex = 0;
 		document.getElementById("time").selectedIndex = 0;
-		//$("p").hide();
+		$("p").hide();
 	}
 }
