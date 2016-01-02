@@ -1,23 +1,21 @@
 package urlshortener2015.candypink.web;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; 
-
 import urlshortener2015.candypink.domain.User;
+import urlshortener2015.candypink.repository.UserRepository;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/signUp")
@@ -26,12 +24,12 @@ public class SignUpController {
 	private static final Logger logger = LoggerFactory.getLogger(SignUpController.class);
 	
 	@Autowired
-	protected UserRepositoryImpl repo;
+	protected UserRepository userRepository;
 
 	public SignUpController() {}
 
-	public SignUpController(UserRepositoryImpl repo){
-        	this.repo = repo;
+	public SignUpController(UserRepositoryImpl userRepository){
+        	this.userRepository = userRepository;
     	}
 
 	/**
@@ -41,7 +39,7 @@ public class SignUpController {
 	public ModelAndView register() {
 		logger.info("Registry view requested");
 		ModelAndView model = new ModelAndView();
-		model.setViewName("signUpPage");
+		model.setViewName("signUpPage.html");
 		return model;
 	}
 	/**
@@ -57,11 +55,11 @@ public class SignUpController {
 		if(verifyFields(user)) {
 		  logger.info("Requested registration verified");
 		  // There are users with the same username
-		  if(repo.findByUsernameOrEmail(username) != null) {
+		  if(userRepository.findByUsernameOrEmail(username) != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
 		  // There are users with the same email
-		  else if(repo.findByUsernameOrEmail(email) != null) {
+		  else if(userRepository.findByUsernameOrEmail(email) != null) {
 		    return new ResponseEntity<>(HttpStatus.CONFLICT);
 		  }
 		  // There aren´t other users with this username or email
@@ -69,7 +67,7 @@ public class SignUpController {
 		    BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		    user.setPassword(encoder.encode(password));
 		    logger.info("Requested registration correct");
-		    user = repo.save(user);
+		    user = userRepository.save(user);
 		    logger.info("Requested registration done of user " + user.getUsername());
          	    return new ResponseEntity<>(user, HttpStatus.CREATED);
 		  }

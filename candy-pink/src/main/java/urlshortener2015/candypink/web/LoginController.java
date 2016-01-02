@@ -1,42 +1,47 @@
 package urlshortener2015.candypink.web;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; 
-
+import org.springframework.web.servlet.ModelAndView;
 import urlshortener2015.candypink.domain.User;
+import urlshortener2015.candypink.repository.UserRepository;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	
-	private UserRepositoryImpl repo = new UserRepositoryImpl();
+
+	@Autowired
+	protected UserRepository userRepository;
+
 
 	public LoginController() {}
 
-	public LoginController(UserRepositoryImpl repo){
-        	this.repo = repo;
+	public LoginController(UserRepositoryImpl userRepository){
+        	this.userRepository = userRepository;
     	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView login(HttpServletRequest request) {
+	public ModelAndView login(@RequestParam(value = "error", required = false) String error, HttpServletRequest request) {
 		logger.info("Login view requested");
+		if(error!=null) {
+			logger.info(error);
+		}
 		ModelAndView model = new ModelAndView();
-		model.setViewName("loginPage");
+		model.setViewName("loginPage.html");
 		return model;
 	}
 
@@ -47,7 +52,7 @@ public class LoginController {
 		//Verify the fields aren´t empty
 		if (verifyFields(id, password)) {
 			//There is a user with this username or email
-			User user = repo.findByUsernameOrEmail(id);
+			User user = userRepository.findByUsernameOrEmail(id);
 			if (user != null) {
 				BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 				// The password is correct
