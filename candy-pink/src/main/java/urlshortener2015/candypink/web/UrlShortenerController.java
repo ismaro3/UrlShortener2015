@@ -73,6 +73,10 @@ public class UrlShortenerController {
 			@RequestParam(value = "sponsor", required = false) String sponsor,
 			@RequestParam(value = "brand", required = false) String brand, HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
+		logger.info("Uri" + url);
+		logger.info("Token" + token);
+		logger.info("Sponsor" + sponsor);
+		logger.info("Brand" + brand);
 		Client client = ClientBuilder.newClient();
 		Response response = client.target(url).request().get();
 		// Url is reachable
