@@ -1,17 +1,17 @@
-package urlshortener2015.candypink.repository;
+package urlshortener2015.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.HSQL;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.user1;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.user1Modified;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.user2;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.userPassword;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.userEmail;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.userAuthority;
-import static urlshortener2015.candypink.repository.fixture.UserFixture.badUser;
+import static urlshortener2015.repository.fixture.UserFixture.user1;
+import static urlshortener2015.repository.fixture.UserFixture.user1Modified;
+import static urlshortener2015.repository.fixture.UserFixture.user2;
+import static urlshortener2015.repository.fixture.UserFixture.userPassword;
+import static urlshortener2015.repository.fixture.UserFixture.userEmail;
+import static urlshortener2015.repository.fixture.UserFixture.userAuthority;
+import static urlshortener2015.repository.fixture.UserFixture.badUser;
 
 import java.util.List;
 
