@@ -4,6 +4,7 @@ import com.google.common.hash.Hashing;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,10 +38,20 @@ public class UrlShortenerController {
 	protected ShortURLRepository shortURLRepository;
 
 	@RequestMapping(value = "/{id:(?!link|index|login|signUp|profile|manage).*}", method = RequestMethod.GET)
-	public ResponseEntity<?> redirectTo(@PathVariable String id, HttpServletRequest request) {
+	public ResponseEntity<?> redirectTo(@PathVariable String id, 
+					    @RequestParam String token,
+					    HttpServletRequest request) {
 		logger.info("Requested redirection with hash " + id);
 		ShortURL l = shortURLRepository.findByKey(id);
 		if (l != null) {
+			// URL is safe, we must check token
+			if (l.getSafe == true) {
+				// Token doesn't match
+				if (token.equals(l.getToken())) {
+					return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+				}
+			}
+			// Url is not safe or token matches
 			return createSuccessfulRedirectToResponse(l);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
