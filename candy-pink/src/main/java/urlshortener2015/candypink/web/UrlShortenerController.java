@@ -59,26 +59,24 @@ public class UrlShortenerController {
 
 	@RequestMapping(value = "/link", method = RequestMethod.POST)
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
-			@RequestParam(value = "safe", required = false) String safe,
 			@RequestParam(value = "users", required = false) String users,
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
 			@RequestParam(value = "brand", required = false) String brand,
 			HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
-		logger.info("Safe: " + safe);
-		logger.info("Users: " + users);
-		logger.info("Time: " + time);
+		logger.info("Users who can redirect: " + users);
+		logger.info("Time to be safe: " + time);
 		Client client = ClientBuilder.newClient();
 		Response response = client.target(url).request().get();
 		// Url is reachable
 		if (response.getStatus() == 200) {
 			logger.info("Uri " + url + " is reachable");
-			ShortURL su = createAndSaveIfValid(url, token, sponsor, brand, UUID
+			ShortURL su = createAndSaveIfValid(url, safe, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
 			if (su != null) {
 				// Url requested is not safe
-				if (su.getSafe() == false) {
+				if (users.equals("select") && time.equals("select")) {
 					HttpHeaders h = new HttpHeaders();
 					h.setLocation(su.getUri());
 					return new ResponseEntity<ShortURL>(su, h, HttpStatus.CREATED);
