@@ -39,7 +39,7 @@ public class UrlShortenerController {
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
 
-	@RequestMapping(value = "/{id:(?!link|index|login|signUp|profile|manage|incorrect).*}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id:(?!link|index|login|signUp|profile|manageUsers|incorrectToken).*}", method = RequestMethod.GET)
 	public ResponseEntity<?> redirectTo(@PathVariable String id, 
 					    @RequestParam(value = "token", required = false) String token,
 					    HttpServletRequest request, HttpServletResponse response)
