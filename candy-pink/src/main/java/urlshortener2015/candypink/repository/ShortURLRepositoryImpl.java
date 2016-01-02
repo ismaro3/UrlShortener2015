@@ -27,7 +27,8 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 		@Override
 		public ShortURL mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return new ShortURL(rs.getString("hash"), rs.getString("target"),
-					null, rs.getString("sponsor"), rs.getDate("created"),
+					rs.getString("token"), null,
+					rs.getString("sponsor"), rs.getDate("created"),
 					rs.getString("owner"), rs.getInt("mode"), rs.getBoolean("safe"), 
 					rs.getBoolean("spam"), rs.getString("spamDate"),
 					rs.getBoolean("reachable"), rs.getString("reachableDate"), rs.getString("ip"),
@@ -59,9 +60,9 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	@Override
 	public ShortURL save(ShortURL su) {
 		try {
-			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?)",
-					su.getHash(), su.getTarget(), su.getSponsor(), su.getOwner(), su.getMode(),
- 					su.getSafe(), su.getSpam(), su.getSpamDate(), su.getReachable(), 
+			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?)",
+					su.getHash(), su.getToken(), su.getTarget(), su.getSponsor(), su.getOwner(),
+					su.getMode(), su.getSafe(), su.getSpam(), su.getSpamDate(), su.getReachable(), 
 					su.getReachableDate(), su.getIP(), su.getCountry(), su.getUsername());
 		} catch (DuplicateKeyException e) {
 			log.debug("When insert for key " + su.getHash(), e);
