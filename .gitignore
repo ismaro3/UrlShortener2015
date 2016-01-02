@@ -5,8 +5,10 @@
 /gradle/
 /build/
 /gradlew
-/gradlew.bat
 /candy-pink/build/
 /.idea/
 # Not temporal files
 *~
+#Other files from intelliJ
+*.iml
+*.bat
