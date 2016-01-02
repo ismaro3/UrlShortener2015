@@ -42,8 +42,8 @@ public class UrlShortenerController {
 					    @RequestParam(value = "token", required = false) String token,
 					    HttpServletRequest request) {
 		logger.info("Requested redirection with hash " + id);
-		logger.info("Client token " + token + " - Real token: " + l.getToken());
 		ShortURL l = shortURLRepository.findByKey(id);
+		logger.info("Client token " + token + " - Real token: " + l.getToken());
 		if (l != null) {
 			// URL is safe, we must check token
 			if (l.getSafe() == true) {
