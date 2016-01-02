@@ -4,8 +4,8 @@ function showSafeOptions() {
 		$("p").show();
 	} else {
 		document.getElementById("safe").innerHTML = " I want a safe short Url";
-		document.getElementById("users").innerHTML = "Which users can access the url?";
-		document.getElementById("time").innerHTML = "How long do you want the url to be safe?";
+		document.getElementById("users").value = "select";
+		document.getElementById("time").value = "select";
 		$("p").hide();
 	}
 }
