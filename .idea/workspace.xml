@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ec2145e-3015-4039-82b0-9a1bb50dc17b" name="Default" comment="&quot;Conflicts solved&quot;">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/alizarin-crimson/alizarin-crimson.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bangladesh-green/bangladesh-green.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dim-gray/dim-gray.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eerie-black/eerie-black.iml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UrlShortener2015.iws" />
@@ -103,10 +100,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/LoginController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.8126411">
               <caret line="24" column="88" selection-start-line="24" selection-start-column="88" selection-end-line="24" selection-end-column="88" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -115,11 +112,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShortURLFixture.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/candy-pink/src/test/java/urlshortener2015/repository/fixture/ShortURLFixture.java">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
+              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -2664,6 +2661,7 @@
         <option value="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/ProfileController.java" />
         <option value="$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/LoginController.java" />
         <option value="$PROJECT_DIR$/candy-pink/src/test/java/urlshortener2015/repository/fixture/ShortURLFixture.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -3411,7 +3409,7 @@
       <workItem from="1451504820881" duration="2898000" />
       <workItem from="1451610362567" duration="75000" />
       <workItem from="1451611877754" duration="1152000" />
-      <workItem from="1451727278561" duration="7413000" />
+      <workItem from="1451727278561" duration="7724000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Testing intelliJ&quot;">
       <created>1451498971048</created>
@@ -3429,15 +3427,15 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18090000" />
+    <option name="totallyTimeSpent" value="18401000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1301" height="744" extended-state="7" />
-    <editor active="false" />
+    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29508197" sideWeight="0.48808607" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29508197" sideWeight="0.48808607" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.9642325" sideWeight="0.120676406" order="0" side_tool="true" content_ui="tabs" />
@@ -3920,13 +3918,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/LoginController.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="88" selection-start-line="24" selection-start-column="88" selection-end-line="24" selection-end-column="88" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3935,6 +3931,16 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/candy-pink/src/main/java/urlshortener2015/candypink/web/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8126411">
+          <caret line="24" column="88" selection-start-line="24" selection-start-column="88" selection-end-line="24" selection-end-column="88" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

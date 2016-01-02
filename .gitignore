@@ -2,8 +2,11 @@
 /.project
 /.settings/
 /.gradle/
+/gradle/
 /build/
+/gradlew
+/gradlew.bat
 /candy-pink/build/
-
+/.idea/
 # Not temporal files
 *~
