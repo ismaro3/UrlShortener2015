@@ -81,7 +81,7 @@ public class UrlShortenerController {
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "sponsor", required = false) String sponsor,
 			@RequestParam(value = "brand", required = false) String brand,
-			HttpServletRequest request) throws IOException {
+			HttpServletRequest request) {
 		logger.info("Requested new short for uri " + url);
 		logger.info("Users who can redirect: " + users);
 		logger.info("Time to be safe: " + time);
@@ -110,7 +110,7 @@ public class UrlShortenerController {
 	}
 
 	protected ShortURL createAndSaveIfValid(String url, boolean safe, String sponsor,
-			String brand, String owner, String ip) throws IOExcepion {
+			String brand, String owner, String ip) {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
 		if (urlValidator.isValid(url)) {
@@ -123,13 +123,17 @@ public class UrlShortenerController {
 				token = createToken(10);
 			}
 			// ShortUrl
-			ShortURL su = new ShortURL(id, url,
+			ShortURL su = null
+			try {
+				su = new ShortURL(id, url,
 					linkTo(
 						methodOn(UrlShortenerController.class).redirectTo(
 							id, token, null, null)).toUri(), token, sponsor,
 							new Date(System.currentTimeMillis()),
 							owner, HttpStatus.TEMPORARY_REDIRECT.value(),
 							safe, null,null,null, null, ip, null, null);
+			}
+			catch (IOException e) {}
 			// This checks if uri is malware
 			if (su != null) {
 				boolean spam = checkInternal(su);	
