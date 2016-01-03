@@ -26,7 +26,7 @@ public class ManageUsersController {
   	}
   
   	@RequestMapping(method = RequestMethod.GET)
-  	public ModelAndView getUsers(Model model) {
+  	public ModelAndView getUsers() {
 		logger.info("Requested all users info");
 		ModelAndView model = new ModelAndView();
 		// All users of the service
