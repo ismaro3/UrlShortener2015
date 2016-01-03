@@ -9,12 +9,13 @@ import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import urlshortener2015.candypink.auth.JWTokenFilter;
 import urlshortener2015.candypink.auth.support.AuthURI;
+import urlshortener2015.candypink.auth.support.AuthUtils;
 
 
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
-	@Value("${token.secret_key}")
+	@Value("${jwt.key}")
 	private String key;
 
 	public static void main(String[] args) throws Exception {
@@ -29,9 +30,8 @@ public class Application extends SpringBootServletInitializer {
 	@Bean
 	public FilterRegistrationBean jwtFilter() {
 		final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-		JWTokenFilter authenticationFilter = new JWTokenFilter(key, new AuthURI[0]);
+		JWTokenFilter authenticationFilter = new JWTokenFilter(key, AuthUtils.buildAuthURIs());
 		registrationBean.setFilter(authenticationFilter);
 		return registrationBean;
 	}
-
 }

@@ -29,7 +29,7 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	@Value("${token.secret_key}")
+	@Value("${jwt.key}")
     	private String key;
 
 	@Autowired

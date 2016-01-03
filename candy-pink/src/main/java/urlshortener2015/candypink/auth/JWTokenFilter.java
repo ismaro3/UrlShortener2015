@@ -39,7 +39,7 @@ public class JWTokenFilter extends GenericFilterBean {
 	
 		String permission = requiredPermission(request.getRequestURI(), request.getMethod());
 		// All users
-		if(permission.equals("All")) {
+		if(permission == null) {
 			chain.doFilter(req, res); 
 		}
 		else {
@@ -82,6 +82,6 @@ public class JWTokenFilter extends GenericFilterBean {
 				return uris[i].getPermission(method);
 			}
 		}
-		return "All";		
+		return null;		
 	}
 }
