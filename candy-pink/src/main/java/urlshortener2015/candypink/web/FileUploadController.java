@@ -168,8 +168,8 @@ public class FileUploadController {
 				su = new ShortURL(id, url,
 					linkTo(
 						methodOn(UrlShortenerController.class).redirectTo(
-							id, token, null, null)).toUri(), token, sponsor,
-							new Date(System.currentTimeMillis()),
+							id, token, null, null)).toUri(), token, users,
+							sponsor, new Date(System.currentTimeMillis()),
 							owner, HttpStatus.TEMPORARY_REDIRECT.value(),
 							safe, null,null,null, null, ip, null, null);
 			}
