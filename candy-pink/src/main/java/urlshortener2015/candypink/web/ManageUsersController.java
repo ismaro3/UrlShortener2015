@@ -32,7 +32,7 @@ public class ManageUsersController {
 		// All users of the service
 		model.addObject("users", userRepository.getAllUsers());
 		// Redirection to manageUsersPage
-		model.setViewName("manageUsersPage.html");
+		model.setViewName("manageUsersPage");
 		return model;
   	}
 }
