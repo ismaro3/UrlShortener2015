@@ -31,11 +31,13 @@ public class ProfileController {
   	}
   
   	@RequestMapping(method = RequestMethod.GET)
-  	public ModelAndView getUrisFromUser(HttpServletRequest request, HttpSession session) {
-		String user = (String) session.getAttribute("Username");
-		logger.info("Requested profile from user " + user);
+  	public ModelAndView getUrisFromUser(HttpServletRequest request) {
+		final Claims claims = (Claims) request.getAttribute("claims");
+		String username = claims.getSubject(); 
+		String role = claims.get("role");
+		logger.info("Requested profile from user " + username);
 		ModelAndView model = new ModelAndView();
-    		model.addObject("Uris", shortURLRepository.findByUserlast24h(user));
+    		model.addObject("Uris", shortURLRepository.findByUserlast24h(username));
 		model.setViewName("profilePage.html");
 		return model;
   	}
