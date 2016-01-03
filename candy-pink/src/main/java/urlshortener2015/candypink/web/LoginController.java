@@ -21,7 +21,7 @@ import urlshortener2015.candypink.repository.UserRepositoryImpl;
 import urlshortener2015.candypink.auth.support.AuthUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/login")
@@ -45,12 +45,12 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error, HttpServletRequest request) {
 		ModelAndView model = new ModelAndView();
-		model.setViewName("loginPage.html");
+		model.setViewName("loginPage");
 		return model;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<User> login(@RequestParam("username") String id, @RequestParam("password") String password, 						  HttpServletRequest request) { 
+	public ResponseEntity<User> login(@RequestParam("user") String id, @RequestParam("password") String password, 						  HttpServletRequest request, HttpServletResponse response) { 
 		logger.info("Requested login with username " + id);
 		//Verify the fields aren´t empty
 		if (verifyFields(id, password)) {
@@ -62,6 +62,7 @@ public class LoginController {
 				if(encoder.matches(password, user.getPassword())) {
 					String token = AuthUtils.createToken(key, user.getUsername(), user.getAuthority(), 
 							     new Date(System.currentTimeMillis() + 15*60*1000));
+					response.addHeader("Authorization", token);					
 					// Put token in response
 					return new ResponseEntity<>(user, HttpStatus.CREATED);
 				}

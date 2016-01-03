@@ -88,8 +88,12 @@ public class JWTokenFilter extends GenericFilterBean {
 	}
 
 	private String requiredPermission(String uri, String method) {
+		log.info("URI PEDIDA: " + uri);
+		log.info("METHOD: " + method);
 		for(int i = 0; i < uris.length; i++) {
 			if(uri.contains(uris[i].getUri())) {
+				log.info("PREMIO: " + uris[i].getUri());
+				log.info("PERMIO: " + uris[i].getPermission(method));	
 				return uris[i].getPermission(method);
 			}
 		}
