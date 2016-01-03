@@ -121,7 +121,7 @@ public class FileUploadController {
 		Client client = ClientBuilder.newClient();
 		//TODO: TIRA NULL POINTER POR AQUI
 		boolean safe = !(users.equals("select") && time.equals("select"));
-		ShortURL su = createAndSaveIfValid(url, safe, sponsor, brand, UUID
+		ShortURL su = createAndSaveIfValid(url, safe, users, sponsor, brand, UUID
 			.randomUUID().toString(), extractIP(request));
 		if (su != null) {
 			if (su.getSafe() == false) {// Url requested is not safe
@@ -149,8 +149,8 @@ public class FileUploadController {
 	}
     
     
-	protected ShortURL createAndSaveIfValid(String url, boolean safe, String sponsor,
-			String brand, String owner, String ip) {
+	protected ShortURL createAndSaveIfValid(String url, boolean safe, String users,
+			String sponsor,	String brand, String owner, String ip) {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
 		if (urlValidator.isValid(url)) {
@@ -168,8 +168,8 @@ public class FileUploadController {
 				su = new ShortURL(id, url,
 					linkTo(
 						methodOn(UrlShortenerController.class).redirectTo(
-							id, token, null, null)).toUri(), token, sponsor,
-							new Date(System.currentTimeMillis()),
+							id, token, null, null)).toUri(), token, users,
+							sponsor, new Date(System.currentTimeMillis()),
 							owner, HttpStatus.TEMPORARY_REDIRECT.value(),
 							safe, null,null,null, null, ip, null, null);
 			}
