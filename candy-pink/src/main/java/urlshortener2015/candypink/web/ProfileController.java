@@ -14,6 +14,8 @@ import urlshortener2015.candypink.repository.ShortURLRepositoryImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import io.jsonwebtoken.*;
+
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {
@@ -32,9 +34,12 @@ public class ProfileController {
   
   	@RequestMapping(method = RequestMethod.GET)
   	public ModelAndView getUrisFromUser(HttpServletRequest request) {
+		// Obtain jwt
 		final Claims claims = (Claims) request.getAttribute("claims");
+		// Obtain username
 		String username = claims.getSubject(); 
-		String role = claims.get("role");
+		// Obtain role
+		String role = claims.get("role", String.class);
 		logger.info("Requested profile from user " + username);
 		ModelAndView model = new ModelAndView();
     		model.addObject("Uris", shortURLRepository.findByUserlast24h(username));
