@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.web.filter.GenericFilterBean;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -19,6 +21,8 @@ import urlshortener2015.candypink.auth.support.AuthURI;
 @Configurable
 public class JWTokenFilter extends GenericFilterBean {
    
+    private static final Logger log = LoggerFactory.getLogger(JWTokenFilter.class);
+
     private String key;
 
     private AuthURI[] uris;
@@ -40,11 +44,13 @@ public class JWTokenFilter extends GenericFilterBean {
 		String permission = requiredPermission(request.getRequestURI(), request.getMethod());
 		// All users
 		if(permission == null) {
+			log.info("Authentication not required");
 			chain.doFilter(req, res); 
 		}
 		else {
 			// No authenticated
 			if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+				log.info("No authenticate");
 				// Error
 			}
 			// Authenticated
@@ -55,22 +61,27 @@ public class JWTokenFilter extends GenericFilterBean {
                     final Claims claims = Jwts.parser().setSigningKey(key)
                             .parseClaimsJws(token).getBody();
 					String role = claims.get("role", String.class);
+					log.info("Parsed");
 					// Has not permission
 					if(permission.equals("Admin") && !role.equals("Admin") ||
 					   permission.equals("Premium") && role.equals("Normal")) {
+						log.info("Not PErmission");
 						//Error
 					}
 					// Has permission
 					else {
+						log.info("Yes Permission");
 						request.setAttribute("claims",claims);	
                         chain.doFilter(req, res);
 					}
                 }
                 catch(ExpiredJwtException expiredException){
                     // Token Expired
+					log.info("Expired");
                 }
                 catch (final SignatureException  | NullPointerException  |MalformedJwtException ex) {
                     // Format incorrect
+					log.info("Format incorrect");
                 }
 			}
 		}

@@ -1,7 +1,7 @@
 package urlshortener2015.candypink.auth.support;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
@@ -11,7 +11,11 @@ import java.util.Scanner;
 
 public class AuthUtils {
 
-	private static final String FILE_URIS = "";
+	private static final Logger logger = LoggerFactory.getLogger(AuthUtils.class);
+
+	private static final String newLine = System.getProperty("line.separator");
+	private static final String URIS = "/admin;GET-Admin;POST-Admin;PUT-Admin;DELETE-Admin" + newLine
+					 + "/link;POST-Normal"+ newLine;
 
 	public static String createToken(String username, String role, String key, Date expiration) {
 		return Jwts.builder().setSubject(username)
@@ -21,33 +25,23 @@ public class AuthUtils {
 
 	public static AuthURI[] buildAuthURIs() {
 		ArrayList<AuthURI> authList = new ArrayList<AuthURI>();
-		Scanner scan = null;
-		AuthURI[] auth = null;
-		try { 
-			scan = new Scanner(new File(FILE_URIS));
-			scan.useDelimiter(";|,|-");
+		Scanner scan = new Scanner(URIS);
+		scan.useDelimiter(";|,|-");
+		while(scan.hasNext()) {
+			String uri = scan.next();
+			logger.info("URI: " + uri);
+			HashMap<String, String> methods = new HashMap<String, String>();
 			while(scan.hasNext()) {
-				String uri = scan.next();
-				HashMap<String, String> methods = new HashMap<String, String>();
-				while(scan.hasNext()) {
-					String method = scan.next();
-					String permission = scan.next();
-					methods.put(method, permission);		
-				}
-				authList.add(new AuthURI(uri, methods));
-				scan.nextLine();
+				String method = scan.next();
+				logger.info("METHOD: " + method);
+				String permission = scan.next();
+				logger.info("PERMISSION: " + permission);
+				methods.put(method, permission);		
 			}
-			auth = new AuthURI[authList.size()];
-			auth = authList.toArray(auth);
+			authList.add(new AuthURI(uri, methods));
 		}
-		catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
-		finally {
-			if (scan != null) {
-				scan.close();
-			}
-		}
+		AuthURI[] auth = new AuthURI[authList.size()];
+		auth = authList.toArray(auth);
 		return auth;
 	}
 }
