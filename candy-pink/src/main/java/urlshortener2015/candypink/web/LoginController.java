@@ -1,8 +1,11 @@
 package urlshortener2015.candypink.web;
 
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +18,19 @@ import org.springframework.web.servlet.ModelAndView;
 import urlshortener2015.candypink.domain.User;
 import urlshortener2015.candypink.repository.UserRepository;
 import urlshortener2015.candypink.repository.UserRepositoryImpl;
+import urlshortener2015.candypink.auth.support.AuthUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+	@Value("${token.secret_key}")
+    	private String key;
 
 	@Autowired
 	protected UserRepository userRepository;
@@ -36,18 +44,13 @@ public class LoginController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error, HttpServletRequest request) {
-		logger.info("Login view requested");
-		if(error!=null) {
-			logger.info(error);
-		}
 		ModelAndView model = new ModelAndView();
 		model.setViewName("loginPage.html");
 		return model;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<User> login(@RequestParam("username") String id,
-			        @RequestParam("password") String password, HttpServletRequest request) {
+	public ResponseEntity<User> login(@RequestParam("username") String id, @RequestParam("password") String password, 						  HttpServletRequest request) { 
 		logger.info("Requested login with username " + id);
 		//Verify the fields aren´t empty
 		if (verifyFields(id, password)) {
@@ -57,6 +60,9 @@ public class LoginController {
 				BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 				// The password is correct
 				if(encoder.matches(password, user.getPassword())) {
+					String token = AuthUtils.createToken(key, user.getUsername(), user.getAuthority(), 
+							     new Date(System.currentTimeMillis() + 15*60*1000));
+					// Put token in response
 					return new ResponseEntity<>(user, HttpStatus.CREATED);
 				}
 				// The password is incorrect
