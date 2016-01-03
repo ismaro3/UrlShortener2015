@@ -1,0 +1,6 @@
+
+Hello,
+we, Bangladesh Green Team, have detected some similarities between our code and yours, more specifically in JSON Web Tokens Code. Parts of JWTokenFilter class of “auth” package seem to be copy-pasted from our code (Same code, same comments, and even same spacing).
+This is OK (Our license allows it), but our license “Apache 2.0” requires you to quote us and say that part of that code comes from our project.
+So we beg you to include a little disclaimer either in your class or in your README.md saying that.
+Thank you!
