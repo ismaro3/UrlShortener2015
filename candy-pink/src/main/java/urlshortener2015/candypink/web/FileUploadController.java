@@ -149,8 +149,8 @@ public class FileUploadController {
 	}
     
     
-	protected ShortURL createAndSaveIfValid(String url, boolean safe, String sponsor,
-			String brand, String owner, String ip) {
+	protected ShortURL createAndSaveIfValid(String url, boolean safe, String users,
+			String sponsor,	String brand, String owner, String ip) {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
 		if (urlValidator.isValid(url)) {
