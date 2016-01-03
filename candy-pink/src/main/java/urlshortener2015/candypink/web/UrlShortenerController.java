@@ -19,6 +19,8 @@ import checker.web.ws.schema.GetCheckerResponse;
 import urlshortener2015.candypink.domain.ShortURL;
 import urlshortener2015.candypink.repository.ShortURLRepository;
 
+import io.jsonwebtoken.*;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +36,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Random;
 import java.util.UUID;
+
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -94,6 +97,16 @@ public class UrlShortenerController {
 		logger.info("Requested new short for uri " + url);
 		logger.info("Users who can redirect: " + users);
 		logger.info("Time to be safe: " + time);
+		// Obtain jwt
+		final Claims claims = (Claims) request.getAttribute("claims");
+		// Obtain username
+		String username = claims.getSubject(); 
+		// Obtain role
+		String role = claims.get("role", String.class);
+		if(role.equals("ROLE_NORMAL") && shortURLRepository.findByUserlast24h(username).size() >= 20) {
+			// Can't redirect more today
+			return new ResponseEntity<ShortURL>(HttpStatus.BAD_REQUEST);
+		}
 		Client client = ClientBuilder.newClient();
 		boolean safe = !(users.equals("select") && time.equals("select"));
 		ShortURL su = createAndSaveIfValid(url, safe, sponsor, brand, UUID
