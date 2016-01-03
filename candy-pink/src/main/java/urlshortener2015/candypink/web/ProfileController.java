@@ -39,7 +39,7 @@ public class ProfileController {
 		// Obtain username
 		String username = claims.getSubject(); 
 		// Obtain role
-		String role = claims.get("role", String.class);
+		//String role = claims.get("role", String.class);
 		logger.info("Requested profile from user " + username);
 		ModelAndView model = new ModelAndView();
     		model.addObject("Uris", shortURLRepository.findByUserlast24h(username));
